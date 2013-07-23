@@ -1,0 +1,5 @@
+Magento PGP
+===========
+
+Module Idea.
+
