@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!--* @category    SchumacherFM_Pgp-->
+<!--* @package     etc-->
+<!--* @author      Cyrill at Schumacher dot fm / @SchumacherFM-->
+<!--* @copyright   Copyright (c)-->
+<config>
+    <modules>
+        <SchumacherFM_Pgp>
+            <version>1.0.0</version>
+        </SchumacherFM_Pgp>
+    </modules>
+
+    <global>
+        <models>
+            <pgp>
+                <class>SchumacherFM_Pgp_Model</class>
+            </pgp>
+        </models>
+        <resources>
+            <pgp_setup>
+                <setup>
+                    <module>SchumacherFM_Pgp</module>
+                </setup>
+            </pgp_setup>
+        </resources>
+        <blocks>
+            <pgp>
+                <class>SchumacherFM_Pgp_Block</class>
+            </pgp>
+        </blocks>
+        <helpers>
+            <pgp>
+                <class>SchumacherFM_Pgp_Helper</class>
+            </pgp>
+        </helpers>
+    </global>
+    <frontend>
+        <events>
+            <cms_page_render>
+                <observers>
+                    <pgp_renderer>
+                        <type>singleton</type>
+                        <class>pgp/pgp_render</class>
+                        <method>renderPageObserver</method>
+                    </pgp_renderer>
+                </observers>
+            </cms_page_render>
+
+            <core_block_abstract_to_html_after>
+                <observers>
+                    <pgp_renderer>
+                        <type>singleton</type>
+                        <class>pgp/pgp_render</class>
+                        <method>renderBlockObserver</method>
+                    </pgp_renderer>
+                </observers>
+            </core_block_abstract_to_html_after>
+        </events>
+    </frontend>
+    <!--<admin>-->
+    <!--<routers>-->
+    <!--<adminhtml>-->
+    <!--<args>-->
+    <!--<modules>-->
+    <!--<pgp before="Mage_Adminhtml">SchumacherFM_Pgp_Adminhtml</pgp>-->
+    <!--</modules>-->
+    <!--</args>-->
+    <!--</adminhtml>-->
+    <!--</routers>-->
+    <!--</admin>-->
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <pgp>
+                    <file>pgp.xml</file>
+                </pgp>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <SchumacherFM_Pgp>
+                    <files>
+                        <default>SchumacherFM_Pgp.csv</default>
+                    </files>
+                </SchumacherFM_Pgp>
+            </modules>
+        </translate>
+        <events>
+            <cms_wysiwyg_config_prepare>
+                <observers>
+                    <pgp_observer>
+                        <class>pgp/editor_observer</class>
+                        <method>prepareWysiwygPluginConfig</method>
+                    </pgp_observer>
+                </observers>
+            </cms_wysiwyg_config_prepare>
+            <adminhtml_block_html_before>
+                <observers>
+                    <pgp_adminhtml_block_html_before>
+                        <type>singleton</type>
+                        <class>pgp/observer_adminhtmlBlock</class>
+                        <method>alterTextareaBlockTemplate</method>
+                    </pgp_adminhtml_block_html_before>
+                </observers>
+            </adminhtml_block_html_before>
+
+        </events>
+    </adminhtml>
+    <phpunit>
+        <suite>
+            <modules>
+                <SchumacherFM_Pgp/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>
