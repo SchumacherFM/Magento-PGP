@@ -10,7 +10,12 @@ Customers and shop owners can upload their public key and each email sent to the
 This module uses:
 
 - PHP based https://github.com/jasonhinkle/php-gpg, if your hosting provider has disabled exec()
-- CLI based http://pear.php.net/package/Crypt_GPG via the native gpg installation
+- CLI based [http://pear.php.net/package/Crypt_GPG] [PEAR SVN](https://svn.php.net/repository/pear/packages/Crypt_GPG) via the native gpg installation
 
 [https://prism-break.org/#email-encryption](https://prism-break.org/#email-encryption)
 
+Used Versions
+-------------
+
+- Crypt_GPG-1.4.0b4.tgz
+- https://github.com/jasonhinkle/php-gpg/commit/985bcdbfc16fb839d833d33a8f4c6057e621fbfe

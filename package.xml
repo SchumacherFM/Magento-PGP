@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Crypt_GPG</name>
+ <channel>pear.php.net</channel>
+ <summary>GNU Privacy Guard (GnuPG)</summary>
+ <description>This package provides an object oriented interface to GNU Privacy Guard (GnuPG). It requires the GnuPG executable to be on the system.
+
+Though GnuPG can support symmetric-key cryptography, this package is intended only to facilitate public-key cryptography.
+
+This package requires PHP version 5.2.1 or greater.</description>
+ <lead>
+  <name>Mike Gauthier</name>
+  <user>gauthierm</user>
+  <email>mike@silverorange.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Nathan Fredrickson</name>
+  <user>nrf</user>
+  <email>nathan@silverorange.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2013-03-13</date>
+ <time>14:22:24</time>
+ <version>
+  <release>1.4.0b4</release>
+  <api>1.4.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+ <notes>
+This release adds support for GnuPG 2.x, supporting the latest version of RHEL and derivatives. Additionally, the following bugs are fixed:
+
+Fix Bug #17838. Passphrase operations don&apos;t work on GnuPG 2.x.
+Fix Bug #17628. Version regular expression on MAMP.
+Fix Bug #19883. Better exception on unwriteable or unexecutable homedir.
+Fix possible fread/fwrite to strings when the string values passed to Crypt_GPG are loosly equal to a stream resource handle.
+
+A workaround for PHP Bug #39598 is also provided in the event that GnuPG ends unexpectedly. This prevents infinite loops.
+
+This release makes the mbstring extension a required dependency as the assuan protocol used in GnuPG 2.x uses UTF-8.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="d7d6a580d90bca9b06eb8e2e2800edaf" name="Crypt/GPG/ByteUtils.php" role="php" />
+   <file baseinstalldir="/" md5sum="7d8b381782cf4bca123b9f354d313df5" name="Crypt/GPG/DecryptStatusHandler.php" role="php" />
+   <file baseinstalldir="/" md5sum="49c2a64c8a93404d9db99989de317a3b" name="Crypt/GPG/Engine.php" role="php">
+    <tasks:replace from="@bin-dir@" to="bin_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="/" md5sum="2c0f6e032482cfa6b286ec307ed9fe34" name="Crypt/GPG/Exceptions.php" role="php" />
+   <file baseinstalldir="/" md5sum="399cd163d83c5a08caf37997695f329f" name="Crypt/GPG/Key.php" role="php" />
+   <file baseinstalldir="/" md5sum="802934512b67fb08449a2ce22da3852e" name="Crypt/GPG/KeyGenerator.php" role="php" />
+   <file baseinstalldir="/" md5sum="c842d37170ff3760080f0a6168ddecf0" name="Crypt/GPG/KeyGeneratorErrorHandler.php" role="php" />
+   <file baseinstalldir="/" md5sum="a7b700ccb00be38d62b25a48551e650e" name="Crypt/GPG/KeyGeneratorStatusHandler.php" role="php" />
+   <file baseinstalldir="/" md5sum="1bf66b49f5586cb0882e6a5508d95220" name="Crypt/GPG/PinEntry.php" role="php">
+    <tasks:replace from="@package-name@" to="name" type="package-info" />
+    <tasks:replace from="@data-dir@" to="data_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="/" md5sum="61818da83819bfac0df1fa5075bfcb19" name="Crypt/GPG/ProcessControl.php" role="php" />
+   <file baseinstalldir="/" md5sum="5cc551c63e6e8e561a4891ec1ce93b1f" name="Crypt/GPG/Signature.php" role="php" />
+   <file baseinstalldir="/" md5sum="ec9fb051cf0b3f118ac578f483cbade2" name="Crypt/GPG/SubKey.php" role="php" />
+   <file baseinstalldir="/" md5sum="791fe59da851e624b83766a49cead5b5" name="Crypt/GPG/UserId.php" role="php" />
+   <file baseinstalldir="/" md5sum="bd3ca492344e020cbd52c8e98f35b765" name="Crypt/GPG/VerifyStatusHandler.php" role="php" />
+   <file baseinstalldir="/" md5sum="b4faf3f1f18fb7703747e099365f2a86" name="Crypt/GPG.php" role="php" />
+   <file baseinstalldir="/" md5sum="7f583b974fa5502a8058f8ab1756c937" name="Crypt/GPGAbstract.php" role="php" />
+   <file baseinstalldir="/" md5sum="ea8ff30ca930d87426c6eb843a82e036" name="data/pinentry-cli.xml" role="data">
+    <tasks:replace from="@package-version@" to="version" type="package-info" />
+   </file>
+   <file baseinstalldir="/" md5sum="dab163b87c636839fa6f59b555d8c01b" name="scripts/crypt-gpg-pinentry" role="script">
+    <tasks:replace from="@php-dir@" to="php_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="/" md5sum="48a01863f1c45e3343ee6cc0cdac6bf1" name="tests/data-files/testDecryptFile.asc" role="test" />
+   <file baseinstalldir="/" md5sum="ee957c9ccb21341279f5e7584ee9a24c" name="tests/data-files/testDecryptFileDual.asc" role="test" />
+   <file baseinstalldir="/" md5sum="bbec6c1b4e4375ad2ff4f1ed74d9a2fe" name="tests/data-files/testDecryptFileDualOnePassphrase.asc" role="test" />
+   <file baseinstalldir="/" md5sum="6fcdf876a1175b232d031d148974a1fd" name="tests/data-files/testDecryptFileKeyNotFoundException.asc" role="test" />
+   <file baseinstalldir="/" md5sum="9a285b594b92fc20969b934ebeac5cd7" name="tests/data-files/testDecryptFileNoPassphrase.asc" role="test" />
+   <file baseinstalldir="/" md5sum="58a11c56a7440982690759d67112da18" name="tests/data-files/testDecryptFileToString.asc" role="test" />
+   <file baseinstalldir="/" md5sum="6a745d1e7a14307ab87f1b3961521f9f" name="tests/data-files/testDecryptVerifyFile.asc" role="test" />
+   <file baseinstalldir="/" md5sum="7e044fb9438ac172bec7aeec7348359b" name="tests/data-files/testDecryptVerifyFileDual.asc" role="test" />
+   <file baseinstalldir="/" md5sum="5697ff06e9ec34ec5780035d8161b81f" name="tests/data-files/testDecryptVerifyFileDualOnePassphrase.asc" role="test" />
+   <file baseinstalldir="/" md5sum="758e815820769478a9aa27425618515d" name="tests/data-files/testDecryptVerifyFileDualSignatories.asc" role="test" />
+   <file baseinstalldir="/" md5sum="d33df56a12fccfd7bc124cabf7e3eee9" name="tests/data-files/testDecryptVerifyFileNoPassphrase.asc" role="test" />
+   <file baseinstalldir="/" md5sum="816b585c1332b258addd8fdf4fd8c7d3" name="tests/data-files/testDecryptVerifyFileToString.asc" role="test" />
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="tests/data-files/testFileEmpty.plain" role="test" />
+   <file baseinstalldir="/" md5sum="f96267d87551ee09bfcac16921e351c1" name="tests/data-files/testFileMedium.plain" role="test" />
+   <file baseinstalldir="/" md5sum="9b6c11bcd2cffbc5b3674ce8df51af96" name="tests/data-files/testFileSmall.plain" role="test" />
+   <file baseinstalldir="/" md5sum="4221b55e407a9e962a40b5fa94b3ded1" name="tests/data-files/testImportKeyFile_private.asc" role="test" />
+   <file baseinstalldir="/" md5sum="2d276e67065c4c5348524abb9a44dbcf" name="tests/data-files/testImportKeyFile_public.asc" role="test" />
+   <file baseinstalldir="/" md5sum="593120b6780677d016c7dae0e4174001" name="tests/data-files/testVerifyFileClearsignedData.asc" role="test" />
+   <file baseinstalldir="/" md5sum="ca2fed470c88ff04f456d317339d1f65" name="tests/data-files/testVerifyFileDualClearsignedData.asc" role="test" />
+   <file baseinstalldir="/" md5sum="8fa0301ca4bee6163661e05aed143409" name="tests/data-files/testVerifyFileDualNormalSignedData.asc" role="test" />
+   <file baseinstalldir="/" md5sum="8ef15a6b3ec9831642fd1a154a1fff2b" name="tests/data-files/testVerifyFileNormalSignedData.asc" role="test" />
+   <file baseinstalldir="/" md5sum="450e8adf1690e5e3438ef6d5bc7d6b52" name="tests/AllTests.php" role="test" />
+   <file baseinstalldir="/" md5sum="11788d1a6fca41ece7eeb975d7c30f36" name="tests/config.php.dist" role="test" />
+   <file baseinstalldir="/" md5sum="f46713e5304bd7496558899575de68c7" name="tests/DecryptAndVerifyTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="0621794740ccf19cd77c39299a1f8d72" name="tests/DecryptTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="fcfc7bd3c65e4f4a0f93077483d4ba65" name="tests/DeletePrivateKeyTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="365cd922308dc74cb3610060dd165dec" name="tests/DeletePublicKeyTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="94f305b4f97edf4b822cfc3e4a3568e2" name="tests/EncryptAndSignTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="0cd79a83ae176ca374b596a2aee4a9e3" name="tests/EncryptTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="628530aba5730cb917c7d1ec316ca553" name="tests/ExceptionsTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="232f4a2e4ea7a574606f6d471a56bf39" name="tests/ExportPublicKeyTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="f3fce4e5cddecb9996ed43e6fa76a9d0" name="tests/GeneralTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="30b3a02da0afb496b0987e52df46c93f" name="tests/GetFingerprintTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="9bedb44c3a9c519689050de621f830e8" name="tests/GetKeysTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="4ec87a7e9870c9c56313ffaf1e995785" name="tests/ImportKeyTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="e0e84d793965ba1ea13dce6987391b1a" name="tests/KeyGeneratorTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="8f27edb42eb210870c7e3994638494dd" name="tests/KeyTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="11c3d433980cf19fbe09ca6028e01be5" name="tests/SignatureTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="1bcde4e51e33acf84bb5ead938a066e8" name="tests/SignTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="4dd4a52ac2399ffa3983b76ce904085c" name="tests/SubKeyTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="4d08ec8e291aeaa66acb705fbee7cf0c" name="tests/TestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="24d95657a33f56cf4bceaeebca83fd71" name="tests/UserIdTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="1ae3b410d0f5c832b7c6d104e3c4e92a" name="tests/VerifyTestCase.php" role="test" />
+   <file baseinstalldir="/" md5sum="7eb09e6fd83eb49ed22911c3b2f06744" name="LICENSE" role="doc" />
+   <file baseinstalldir="/" md5sum="27eba90fdd6a469f622c33ab4023c95e" name="README.md" role="doc" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.1</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+   <package>
+    <name>Console_CommandLine</name>
+    <channel>pear.php.net</channel>
+    <min>1.1.10</min>
+   </package>
+   <extension>
+    <name>mbstring</name>
+   </extension>
+   <os>
+    <name>windows</name>
+    <conflicts />
+   </os>
+  </required>
+  <optional>
+   <extension>
+    <name>posix</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="crypt-gpg-pinentry" name="scripts/crypt-gpg-pinentry" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.3.2</release>
+    <api>1.3.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2011-09-26</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+This release adds key generation to the list of supported operations and adds fluent interface support to the main Crypt_GPG class. Additionally the following bugs are fixed:
+Fix Bug #18618. Incorrect CHUNK_SIZE / Hang on file decryption.
+Fix Bug #18869. Unnecessary dependency on posix extension.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0b1</release>
+    <api>1.4.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2013-02-28</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+This release adds support for GnuPG 2.x, supporting the latest version of RHEL and derivatives. Additionally, the following bugs are fixed:
+
+Fix Bug #17838. Passphrase operations don&apos;t work on GnuPG 2.x.
+Fix Bug #17628. Version regular expression on MAMP.
+Fix Bug #19883. Better exception on unwriteable or unexecutable homedir.
+
+This release makes the mbstring extension a required dependency as the assuan protocol used in GnuPG 2.x uses UTF-8.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0b2</release>
+    <api>1.4.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2013-02-28</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+This release adds support for GnuPG 2.x, supporting the latest version of RHEL and derivatives. Additionally, the following bugs are fixed:
+
+Fix Bug #17838. Passphrase operations don&apos;t work on GnuPG 2.x.
+Fix Bug #17628. Version regular expression on MAMP.
+Fix Bug #19883. Better exception on unwriteable or unexecutable homedir.
+
+A workaround for PHP Bug #39598 is also provided in the event that GnuPG ends unexpectedly. This prevents infinite loops.
+
+This release makes the mbstring extension a required dependency as the assuan protocol used in GnuPG 2.x uses UTF-8.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0b3</release>
+    <api>1.4.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2013-03-01</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+This release adds support for GnuPG 2.x, supporting the latest version of RHEL and derivatives. Additionally, the following bugs are fixed:
+
+Fix Bug #17838. Passphrase operations don&apos;t work on GnuPG 2.x.
+Fix Bug #17628. Version regular expression on MAMP.
+Fix Bug #19883. Better exception on unwriteable or unexecutable homedir.
+
+A workaround for PHP Bug #39598 is also provided in the event that GnuPG ends unexpectedly. This prevents infinite loops.
+
+This release makes the mbstring extension a required dependency as the assuan protocol used in GnuPG 2.x uses UTF-8.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.4.0b4</release>
+    <api>1.4.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2013-03-13</date>
+   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL</license>
+   <notes>
+This release adds support for GnuPG 2.x, supporting the latest version of RHEL and derivatives. Additionally, the following bugs are fixed:
+
+Fix Bug #17838. Passphrase operations don&apos;t work on GnuPG 2.x.
+Fix Bug #17628. Version regular expression on MAMP.
+Fix Bug #19883. Better exception on unwriteable or unexecutable homedir.
+Fix possible fread/fwrite to strings when the string values passed to Crypt_GPG are loosly equal to a stream resource handle.
+
+A workaround for PHP Bug #39598 is also provided in the event that GnuPG ends unexpectedly. This prevents infinite loops.
+
+This release makes the mbstring extension a required dependency as the assuan protocol used in GnuPG 2.x uses UTF-8.
+   </notes>
+  </release>
+ </changelog>
+</package>
