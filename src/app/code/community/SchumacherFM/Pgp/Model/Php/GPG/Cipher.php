@@ -1,13 +1,10 @@
 <?php
 /** @package    php-gpg::GPG */
 
-/** require supporting files */
-require_once("Utility.php");
-
 /**
  * @package    php-gpg::GPG
  */
-class GPG_Cipher
+class SchumacherFM_Pgp_Model_Php_Gpg_Cipher
 {
     /*
     global $RCON;
@@ -323,11 +320,11 @@ class GPG_Cipher
 
     static function F1($x0, $x1, $x2, $x3)
     {
-        $T1 = GPG_Cipher::$T1;
+        $T1 = SchumacherFM_Pgp_Model_Php_Gpg_Cipher::$T1;
 
         return
-            GPG_Utility::B1($T1[$x0 & 0xff]) | (GPG_Utility::B1($T1[($x1 >> 0x8) & 0xff]) << 0x8) |
-            (GPG_Utility::B1($T1[($x2 >> 0x10) & 0xff]) << 0x10) | (GPG_Utility::B1($T1[GPG_Utility::zshift($x3, 0x18)]) << 0x18);
+            SchumacherFM_Pgp_Model_Php_Gpg_Utility::B1($T1[$x0 & 0xff]) | (SchumacherFM_Pgp_Model_Php_Gpg_Utility::B1($T1[($x1 >> 0x8) & 0xff]) << 0x8) |
+            (SchumacherFM_Pgp_Model_Php_Gpg_Utility::B1($T1[($x2 >> 0x10) & 0xff]) << 0x10) | (SchumacherFM_Pgp_Model_Php_Gpg_Utility::B1($T1[SchumacherFM_Pgp_Model_Php_Gpg_Utility::zshift($x3, 0x18)]) << 0x18);
     }
 
 }

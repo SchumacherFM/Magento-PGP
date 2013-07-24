@@ -1,12 +1,8 @@
 <?php
-/** @package    php-gpg::GPG */
 
-/** require supporting files */
-require_once("Expanded_Key.php");
-
-define("PK_TYPE_ELGAMAL", 1);
-define("PK_TYPE_RSA", 0);
-define("PK_TYPE_UNKNOWN", -1);
+define('PK_TYPE_ELGAMAL', 1);
+define('PK_TYPE_RSA', 0);
+define('PK_TYPE_UNKNOWN', -1);
 
 /**
  * Pure PHP implementation of PHP/GPG public key
@@ -18,7 +14,7 @@ define("PK_TYPE_UNKNOWN", -1);
  * @todo       implement decryption
  * @version    1.0
  */
-class GPG_Public_Key
+class SchumacherFM_Pgp_Model_Php_Gpg_PublicKey
 {
     var $version;
     var $fp;
@@ -27,39 +23,17 @@ class GPG_Public_Key
     var $public_key;
     var $type;
 
-    function IsValid()
-    {
-        return $this->version != -1 && $this->GetKeyType() != PK_TYPE_UNKNOWN;
-    }
-
-    function GetKeyType()
-    {
-        if (!strcmp($this->type, "ELGAMAL")) return PK_TYPE_ELGAMAL;
-        if (!strcmp($this->type, "RSA")) return PK_TYPE_RSA;
-        return PK_TYPE_UNKNOWN;
-    }
-
-    function GetKeyId()
-    {
-        return (strlen($this->key_id) == 16) ? $this->key_id : '0000000000000000';
-    }
-
-    function GetPublicKey()
-    {
-        return str_replace("\n", "", $this->public_key);
-    }
-
-    function GPG_Public_Key($asc)
+    public function __construct($asc)
     {
         $found = 0;
-        $i     = strpos($asc, "-----BEGIN PGP PUBLIC KEY BLOCK-----");
+        $i     = strpos($asc, '-----BEGIN PGP PUBLIC KEY BLOCK-----');
 
         if ($i === FALSE) {
-            $this->version    = "";
-            $this->fp         = "";
-            $this->key_id     = "";
-            $this->user       = "";
-            $this->public_key = "";
+            $this->version    = '';
+            $this->fp         = '';
+            $this->key_id     = '';
+            $this->user       = '';
+            $this->public_key = '';
 
             return;
         }
@@ -69,11 +43,11 @@ class GPG_Public_Key
         $e = strpos($asc, "\n=", $i);
         if ($a > 0 && $e > 0) $asc = substr($asc, $a + 2, $e - $a - 2);
         else {
-            $this->version    = "";
-            $this->fp         = "";
-            $this->key_id     = "";
-            $this->user       = "";
-            $this->public_key = "";
+            $this->version    = '';
+            $this->fp         = '';
+            $this->key_id     = '';
+            $this->user       = '';
+            $this->public_key = '';
 
             return;
         }
@@ -121,7 +95,7 @@ class GPG_Public_Key
                     $i += $le + 2;
 
                     $this->public_key = base64_encode(substr($s, $m, $lm + $le + 4));
-                    $this->type       = "RSA";
+                    $this->type       = 'RSA';
 
                     if ($version == 3) {
                         $this->fp     = '';
@@ -132,8 +106,8 @@ class GPG_Public_Key
                         $this->fp     = $fp;
                         $this->key_id = substr($fp, strlen($fp) - 16, 16);
                     } else {
-                        $this->fp     = "";
-                        $this->key_id = "";
+                        $this->fp     = '';
+                        $this->key_id = '';
                     }
                     $found = 2;
                 } else if (($algo == 16 || $algo == 20) && $version == 4) {
@@ -154,7 +128,7 @@ class GPG_Public_Key
                     $fp           = sha1($pkt);
                     $this->fp     = $fp;
                     $this->key_id = substr($fp, strlen($fp) - 16, 16);
-                    $this->type   = "ELGAMAL";
+                    $this->type   = 'ELGAMAL';
                     $found        = 3;
                 } else {
                     $i = $k + $len;
@@ -168,16 +142,38 @@ class GPG_Public_Key
         }
 
         if ($found < 2) {
-            $this->version    = "";
-            $this->fp         = "";
-            $this->key_id     = "";
-            $this->user       = "";
-            $this->public_key = "";
+            $this->version    = '';
+            $this->fp         = '';
+            $this->key_id     = '';
+            $this->user       = '';
+            $this->public_key = '';
         }
     }
 
-    function GetExpandedKey()
+    public function IsValid()
     {
-        $ek = new Expanded_Key($this->public_key);
+        return $this->version != -1 && $this->GetKeyType() != PK_TYPE_UNKNOWN;
+    }
+
+    public function GetKeyType()
+    {
+        if (!strcmp($this->type, 'ELGAMAL')) return PK_TYPE_ELGAMAL;
+        if (!strcmp($this->type, 'RSA')) return PK_TYPE_RSA;
+        return PK_TYPE_UNKNOWN;
+    }
+
+    public function GetKeyId()
+    {
+        return (strlen($this->key_id) == 16) ? $this->key_id : '0000000000000000';
+    }
+
+    public function GetPublicKey()
+    {
+        return str_replace("\n", '', $this->public_key);
+    }
+
+    public function GetExpandedKey()
+    {
+        return new SchumacherFM_Pgp_Model_Php_Gpg_ExpandedKey($this->public_key);
     }
 }

@@ -1,14 +1,10 @@
 <?php
 /** @package    php-gpg::GPG */
 
-/** seed rand */
-list($gpg_usec, $gpg_sec) = explode(' ', microtime());
-srand((float)$gpg_sec + ((float)$gpg_usec * 100000));
-
 /**
  * @package    php-gpg::GPG
  */
-class GPG_Utility
+class SchumacherFM_Pgp_Model_Php_Gpg_Utility
 {
     static function B0($x)
     {
@@ -35,7 +31,9 @@ class GPG_Utility
         $res = $x >> $s;
 
         $pad = 0;
-        for ($i = 0; $i < 32 - $s; $i++) $pad += (1 << $i);
+        for ($i = 0; $i < 32 - $s; $i++) {
+            $pad += (1 << $i);
+        }
 
         return $res & $pad;
     }
@@ -47,7 +45,9 @@ class GPG_Utility
         $len = count($octets);
         $b   = array_fill(0, $len / 4, 0);
 
-        if (!$octets || $len % 4) return;
+        if (!$octets || $len % 4) {
+            return;
+        }
 
         for ($i = 0, $j = 0; $j < $len; $j += 4) {
             $b[$i++] = $octets[$j] | ($octets[$j + 1] << 0x8) | ($octets[$j + 2] << 0x10) | ($octets[$j + 3] << 0x18);
@@ -65,10 +65,10 @@ class GPG_Utility
         $r = array_fill(0, $l * 4, 0);
 
         for ($j = 0; $j < $l; $j++) {
-            $r[$i++] = GPG_Utility::B0($packed[$j]);
-            $r[$i++] = GPG_Utility::B1($packed[$j]);
-            $r[$i++] = GPG_Utility::B2($packed[$j]);
-            $r[$i++] = GPG_Utility::B3($packed[$j]);
+            $r[$i++] = SchumacherFM_Pgp_Model_Php_Gpg_Utility::B0($packed[$j]);
+            $r[$i++] = SchumacherFM_Pgp_Model_Php_Gpg_Utility::B1($packed[$j]);
+            $r[$i++] = SchumacherFM_Pgp_Model_Php_Gpg_Utility::B2($packed[$j]);
+            $r[$i++] = SchumacherFM_Pgp_Model_Php_Gpg_Utility::B3($packed[$j]);
         }
 
         return $r;
@@ -76,9 +76,11 @@ class GPG_Utility
 
     static function hex2bin($h)
     {
-        if (strlen($h) % 2) $h += "0";
+        if (strlen($h) % 2) {
+            $h += '0';
+        }
 
-        $r = "";
+        $r = '';
         for ($i = 0; $i < strlen($h); $i += 2) {
             $r .= chr(intval($h[$i], 16) * 16 + intval($h[$i + 1], 16));
         }
@@ -104,12 +106,22 @@ class GPG_Utility
             chr($crc & 0xff);
     }
 
+    protected static function _initSrand()
+    {
+        list($gpg_usec, $gpg_sec) = explode(' ', microtime());
+        srand((float)$gpg_sec + ((float)$gpg_usec * 100000));
+    }
+
     static function s_random($len, $textmode)
     {
-        $r = "";
+        self::_initSrand();
+
+        $r = '';
         for ($i = 0; $i < $len;) {
-            $t = rand(0, 0xff);
-            if ($t == 0 && $textmode) continue;
+            $t = srand(0, 0xff);
+            if ($t == 0 && $textmode) {
+                continue;
+            }
             $i++;
 
             $r .= chr($t);
@@ -120,7 +132,8 @@ class GPG_Utility
 
     function c_random()
     {
-        return round(rand(0, 0xff));
+        self::_initSrand();
+        return round(srand(0, 0xff));
     }
 
 }

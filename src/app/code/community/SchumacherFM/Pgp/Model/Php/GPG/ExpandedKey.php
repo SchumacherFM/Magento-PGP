@@ -1,24 +1,21 @@
 <?php
 /** @package    php-gpg::GPG */
 
-/** require supporting files */
-require_once("Cipher.php");
-
 /**
  * @package    php-gpg::GPG
  */
-class Expanded_Key
+class SchumacherFM_Pgp_Model_Php_Gpg_ExpandedKey
 {
-    var $rounds;
+    var $rounds = 0;
     var $rk;
 
-    function Expanded_Key($key)
+    public function __construct($key)
     {
-        $RCON = GPG_Cipher::$RCON;
-        $S    = GPG_Cipher::$S;
+        $RCON = SchumacherFM_Pgp_Model_Php_Gpg_Cipher::$RCON;
+        $S    = SchumacherFM_Pgp_Model_Php_Gpg_Cipher::$S;
 
-        $maxkc = GPG_Cipher::$maxkc;
-        $maxrk = GPG_Cipher::$maxrk;
+        $maxkc = SchumacherFM_Pgp_Model_Php_Gpg_Cipher::$maxkc;
+        $maxrk = SchumacherFM_Pgp_Model_Php_Gpg_Cipher::$maxrk;
 
         $kc          = 0;
         $i           = 0;
@@ -71,8 +68,8 @@ class Expanded_Key
         while ($r < $rounds + 1) {
             $temp = $tk[$kc - 1];
 
-            $tk[0] ^= $S[GPG_Utility::B1($temp)] | ($S[GPG_Utility::B2($temp)] << 0x8) |
-                ($S[GPG_Utility::B3($temp)] << 0x10) | ($S[GPG_Utility::B0($temp)] << 0x18);
+            $tk[0] ^= $S[SchumacherFM_Pgp_Model_Php_Gpg_Utility::B1($temp)] | ($S[SchumacherFM_Pgp_Model_Php_Gpg_Utility::B2($temp)] << 0x8) |
+                ($S[SchumacherFM_Pgp_Model_Php_Gpg_Utility::B3($temp)] << 0x10) | ($S[SchumacherFM_Pgp_Model_Php_Gpg_Utility::B0($temp)] << 0x18);
             $tk[0] ^= $RCON[$rconpointer++];
 
             if ($kc != 8) {
@@ -81,8 +78,8 @@ class Expanded_Key
                 for ($j = 1; $j < $kc / 2; $j++) $tk[$j] ^= $tk[$j - 1];
 
                 $temp = $tk[$kc / 2 - 1];
-                $tk[$kc / 2] ^= $S[GPG_Utility::B0($temp)] | ($S[GPG_Utility::B1($temp)] << 0x8) |
-                    ($S[GPG_Utility::B2($temp)] << 0x10) | ($S[GPG_Utility::B3($temp)] << 0x18);
+                $tk[$kc / 2] ^= $S[SchumacherFM_Pgp_Model_Php_Gpg_Utility::B0($temp)] | ($S[SchumacherFM_Pgp_Model_Php_Gpg_Utility::B1($temp)] << 0x8) |
+                    ($S[SchumacherFM_Pgp_Model_Php_Gpg_Utility::B2($temp)] << 0x10) | ($S[SchumacherFM_Pgp_Model_Php_Gpg_Utility::B3($temp)] << 0x18);
 
                 for ($j = $kc / 2 + 1; $j < $kc; $j++) $tk[$j] ^= $tk[$j - 1];
             }
