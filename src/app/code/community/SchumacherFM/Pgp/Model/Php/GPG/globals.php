@@ -113,9 +113,13 @@ class SchumacherFM_Pgp_Model_Php_Gpg_Globals
         $mu = array_fill(0, $n + 1, 0);
 
         $mu[$n--] = 1;
-        for (; $n >= 0; $n--) $mu[$n] = 0;
-        $dd = $this->bdiv($mu, $m);
-        $mu = $dd->_bdivQ;
+        for (; $n >= 0; $n--) {
+            $mu[$n] = 0;
+        }
+//        $dd = $this->bdiv($mu, $m);
+//        $mu = $dd->_bdivQ;
+        $this->bdiv($mu, $m);
+        $mu = $this->_bdivQ;
 
         for ($n = 0; $n < count($y); $n++) {
             for ($a = 1, $an = 0; $an < $this->bs; $an++, $a <<= 1) {
@@ -152,8 +156,10 @@ class SchumacherFM_Pgp_Model_Php_Gpg_Globals
             if ($m[0] < $this->bdm) return array($this->simplemod($p, $m[0]));
         }
 
-        $r = $this->bdiv($p, $m);
-        return $r->_bdivMod;
+//        $r = $this->bdiv($p, $m);
+//        return $r->_bdivMod;
+        $this->bdiv($p, $m);
+        return $this->_bdivMod;
     }
 
     /**

@@ -12,6 +12,7 @@ abstract class SchumacherFM_Pgp_Model_AbstractFactory
     protected function _setEncrypted($encrypted)
     {
         $this->_encrypted = $encrypted;
+        return $this;
     }
 
     /**
@@ -28,6 +29,7 @@ abstract class SchumacherFM_Pgp_Model_AbstractFactory
     public function setPlainTextString($plainTextString)
     {
         $this->_plainTextString = $plainTextString;
+        return $this;
     }
 
     /**
