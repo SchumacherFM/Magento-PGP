@@ -6,27 +6,27 @@
  */
 class SchumacherFM_Pgp_Model_Php_Gpg_Utility
 {
-    static function B0($x)
+    public static function B0($x)
     {
         return ($x & 0xff);
     }
 
-    static function B1($x)
+    public static function B1($x)
     {
         return (($x >> 0x8) & 0xff);
     }
 
-    static function B2($x)
+    public static function B2($x)
     {
         return (($x >> 0x10) & 0xff);
     }
 
-    static function B3($x)
+    public static function B3($x)
     {
         return (($x >> 0x18) & 0xff);
     }
 
-    static function zshift($x, $s)
+    public static function zshift($x, $s)
     {
         $res = $x >> $s;
 
@@ -38,7 +38,7 @@ class SchumacherFM_Pgp_Model_Php_Gpg_Utility
         return $res & $pad;
     }
 
-    static function pack_octets($octets)
+    public static function pack_octets($octets)
     {
         $i   = 0;
         $j   = 0;
@@ -57,7 +57,7 @@ class SchumacherFM_Pgp_Model_Php_Gpg_Utility
         return $b;
     }
 
-    static function unpack_octets($packed)
+    public static function unpack_octets($packed)
     {
         $j = 0;
         $i = 0;
@@ -74,7 +74,7 @@ class SchumacherFM_Pgp_Model_Php_Gpg_Utility
         return $r;
     }
 
-    static function hex2bin($h)
+    public static function hex2bin($h)
     {
         if (strlen($h) % 2) {
             $h += '0';
@@ -88,7 +88,7 @@ class SchumacherFM_Pgp_Model_Php_Gpg_Utility
         return $r;
     }
 
-    static function crc24($data)
+    public static function crc24($data)
     {
         $crc = 0xb704ce;
 
@@ -109,16 +109,16 @@ class SchumacherFM_Pgp_Model_Php_Gpg_Utility
     protected static function _initSrand()
     {
         list($gpg_usec, $gpg_sec) = explode(' ', microtime());
-        srand((float)$gpg_sec + ((float)$gpg_usec * 100000));
+        mt_srand((float)$gpg_sec + ((float)$gpg_usec * 100000));
     }
 
-    static function s_random($len, $textmode)
+    public static function s_random($len, $textmode)
     {
         self::_initSrand();
 
         $r = '';
         for ($i = 0; $i < $len;) {
-            $t = srand(0, 0xff);
+            $t = mt_rand(0, 0xff);
             if ($t == 0 && $textmode) {
                 continue;
             }
@@ -130,10 +130,10 @@ class SchumacherFM_Pgp_Model_Php_Gpg_Utility
         return $r;
     }
 
-    function c_random()
+    public static function c_random()
     {
         self::_initSrand();
-        return round(srand(0, 0xff));
+        return round(mt_rand(0, 0xff));
     }
 
 }

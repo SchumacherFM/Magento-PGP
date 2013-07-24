@@ -1,9 +1,6 @@
 <?php
 /** @package    php-gpg */
 
-/** require supporting files */
-require_once("GPG/globals.php");
-
 /**
  * Pure PHP implementation of PHP/GPG encryption.
  * Supports RSA, DSA public key length of 2,4,8,16,512,1024,2048 or 4096
@@ -17,7 +14,6 @@ require_once("GPG/globals.php");
  * @version   1.0
  *
  * @example
- *            require_once 'libs/GPG.php';
  *        $gpg = new GPG();
  *        $pub_key = new GPG_Public_Key($public_key_ascii);
  *        $encrypted = $gpg->encrypt($pub_key,$plain_text_string);

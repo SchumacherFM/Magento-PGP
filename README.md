@@ -19,3 +19,10 @@ Used Versions
 
 - Crypt_GPG-1.4.0b4.tgz
 - https://github.com/jasonhinkle/php-gpg/commit/985bcdbfc16fb839d833d33a8f4c6057e621fbfe
+
+Author
+------
+
+[Cyrill Schumacher](https://github.com/SchumacherFM)
+
+Made in Sydney, Australia :-)
