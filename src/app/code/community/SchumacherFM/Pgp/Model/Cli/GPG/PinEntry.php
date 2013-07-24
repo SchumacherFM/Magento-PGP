@@ -37,7 +37,7 @@
  */
 require_once 'Console/CommandLine.php';
 
-// {{{ class Crypt_GPG_PinEntry
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry
 
 /**
  * A command-line dummy pinentry program for use with gpg-agent and Crypt_GPG
@@ -69,7 +69,7 @@ require_once 'Console/CommandLine.php';
  * @link      http://pear.php.net/package/Crypt_GPG
  * @see       Crypt_GPG::getKeys()
  */
-class Crypt_GPG_PinEntry
+class SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry
 {
     // {{{ class constants
 
@@ -130,15 +130,15 @@ class Crypt_GPG_PinEntry
      *
      * @var boolean
      */
-    protected $moribund = false;
+    protected $moribund = FALSE;
 
     /**
      * Verbosity level
      *
      * One of:
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_NONE},
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_ERRORS}, or
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_ALL}
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry::VERBOSITY_NONE},
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry::VERBOSITY_ERRORS}, or
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry::VERBOSITY_ALL}
      *
      * @var integer
      */
@@ -149,7 +149,7 @@ class Crypt_GPG_PinEntry
      *
      * @var Console_CommandLine
      *
-     * @see Crypt_GPG_PinEntry::getParser()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry::getParser()
      */
     protected $parser = null;
 
@@ -174,7 +174,7 @@ class Crypt_GPG_PinEntry
      *
      * @var array
      *
-     * @see Crypt_GPG_PinEntry::initPinsFromENV()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry::initPinsFromENV()
      */
     protected $pins = array();
 
@@ -182,7 +182,7 @@ class Crypt_GPG_PinEntry
      * PINs that have been tried for the current PIN
      *
      * This is an associative array indexed by the key identifier with
-     * values being the same as elements in the {@link Crypt_GPG_PinEntry::$pins}
+     * values being the same as elements in the {@link SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry::$pins}
      * array.
      *
      * @var array
@@ -227,7 +227,7 @@ class Crypt_GPG_PinEntry
             $this->connect();
             $this->initPinsFromENV();
 
-            while (($line = fgets($this->stdin, self::CHUNK_SIZE)) !== false) {
+            while (($line = fgets($this->stdin, self::CHUNK_SIZE)) !== FALSE) {
                 $this->parseCommand(mb_substr($line, 0, -1, '8bit'));
                 if ($this->moribund) {
                     break;
@@ -254,14 +254,14 @@ class Crypt_GPG_PinEntry
      *
      * Verbosity levels are:
      *
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_NONE}   - no logging.
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_ERRORS} - log errors only.
-     * - {@link Crypt_GPG_PinEntry::VERBOSITY_ALL}    - log everything, including
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry::VERBOSITY_NONE}   - no logging.
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry::VERBOSITY_ERRORS} - log errors only.
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry::VERBOSITY_ALL}    - log everything, including
      *                                                  the assuan protocol.
      *
      * @param integer $verbosity the level of verbosity of this pinentry.
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     public function setVerbosity($verbosity)
     {
@@ -278,7 +278,7 @@ class Crypt_GPG_PinEntry
      * @param string $filename the new log filename to use. If an empty string
      *                         is used, file-based logging is disabled.
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     public function setLogFilename($filename)
     {
@@ -289,7 +289,7 @@ class Crypt_GPG_PinEntry
         }
 
         if ($filename != '') {
-            if (($this->logFile = fopen($filename, 'w')) === false) {
+            if (($this->logFile = fopen($filename, 'w')) === FALSE) {
                 $this->log(
                     'Unable to open log file "' . $filename . '" '
                     . 'for writing.' . PHP_EOL,
@@ -356,7 +356,7 @@ class Crypt_GPG_PinEntry
      * @param integer $level the verbosity level above which the message should
      *                       be logged.
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function log($data, $level)
     {
@@ -380,7 +380,7 @@ class Crypt_GPG_PinEntry
      *
      * Opens I/O streams and sends initial handshake.
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function connect()
     {
@@ -417,7 +417,7 @@ class Crypt_GPG_PinEntry
      *
      * @param string $line the assuan command line to parse
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function parseCommand($line)
     {
@@ -434,36 +434,36 @@ class Crypt_GPG_PinEntry
         }
 
         switch ($command) {
-        case 'SETDESC':
-            return $this->sendSetDescription($data);
+            case 'SETDESC':
+                return $this->sendSetDescription($data);
 
-        case 'SETPROMPT':
-        case 'SETERROR':
-        case 'SETOK':
-        case 'SETNOTOK':
-        case 'SETCANCEL':
-        case 'SETQUALITYBAR':
-        case 'SETQUALITYBAR_TT':
-        case 'OPTION':
-            return $this->sendNotImplementedOK();
+            case 'SETPROMPT':
+            case 'SETERROR':
+            case 'SETOK':
+            case 'SETNOTOK':
+            case 'SETCANCEL':
+            case 'SETQUALITYBAR':
+            case 'SETQUALITYBAR_TT':
+            case 'OPTION':
+                return $this->sendNotImplementedOK();
 
-        case 'MESSAGE':
-            return $this->sendMessage();
+            case 'MESSAGE':
+                return $this->sendMessage();
 
-        case 'CONFIRM':
-            return $this->sendConfirm();
+            case 'CONFIRM':
+                return $this->sendConfirm();
 
-        case 'GETINFO':
-            return $this->sendGetInfo($data);
+            case 'GETINFO':
+                return $this->sendGetInfo($data);
 
-        case 'GETPIN':
-            return $this->sendGetPin($data);
+            case 'GETPIN':
+                return $this->sendGetPin($data);
 
-        case 'RESET':
-            return $this->sendReset();
+            case 'RESET':
+                return $this->sendReset();
 
-        case 'BYE':
-            return $this->sendBye();
+            case 'BYE':
+                return $this->sendBye();
         }
     }
 
@@ -476,12 +476,12 @@ class Crypt_GPG_PinEntry
      *
      * The PINs are parsed from a JSON-encoded string.
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function initPinsFromENV()
     {
-        if (($userData = getenv('PINENTRY_USER_DATA')) !== false) {
-            $pins = json_decode($userData, true);
+        if (($userData = getenv('PINENTRY_USER_DATA')) !== FALSE) {
+            $pins = json_decode($userData, TRUE);
             if ($pins === null) {
                 $this->log(
                     '-- failed to parse user data' . PHP_EOL,
@@ -505,7 +505,7 @@ class Crypt_GPG_PinEntry
     /**
      * Disconnects this pinentry from the Assuan server
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function disconnect()
     {
@@ -535,7 +535,7 @@ class Crypt_GPG_PinEntry
     /**
      * Sends an OK response for a not implemented feature
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function sendNotImplementedOK()
     {
@@ -551,11 +551,11 @@ class Crypt_GPG_PinEntry
      *
      * @param string $text the raw description sent from gpg-agent.
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function sendSetDescription($text)
     {
-        $text = rawurldecode($text);
+        $text    = rawurldecode($text);
         $matches = array();
         // TODO: handle user id with quotation marks
         $exp = '/\n"(.+)"\n.*\sID ([A-Z0-9]+),\n/mu';
@@ -564,14 +564,14 @@ class Crypt_GPG_PinEntry
             $keyId  = $matches[2];
 
             // only reset tried pins for new requested pin
-            if (   $this->currentPin === null
+            if ($this->currentPin === null
                 || $this->currentPin['keyId'] !== $keyId
             ) {
                 $this->currentPin = array(
                     'userId' => $userId,
                     'keyId'  => $keyId
                 );
-                $this->triedPins = array();
+                $this->triedPins  = array();
                 $this->log(
                     '-- looking for PIN for ' . $keyId . PHP_EOL,
                     self::VERBOSITY_ALL
@@ -589,7 +589,7 @@ class Crypt_GPG_PinEntry
      * Tells the assuan server the PIN entry was confirmed (not cancelled)
      * by pressing the fake 'close' button
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function sendConfirm()
     {
@@ -603,7 +603,7 @@ class Crypt_GPG_PinEntry
      * Tells the assuan server that any requested pop-up messages were confirmed
      * by pressing the fake 'close' button
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function sendMessage()
     {
@@ -620,7 +620,7 @@ class Crypt_GPG_PinEntry
      *
      * @param string $text the button status to send.
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function sendButtonInfo($text)
     {
@@ -633,7 +633,7 @@ class Crypt_GPG_PinEntry
     /**
      * Sends the PIN value for the currently requested key
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function sendGetPin()
     {
@@ -656,7 +656,7 @@ class Crypt_GPG_PinEntry
                     );
 
                     if ($keyId === $this->currentPin['keyId']) {
-                        $foundPin = $pin['passphrase'];
+                        $foundPin                       = $pin['passphrase'];
                         $this->triedPins[$pin['keyId']] = $pin;
                         break;
                     }
@@ -679,7 +679,7 @@ class Crypt_GPG_PinEntry
      *                     Currently only 'pid' is supported. Other requests
      *                     return no information.
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function sendGetInfo($data)
     {
@@ -687,21 +687,22 @@ class Crypt_GPG_PinEntry
         $command = reset($parts);
 
         switch ($command) {
-        case 'pid':
-            return $this->sendGetInfoPID();
-        default:
-            return $this->send($this->getOK());
+            case 'pid':
+                return $this->sendGetInfoPID();
+            default:
+                return $this->send($this->getOK());
         }
 
         return $this;
     }
+
     // }}}
     // {{{ sendGetInfoPID()
 
     /**
      * Sends the PID of this pinentry to the assuan server
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function sendGetInfoPID()
     {
@@ -716,12 +717,12 @@ class Crypt_GPG_PinEntry
     /**
      * Flags this pinentry for disconnection and sends an OK response
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function sendBye()
     {
-        $return = $this->send($this->getOK('closing connection'));
-        $this->moribund = true;
+        $return         = $this->send($this->getOK('closing connection'));
+        $this->moribund = TRUE;
         return $return;
     }
 
@@ -731,12 +732,12 @@ class Crypt_GPG_PinEntry
     /**
      * Resets this pinentry and sends an OK response
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function sendReset()
     {
         $this->currentPin = null;
-        $this->triedPins = array();
+        $this->triedPins  = array();
         return $this->send($this->getOK());
     }
 
@@ -830,11 +831,11 @@ class Crypt_GPG_PinEntry
 
         do {
             if (mb_strlen($data, '8bit') > 997) {
-                $line = $prefix . ' ' . mb_strcut($data, 0, 996, 'utf-8') . "\\\n";
-                $lines[] = $line;
+                $line       = $prefix . ' ' . mb_strcut($data, 0, 996, 'utf-8') . "\\\n";
+                $lines[]    = $line;
                 $lineLength = mb_strlen($line, '8bit') - 1;
                 $dataLength = mb_substr($data, '8bit');
-                $data = mb_substr(
+                $data       = mb_substr(
                     $data,
                     $lineLength,
                     $dataLength - $lineLength,
@@ -842,7 +843,7 @@ class Crypt_GPG_PinEntry
                 );
             } else {
                 $lines[] = $prefix . ' ' . $data . "\n";
-                $data = '';
+                $data    = '';
             }
         } while ($data != '');
 
@@ -857,7 +858,7 @@ class Crypt_GPG_PinEntry
      *
      * @param string $data the data to send.
      *
-     * @return Crypt_GPG_PinEntry the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry the current object, for fluent interface.
      */
     protected function send($data)
     {
@@ -871,5 +872,3 @@ class Crypt_GPG_PinEntry
 }
 
 // }}}
-
-?>

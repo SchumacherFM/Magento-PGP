@@ -56,7 +56,7 @@
  * @link      http://pear.php.net/package/Crypt_GPG
  * @link      http://www.gnupg.org/
  */
-class Crypt_GPG_KeyGeneratorStatusHandler
+class SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorStatusHandler
 {
     // {{{ protected properties
 
@@ -78,7 +78,7 @@ class Crypt_GPG_KeyGeneratorStatusHandler
      *
      * @var string
      *
-     * @see Crypt_GPG_KeyGeneratorStatusHandler::setHandle()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorStatusHandler::setHandle()
      */
     protected $handle = '';
 
@@ -100,7 +100,7 @@ class Crypt_GPG_KeyGeneratorStatusHandler
      *
      * @param string $handle the key handle this status handle will use.
      *
-     * @return Crypt_GPG_KeyGeneratorStatusHandler the current object, for
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorStatusHandler the current object, for
      *                                             fluent interface.
      */
     public function setHandle($handle)
@@ -169,5 +169,3 @@ class Crypt_GPG_KeyGeneratorStatusHandler
 
     // }}}
 }
-
-?>

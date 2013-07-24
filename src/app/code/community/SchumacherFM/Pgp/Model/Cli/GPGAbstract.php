@@ -12,7 +12,7 @@
  * only to facilitate public-key cryptography.
  *
  * This file contains an abstract implementation of a user of the
- * {@link Crypt_GPG_Engine} class.
+ * {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine} class.
  *
  * PHP version 5
  *
@@ -44,35 +44,10 @@
  * @link      http://www.gnupg.org/
  */
 
-/**
- * GPG key class
- */
-require_once 'Crypt/GPG/Key.php';
+// {{{ class SchumacherFM_Pgp_Model_Cli_GpgAbstract
 
 /**
- * GPG sub-key class
- */
-require_once 'Crypt/GPG/SubKey.php';
-
-/**
- * GPG user id class
- */
-require_once 'Crypt/GPG/UserId.php';
-
-/**
- * GPG process and I/O engine class
- */
-require_once 'Crypt/GPG/Engine.php';
-
-/**
- * GPG exception classes
- */
-require_once 'Crypt/GPG/Exceptions.php';
-
-// {{{ class Crypt_GPGAbstract
-
-/**
- * Base class for implementing a user of {@link Crypt_GPG_Engine}
+ * Base class for implementing a user of {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine}
  *
  * @category  Encryption
  * @package   Crypt_GPG
@@ -83,7 +58,7 @@ require_once 'Crypt/GPG/Exceptions.php';
  * @link      http://pear.php.net/package/Crypt_GPG
  * @link      http://www.gnupg.org/
  */
-abstract class Crypt_GPGAbstract
+abstract class SchumacherFM_Pgp_Model_Cli_GpgAbstract
 {
     // {{{ class error constants
 
@@ -178,9 +153,9 @@ abstract class Crypt_GPGAbstract
     /**
      * Engine used to control the GPG subprocess
      *
-     * @var Crypt_GPG_Engine
+     * @var SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      *
-     * @see Crypt_GPGAbstract::setEngine()
+     * @see SchumacherFM_Pgp_Model_Cli_GpgAbstract::setEngine()
      */
     protected $engine = null;
 
@@ -254,7 +229,7 @@ abstract class Crypt_GPGAbstract
      *                       GPG object. All options are optional and are
      *                       represented as key-value pairs.
      *
-     * @throws Crypt_GPG_FileException if the <kbd>homedir</kbd> does not exist
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the <kbd>homedir</kbd> does not exist
      *         and cannot be created. This can happen if <kbd>homedir</kbd> is
      *         not specified, Crypt_GPG is run as the web user, and the web
      *         user has no home directory. This exception is also thrown if any
@@ -275,7 +250,7 @@ abstract class Crypt_GPGAbstract
      */
     public function __construct(array $options = array())
     {
-        $this->setEngine(new Crypt_GPG_Engine($options));
+        $this->setEngine(new SchumacherFM_Pgp_Model_Cli_Gpg_Engine($options));
     }
 
     // }}}
@@ -287,11 +262,11 @@ abstract class Crypt_GPGAbstract
      * Normally this method does not need to be used. It provides a means for
      * dependency injection.
      *
-     * @param Crypt_GPG_Engine $engine the engine to use.
+     * @param SchumacherFM_Pgp_Model_Cli_Gpg_Engine $engine the engine to use.
      *
-     * @return Crypt_GPGAbstract the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_GpgAbstract the current object, for fluent interface.
      */
-    public function setEngine(Crypt_GPG_Engine $engine)
+    public function setEngine(SchumacherFM_Pgp_Model_Cli_Gpg_Engine $engine)
     {
         $this->engine = $engine;
         return $this;
@@ -313,15 +288,15 @@ abstract class Crypt_GPGAbstract
      *                      a user id, a key id or a key fingerprint. If not
      *                      specified, all keys are returned.
      *
-     * @return array an array of {@link Crypt_GPG_Key} objects. If no keys
+     * @return array an array of {@link SchumacherFM_Pgp_Model_Cli_Gpg_Key} objects. If no keys
      *               match the specified <kbd>$keyId</kbd> an empty array is
      *               returned.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
-     * @see Crypt_GPG_Key
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Key
      */
     protected function _getKeys($keyId = '')
     {
@@ -358,7 +333,7 @@ abstract class Crypt_GPGAbstract
         case self::ERROR_FILE_PERMISSIONS:
             $filename = $this->engine->getErrorFilename();
             if ($filename) {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     sprintf(
                         'Error reading GnuPG data file \'%s\'. Check to make ' .
                         'sure it is readable by the current user.',
@@ -368,13 +343,13 @@ abstract class Crypt_GPGAbstract
                     $filename
                 );
             }
-            throw new Crypt_GPG_FileException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                 'Error reading GnuPG data file. Check to make GnuPG data ' .
                 'files are readable by the current user.',
                 $code
             );
         default:
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error getting keys. Please use the \'debug\' option ' .
                 'when creating the Crypt_GPG object, and file a bug report ' .
                 'at ' . self::BUG_URI,
@@ -416,7 +391,7 @@ abstract class Crypt_GPGAbstract
         case self::ERROR_FILE_PERMISSIONS:
             $filename = $this->engine->getErrorFilename();
             if ($filename) {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     sprintf(
                         'Error reading GnuPG data file \'%s\'. Check to make ' .
                         'sure it is readable by the current user.',
@@ -426,13 +401,13 @@ abstract class Crypt_GPGAbstract
                     $filename
                 );
             }
-            throw new Crypt_GPG_FileException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                 'Error reading GnuPG data file. Check to make GnuPG data ' .
                 'files are readable by the current user.',
                 $code
             );
         default:
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error getting keys. Please use the \'debug\' option ' .
                 'when creating the Crypt_GPG object, and file a bug report ' .
                 'at ' . self::BUG_URI,
@@ -456,14 +431,14 @@ abstract class Crypt_GPGAbstract
                     $keys[] = $key;
                 }
 
-                $key = new Crypt_GPG_Key();
+                $key = new SchumacherFM_Pgp_Model_Cli_Gpg_Key();
 
-                $subKey = Crypt_GPG_SubKey::parse($line);
+                $subKey = SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::parse($line);
                 $key->addSubKey($subKey);
 
             } elseif ($lineExp[0] == 'sub') {
 
-                $subKey = Crypt_GPG_SubKey::parse($line);
+                $subKey = SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::parse($line);
                 $key->addSubKey($subKey);
 
             } elseif ($lineExp[0] == 'fpr') {
@@ -481,7 +456,7 @@ abstract class Crypt_GPGAbstract
             } elseif ($lineExp[0] == 'uid') {
 
                 $string = stripcslashes($lineExp[9]); // as per documentation
-                $userId = new Crypt_GPG_UserId($string);
+                $userId = new SchumacherFM_Pgp_Model_Cli_Gpg_UserId($string);
 
                 if ($lineExp[1] == 'r') {
                     $userId->setRevoked(true);

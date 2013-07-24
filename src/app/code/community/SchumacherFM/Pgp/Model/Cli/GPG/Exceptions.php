@@ -43,7 +43,7 @@
  */
 require_once 'PEAR/Exception.php';
 
-// {{{ class Crypt_GPG_Exception
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 
 /**
  * An exception thrown by the Crypt_GPG package
@@ -55,12 +55,12 @@ require_once 'PEAR/Exception.php';
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_Exception extends PEAR_Exception
+class SchumacherFM_Pgp_Model_Cli_Gpg_Exception extends Exception
 {
 }
 
 // }}}
-// {{{ class Crypt_GPG_FileException
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_FileException
 
 /**
  * An exception thrown when a file is used in ways it cannot be used
@@ -76,7 +76,7 @@ class Crypt_GPG_Exception extends PEAR_Exception
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_FileException extends Crypt_GPG_Exception
+class SchumacherFM_Pgp_Model_Cli_Gpg_FileException extends SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 {
     // {{{ private class properties
 
@@ -91,7 +91,7 @@ class Crypt_GPG_FileException extends Crypt_GPG_Exception
     // {{{ __construct()
 
     /**
-     * Creates a new Crypt_GPG_FileException
+     * Creates a new SchumacherFM_Pgp_Model_Cli_Gpg_FileException
      *
      * @param string  $message  an error message.
      * @param integer $code     a user defined error code.
@@ -111,7 +111,7 @@ class Crypt_GPG_FileException extends Crypt_GPG_Exception
      *
      * @return string the filename of the file that caused this exception.
      *
-     * @see Crypt_GPG_FileException::$_filename
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_FileException::$_filename
      */
     public function getFilename()
     {
@@ -122,12 +122,12 @@ class Crypt_GPG_FileException extends Crypt_GPG_Exception
 }
 
 // }}}
-// {{{ class Crypt_GPG_OpenSubprocessException
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_OpenSubprocessException
 
 /**
  * An exception thrown when the GPG subprocess cannot be opened
  *
- * This exception is thrown when the {@link Crypt_GPG_Engine} tries to open a
+ * This exception is thrown when the {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine} tries to open a
  * new subprocess and fails.
  *
  * @category  Encryption
@@ -137,7 +137,7 @@ class Crypt_GPG_FileException extends Crypt_GPG_Exception
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_OpenSubprocessException extends Crypt_GPG_Exception
+class SchumacherFM_Pgp_Model_Cli_Gpg_OpenSubprocessException extends SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 {
     // {{{ private class properties
 
@@ -152,7 +152,7 @@ class Crypt_GPG_OpenSubprocessException extends Crypt_GPG_Exception
     // {{{ __construct()
 
     /**
-     * Creates a new Crypt_GPG_OpenSubprocessException
+     * Creates a new SchumacherFM_Pgp_Model_Cli_Gpg_OpenSubprocessException
      *
      * @param string  $message an error message.
      * @param integer $code    a user defined error code.
@@ -175,7 +175,7 @@ class Crypt_GPG_OpenSubprocessException extends Crypt_GPG_Exception
      *
      * @return string the command used to open the subprocess.
      *
-     * @see Crypt_GPG_OpenSubprocessException::$_command
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_OpenSubprocessException::$_command
      */
     public function getCommand()
     {
@@ -186,7 +186,7 @@ class Crypt_GPG_OpenSubprocessException extends Crypt_GPG_Exception
 }
 
 // }}}
-// {{{ class Crypt_GPG_InvalidOperationException
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_InvalidOperationException
 
 /**
  * An exception thrown when an invalid GPG operation is attempted
@@ -198,7 +198,7 @@ class Crypt_GPG_OpenSubprocessException extends Crypt_GPG_Exception
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_InvalidOperationException extends Crypt_GPG_Exception
+class SchumacherFM_Pgp_Model_Cli_Gpg_InvalidOperationException extends SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 {
     // {{{ private class properties
 
@@ -213,7 +213,7 @@ class Crypt_GPG_InvalidOperationException extends Crypt_GPG_Exception
     // {{{ __construct()
 
     /**
-     * Creates a new Crypt_GPG_OpenSubprocessException
+     * Creates a new SchumacherFM_Pgp_Model_Cli_Gpg_OpenSubprocessException
      *
      * @param string  $message   an error message.
      * @param integer $code      a user defined error code.
@@ -233,7 +233,7 @@ class Crypt_GPG_InvalidOperationException extends Crypt_GPG_Exception
      *
      * @return string the attempted operation.
      *
-     * @see Crypt_GPG_InvalidOperationException::$_operation
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_InvalidOperationException::$_operation
      */
     public function getOperation()
     {
@@ -244,7 +244,7 @@ class Crypt_GPG_InvalidOperationException extends Crypt_GPG_Exception
 }
 
 // }}}
-// {{{ class Crypt_GPG_KeyNotFoundException
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException
 
 /**
  * An exception thrown when Crypt_GPG fails to find the key for various
@@ -257,7 +257,7 @@ class Crypt_GPG_InvalidOperationException extends Crypt_GPG_Exception
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_KeyNotFoundException extends Crypt_GPG_Exception
+class SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException extends SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 {
     // {{{ private class properties
 
@@ -272,7 +272,7 @@ class Crypt_GPG_KeyNotFoundException extends Crypt_GPG_Exception
     // {{{ __construct()
 
     /**
-     * Creates a new Crypt_GPG_KeyNotFoundException
+     * Creates a new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException
      *
      * @param string  $message an error message.
      * @param integer $code    a user defined error code.
@@ -301,7 +301,7 @@ class Crypt_GPG_KeyNotFoundException extends Crypt_GPG_Exception
 }
 
 // }}}
-// {{{ class Crypt_GPG_NoDataException
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException
 
 /**
  * An exception thrown when Crypt_GPG cannot find valid data for various
@@ -314,12 +314,12 @@ class Crypt_GPG_KeyNotFoundException extends Crypt_GPG_Exception
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_NoDataException extends Crypt_GPG_Exception
+class SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException extends SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 {
 }
 
 // }}}
-// {{{ class Crypt_GPG_BadPassphraseException
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException
 
 /**
  * An exception thrown when a required passphrase is incorrect or missing
@@ -331,7 +331,7 @@ class Crypt_GPG_NoDataException extends Crypt_GPG_Exception
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_BadPassphraseException extends Crypt_GPG_Exception
+class SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException extends SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 {
     // {{{ private class properties
 
@@ -357,7 +357,7 @@ class Crypt_GPG_BadPassphraseException extends Crypt_GPG_Exception
     // {{{ __construct()
 
     /**
-     * Creates a new Crypt_GPG_BadPassphraseException
+     * Creates a new SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException
      *
      * @param string  $message            an error message.
      * @param integer $code               a user defined error code.
@@ -394,7 +394,7 @@ class Crypt_GPG_BadPassphraseException extends Crypt_GPG_Exception
     // {{{ getMissingPassphrases()
 
     /**
-     * Gets keys for which the passhprase is missing 
+     * Gets keys for which the passhprase is missing
      *
      * @return array an array of keys for which the passphrase is missing.
      *               The array contains primary user ids indexed by the sub-key
@@ -409,7 +409,7 @@ class Crypt_GPG_BadPassphraseException extends Crypt_GPG_Exception
 }
 
 // }}}
-// {{{ class Crypt_GPG_DeletePrivateKeyException
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_DeletePrivateKeyException
 
 /**
  * An exception thrown when an attempt is made to delete public key that has an
@@ -422,7 +422,7 @@ class Crypt_GPG_BadPassphraseException extends Crypt_GPG_Exception
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_DeletePrivateKeyException extends Crypt_GPG_Exception
+class SchumacherFM_Pgp_Model_Cli_Gpg_DeletePrivateKeyException extends SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 {
     // {{{ private class properties
 
@@ -437,7 +437,7 @@ class Crypt_GPG_DeletePrivateKeyException extends Crypt_GPG_Exception
     // {{{ __construct()
 
     /**
-     * Creates a new Crypt_GPG_DeletePrivateKeyException
+     * Creates a new SchumacherFM_Pgp_Model_Cli_Gpg_DeletePrivateKeyException
      *
      * @param string  $message an error message.
      * @param integer $code    a user defined error code.
@@ -469,7 +469,7 @@ class Crypt_GPG_DeletePrivateKeyException extends Crypt_GPG_Exception
 }
 
 // }}}
-// {{{ class Crypt_GPG_KeyNotCreatedException
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotCreatedException
 
 /**
  * An exception thrown when an attempt is made to generate a key and the
@@ -482,12 +482,12 @@ class Crypt_GPG_DeletePrivateKeyException extends Crypt_GPG_Exception
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_KeyNotCreatedException extends Crypt_GPG_Exception
+class SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotCreatedException extends SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 {
 }
 
 // }}}
-// {{{ class Crypt_GPG_InvalidKeyParamsException
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_InvalidKeyParamsException
 
 /**
  * An exception thrown when an attempt is made to generate a key and the
@@ -500,7 +500,7 @@ class Crypt_GPG_KeyNotCreatedException extends Crypt_GPG_Exception
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_InvalidKeyParamsException extends Crypt_GPG_Exception
+class SchumacherFM_Pgp_Model_Cli_Gpg_InvalidKeyParamsException extends SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 {
     // {{{ private class properties
 
@@ -529,7 +529,7 @@ class Crypt_GPG_InvalidKeyParamsException extends Crypt_GPG_Exception
     // {{{ __construct()
 
     /**
-     * Creates a new Crypt_GPG_InvalidKeyParamsException
+     * Creates a new SchumacherFM_Pgp_Model_Cli_Gpg_InvalidKeyParamsException
      *
      * @param string  $message   an error message.
      * @param integer $code      a user defined error code.
@@ -594,5 +594,3 @@ class Crypt_GPG_InvalidKeyParamsException extends Crypt_GPG_Exception
 }
 
 // }}}
-
-?>

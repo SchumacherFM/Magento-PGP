@@ -50,7 +50,7 @@
  * @link      http://pear.php.net/package/Crypt_GPG
  * @link      http://www.gnupg.org/
  */
-class Crypt_GPG_KeyGeneratorErrorHandler
+class SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorErrorHandler
 {
     // {{{ protected properties
 
@@ -117,5 +117,3 @@ class Crypt_GPG_KeyGeneratorErrorHandler
 
     // }}}
 }
-
-?>

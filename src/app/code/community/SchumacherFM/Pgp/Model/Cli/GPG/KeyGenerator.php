@@ -35,22 +35,7 @@
  * @link      http://www.gnupg.org/
  */
 
-/**
- * Base class for GPG methods
- */
-require_once 'Crypt/GPGAbstract.php';
-
-/**
- * Status output handler for key generation
- */
-require_once 'Crypt/GPG/KeyGeneratorStatusHandler.php';
-
-/**
- * Error output handler for key generation
- */
-require_once 'Crypt/GPG/KeyGeneratorErrorHandler.php';
-
-// {{{ class Crypt_GPG_KeyGenerator
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator
 
 /**
  * GnuPG key generator
@@ -80,7 +65,7 @@ require_once 'Crypt/GPG/KeyGeneratorErrorHandler.php';
  * @link      http://pear.php.net/package/Crypt_GPG
  * @link      http://www.gnupg.org/
  */
-class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
+class SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator extends SchumacherFM_Pgp_Model_Cli_GpgAbstract
 {
     // {{{ protected properties
 
@@ -89,7 +74,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      *
      * @var integer
      *
-     * @see Crypt_GPG_KeyGenerator::setExpirationDate()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator::setExpirationDate()
      */
     protected $expirationDate = 0;
 
@@ -98,7 +83,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      *
      * @var string
      *
-     * @see Crypt_GPG_KeyGenerator::setPassphrase()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator::setPassphrase()
      */
     protected $passphrase = '';
 
@@ -107,16 +92,16 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      *
      * @var integer
      *
-     * @see Crypt_GPG_KeyGenerator::setKeyParams()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator::setKeyParams()
      */
-    protected $keyAlgorithm = Crypt_GPG_SubKey::ALGORITHM_DSA;
+    protected $keyAlgorithm = SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::ALGORITHM_DSA;
 
     /**
      * The size of generated primary keys
      *
      * @var integer
      *
-     * @see Crypt_GPG_KeyGenerator::setKeyParams()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator::setKeyParams()
      */
     protected $keySize = 1024;
 
@@ -124,11 +109,11 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      * The usages of generated primary keys
      *
      * This is a bitwise combination of the usage constants in
-     * {@link Crypt_GPG_SubKey}.
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg_SubKey}.
      *
      * @var integer
      *
-     * @see Crypt_GPG_KeyGenerator::setKeyParams()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator::setKeyParams()
      */
     protected $keyUsage = 6; // USAGE_SIGN | USAGE_CERTIFY
 
@@ -137,16 +122,16 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      *
      * @var integer
      *
-     * @see Crypt_GPG_KeyGenerator::setSubKeyParams()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator::setSubKeyParams()
      */
-    protected $subKeyAlgorithm = Crypt_GPG_SubKey::ALGORITHM_ELGAMAL_ENC;
+    protected $subKeyAlgorithm = SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::ALGORITHM_ELGAMAL_ENC;
 
     /**
      * The size of generated sub-keys
      *
      * @var integer
      *
-     * @see Crypt_GPG_KeyGenerator::setSubKeyParams()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator::setSubKeyParams()
      */
     protected $subKeySize = 2048;
 
@@ -154,29 +139,29 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      * The usages of generated sub-keys
      *
      * This is a bitwise combination of the usage constants in
-     * {@link Crypt_GPG_SubKey}.
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg_SubKey}.
      *
      * @var integer
      *
-     * @see Crypt_GPG_KeyGenerator::setSubKeyParams()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator::setSubKeyParams()
      */
-    protected $subKeyUsage = Crypt_GPG_SubKey::USAGE_ENCRYPT;
+    protected $subKeyUsage = SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_ENCRYPT;
 
     /**
      * The GnuPG status handler to use for key generation
      *
-     * @var Crypt_GPG_KeyGeneratorStatusHandler
+     * @var SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorStatusHandler
      *
-     * @see Crypt_GPG_KeyGenerator::setStatusHandler()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator::setStatusHandler()
      */
     protected $statusHandler = null;
 
     /**
      * The GnuPG error handler to use for key generation
      *
-     * @var Crypt_GPG_KeyGeneratorErrorHandler
+     * @var SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorErrorHandler
      *
-     * @see Crypt_GPG_KeyGenerator::setErrorHandler()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator::setErrorHandler()
      */
     protected $errorHandler = null;
 
@@ -250,7 +235,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      *                       GPG object. All options are optional and are
      *                       represented as key-value pairs.
      *
-     * @throws Crypt_GPG_FileException if the <kbd>homedir</kbd> does not exist
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the <kbd>homedir</kbd> does not exist
      *         and cannot be created. This can happen if <kbd>homedir</kbd> is
      *         not specified, Crypt_GPG is run as the web user, and the web
      *         user has no home directory. This exception is also thrown if any
@@ -273,8 +258,8 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
     {
         parent::__construct($options);
 
-        $this->statusHandler = new Crypt_GPG_KeyGeneratorStatusHandler();
-        $this->errorHandler  = new Crypt_GPG_KeyGeneratorErrorHandler();
+        $this->statusHandler = new SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorStatusHandler();
+        $this->errorHandler  = new SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorErrorHandler();
     }
 
     // }}}
@@ -297,7 +282,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      *                                  the future, or if the date is greater
      *                                  than 2038-01-19T03:14:07.
      *
-     * @return Crypt_GPG_KeyGenerator the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator the current object, for fluent interface.
      */
     public function setExpirationDate($date)
     {
@@ -344,7 +329,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      * @param string $passphrase the passphrase to use for generated keys. Use
      *                           null or an empty string for no passphrase.
      *
-     * @return Crypt_GPG_KeyGenerator the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator the current object, for fluent interface.
      */
     public function setPassphrase($passphrase)
     {
@@ -359,7 +344,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      * Sets the parameters for the primary key of generated key-pairs
      *
      * @param integer $algorithm the algorithm used by the key. This should be
-     *                           one of the Crypt_GPG_SubKey::ALGORITHM_*
+     *                           one of the SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::ALGORITHM_*
      *                           constants.
      * @param integer $size      optional. The size of the key. Different
      *                           algorithms have different size requirements.
@@ -371,18 +356,18 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      *                           If not specified, the primary key will be used
      *                           only to sign and certify. This is the default
      *                           behavior of GnuPG in interactive mode. Use
-     *                           the Crypt_GPG_SubKey::USAGE_* constants here.
+     *                           the SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_* constants here.
      *                           The primary key may be used to certify even
      *                           if the certify usage is not specified.
      *
-     * @return Crypt_GPG_KeyGenerator the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator the current object, for fluent interface.
      */
     public function setKeyParams($algorithm, $size = 0, $usage = 0)
     {
         $apgorithm = intval($algorithm);
 
-        if ($algorithm === Crypt_GPG_SubKey::ALGORITHM_ELGAMAL_ENC) {
-            throw new Crypt_GPG_InvalidKeyParamsException(
+        if ($algorithm === SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::ALGORITHM_ELGAMAL_ENC) {
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_InvalidKeyParamsException(
                 'Primary key algorithm must be capable of signing. The ' .
                 'Elgamal algorithm can only encrypt.',
                 0,
@@ -400,12 +385,12 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
             $usage = intval($usage);
         }
 
-        $usageEncrypt = Crypt_GPG_SubKey::USAGE_ENCRYPT;
+        $usageEncrypt = SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_ENCRYPT;
 
-        if (   $algorithm === Crypt_GPG_SubKey::ALGORITHM_DSA
+        if (   $algorithm === SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::ALGORITHM_DSA
             && ($usage & $usageEncrypt) === $usageEncrypt
         ) {
-            throw new Crypt_GPG_InvalidKeyParamsException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_InvalidKeyParamsException(
                 'The DSA algorithm is not capable of encrypting. Please ' .
                 'specify a different algorithm or do not include encryption ' .
                 'as a usage for the primary key.',
@@ -436,7 +421,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      * Sets the parameters for the sub-key of generated key-pairs
      *
      * @param integer $algorithm the algorithm used by the key. This should be
-     *                           one of the Crypt_GPG_SubKey::ALGORITHM_*
+     *                           one of the SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::ALGORITHM_*
      *                           constants.
      * @param integer $size      optional. The size of the key. Different
      *                           algorithms have different size requirements.
@@ -448,9 +433,9 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      *                           If not specified, the sub-key will be used
      *                           only to encrypt. This is the default behavior
      *                           of GnuPG in interactive mode. Use the
-     *                           Crypt_GPG_SubKey::USAGE_* constants here.
+     *                           SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_* constants here.
      *
-     * @return Crypt_GPG_KeyGenerator the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator the current object, for fluent interface.
      */
     public function setSubKeyParams($algorithm, $size = '', $usage = 0)
     {
@@ -464,12 +449,12 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
             $usage = intval($usage);
         }
 
-        $usageSign = Crypt_GPG_SubKey::USAGE_SIGN;
+        $usageSign = SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_SIGN;
 
-        if (   $algorithm === Crypt_GPG_SubKey::ALGORITHM_ELGAMAL_ENC
+        if (   $algorithm === SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::ALGORITHM_ELGAMAL_ENC
             && ($usage & $usageSign) === $usageSign
         ) {
-            throw new Crypt_GPG_InvalidKeyParamsException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_InvalidKeyParamsException(
                 'The Elgamal algorithm is not capable of signing. Please ' .
                 'specify a different algorithm or do not include signing ' .
                 'as a usage for the sub-key.',
@@ -480,12 +465,12 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
             );
         }
 
-        $usageEncrypt = Crypt_GPG_SubKey::USAGE_ENCRYPT;
+        $usageEncrypt = SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_ENCRYPT;
 
-        if (   $algorithm === Crypt_GPG_SubKey::ALGORITHM_DSA
+        if (   $algorithm === SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::ALGORITHM_DSA
             && ($usage & $usageEncrypt) === $usageEncrypt
         ) {
-            throw new Crypt_GPG_InvalidKeyParamsException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_InvalidKeyParamsException(
                 'The DSA algorithm is not capable of encrypting. Please ' .
                 'specify a different algorithm or do not include encryption ' .
                 'as a usage for the sub-key.',
@@ -518,13 +503,13 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      * Normally this method does not need to be used. It provides a means for
      * dependency injection.
      *
-     * @param Crypt_GPG_KeyStatusHandler $handler the key status handler to
+     * @param SchumacherFM_Pgp_Model_Cli_Gpg_KeyStatusHandler $handler the key status handler to
      *                                            use.
      *
-     * @return Crypt_GPG_KeyGenerator the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator the current object, for fluent interface.
      */
     public function setStatusHandler(
-        Crypt_GPG_KeyGeneratorStatusHandler $handler
+        SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorStatusHandler $handler
     ) {
         $this->statusHandler = $handler;
         return $this;
@@ -539,13 +524,13 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      * Normally this method does not need to be used. It provides a means for
      * dependency injection.
      *
-     * @param Crypt_GPG_KeyErrorHandler $handler the key error handler to
+     * @param SchumacherFM_Pgp_Model_Cli_Gpg_KeyErrorHandler $handler the key error handler to
      *                                           use.
      *
-     * @return Crypt_GPG_KeyGenerator the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator the current object, for fluent interface.
      */
     public function setErrorHandler(
-        Crypt_GPG_KeyGeneratorErrorHandler $handler
+        SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorErrorHandler $handler
     ) {
         $this->errorHandler = $handler;
         return $this;
@@ -566,7 +551,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      * administrators of Debian systems may want to install the 'randomsound'
      * package.
      *
-     * @param string|Crypt_GPG_UserId $name    either a {@link Crypt_GPG_UserId}
+     * @param string|SchumacherFM_Pgp_Model_Cli_Gpg_UserId $name    either a {@link SchumacherFM_Pgp_Model_Cli_Gpg_UserId}
      *                                         object, or a string containing
      *                                         the name of the user id.
      * @param string                  $email   optional. If <i>$name</i> is
@@ -576,13 +561,13 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      *                                         specified as a string, this is
      *                                         the comment of the user id.
      *
-     * @return Crypt_GPG_Key the newly generated key.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_Key the newly generated key.
      *
-     * @throws Crypt_GPG_KeyNotCreatedException if the key parameters are
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotCreatedException if the key parameters are
      *         incorrect, if an unknown error occurs during key generation, or
      *         if the newly generated key is not found in the keyring.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -647,7 +632,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
         case self::ERROR_BAD_KEY_PARAMS:
             switch ($errorHandler->getLineNumber()) {
             case 1:
-                throw new Crypt_GPG_InvalidKeyParamsException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_InvalidKeyParamsException(
                     'Invalid primary key algorithm specified.',
                     0,
                     $this->keyAlgorithm,
@@ -655,7 +640,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
                     $this->keyUsage
                 );
             case 4:
-                throw new Crypt_GPG_InvalidKeyParamsException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_InvalidKeyParamsException(
                     'Invalid sub-key algorithm specified.',
                     0,
                     $this->subKeyAlgorithm,
@@ -663,7 +648,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
                     $this->subKeyUsage
                 );
             default:
-                throw new Crypt_GPG_InvalidKeyParamsException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_InvalidKeyParamsException(
                     'Invalid key algorithm specified.'
                 );
             }
@@ -675,7 +660,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
         case self::ERROR_NONE:
             break;
         default:
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error generating key-pair. Please use the \'debug\' ' .
                 'option when creating the Crypt_GPG object, and file a bug ' .
                 'report at ' . self::BUG_URI,
@@ -689,7 +674,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
         case self::ERROR_NONE:
             break;
         case self::ERROR_KEY_NOT_CREATED:
-            throw new Crypt_GPG_KeyNotCreatedException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotCreatedException(
                 'Unable to create new key-pair. Invalid key parameters. ' .
                 'Make sure the specified key algorithms and sizes are ' .
                 'correct.',
@@ -701,7 +686,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
         $keys        = $this->_getKeys($fingerprint);
 
         if (count($keys) === 0) {
-            throw new Crypt_GPG_KeyNotCreatedException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotCreatedException(
                 sprintf(
                     'Newly created key "%s" not found in keyring.',
                     $fingerprint
@@ -723,7 +708,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      * information on the key usage format.
      *
      * @param integer $usage a bitwise combination of the key usages. This is
-     *                       a combination of the Crypt_GPG_SubKey::USAGE_*
+     *                       a combination of the SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_*
      *                       constants.
      *
      * @return string the key usage string.
@@ -731,15 +716,15 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
     protected function getUsage($usage)
     {
         $map = array(
-            Crypt_GPG_SubKey::USAGE_ENCRYPT        => 'encrypt',
-            Crypt_GPG_SubKey::USAGE_SIGN           => 'sign',
-            Crypt_GPG_SubKey::USAGE_CERTIFY        => 'cert',
-            Crypt_GPG_SubKey::USAGE_AUTHENTICATION => 'auth',
+            SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_ENCRYPT        => 'encrypt',
+            SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_SIGN           => 'sign',
+            SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_CERTIFY        => 'cert',
+            SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_AUTHENTICATION => 'auth',
         );
 
         // cert is always used for primary keys and does not need to be
         // specified
-        $usage &= ~Crypt_GPG_SubKey::USAGE_CERTIFY;
+        $usage &= ~SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::USAGE_CERTIFY;
 
         $usageArray = array();
 
@@ -758,7 +743,7 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
     /**
      * Gets a user id object from parameters
      *
-     * @param string|Crypt_GPG_UserId $name    either a {@link Crypt_GPG_UserId}
+     * @param string|SchumacherFM_Pgp_Model_Cli_Gpg_UserId $name    either a {@link SchumacherFM_Pgp_Model_Cli_Gpg_UserId}
      *                                         object, or a string containing
      *                                         the name of the user id.
      * @param string                  $email   optional. If <i>$name</i> is
@@ -768,14 +753,14 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
      *                                         specified as a string, this is
      *                                         the comment of the user id.
      *
-     * @return Crypt_GPG_UserId a user id object for the specified parameters.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_UserId a user id object for the specified parameters.
      */
     protected function getUserId($name, $email = '', $comment = '')
     {
-        if ($name instanceof Crypt_GPG_UserId) {
+        if ($name instanceof SchumacherFM_Pgp_Model_Cli_Gpg_UserId) {
             $userId = $name;
         } else {
-            $userId = new Crypt_GPG_UserId();
+            $userId = new SchumacherFM_Pgp_Model_Cli_Gpg_UserId();
             $userId->setName($name)->setEmail($email)->setComment($comment);
         }
 
@@ -786,5 +771,3 @@ class Crypt_GPG_KeyGenerator extends Crypt_GPGAbstract
 }
 
 // }}}
-
-?>

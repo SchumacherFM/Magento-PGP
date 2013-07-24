@@ -34,7 +34,7 @@
  * @link      http://pear.php.net/package/Crypt_GPG
  */
 
-// {{{ class Crypt_GPG_ByteUtils
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils
 
 /**
  * A class for performing byte-wise string operations
@@ -50,7 +50,7 @@
  * @link      http://pear.php.net/package/Crypt_GPG
  * @link      http://php.net/mbstring
  */
-class Crypt_GPG_ByteUtils
+class SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils
 {
     // {{{ strlen()
 
@@ -101,5 +101,3 @@ class Crypt_GPG_ByteUtils
 }
 
 // }}}
-
-?>

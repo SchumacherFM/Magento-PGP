@@ -42,7 +42,7 @@ require_once 'Crypt/GPG/SubKey.php';
  */
 require_once 'Crypt/GPG/UserId.php';
 
-// {{{ class Crypt_GPG_Key
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_Key
 
 /**
  * A data class for GPG key information
@@ -58,31 +58,31 @@ require_once 'Crypt/GPG/UserId.php';
  * @link      http://pear.php.net/package/Crypt_GPG
  * @see       Crypt_GPG::getKeys()
  */
-class Crypt_GPG_Key
+class SchumacherFM_Pgp_Model_Cli_Gpg_Key
 {
     // {{{ class properties
 
     /**
      * The user ids associated with this key
      *
-     * This is an array of {@link Crypt_GPG_UserId} objects.
+     * This is an array of {@link SchumacherFM_Pgp_Model_Cli_Gpg_UserId} objects.
      *
      * @var array
      *
-     * @see Crypt_GPG_Key::addUserId()
-     * @see Crypt_GPG_Key::getUserIds()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Key::addUserId()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Key::getUserIds()
      */
     private $_userIds = array();
 
     /**
      * The subkeys of this key
      *
-     * This is an array of {@link Crypt_GPG_SubKey} objects.
+     * This is an array of {@link SchumacherFM_Pgp_Model_Cli_Gpg_SubKey} objects.
      *
      * @var array
      *
-     * @see Crypt_GPG_Key::addSubKey()
-     * @see Crypt_GPG_Key::getSubKeys()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Key::addSubKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Key::getSubKeys()
      */
     private $_subKeys = array();
 
@@ -94,7 +94,7 @@ class Crypt_GPG_Key
      *
      * @return array the sub-keys of this key.
      *
-     * @see Crypt_GPG_Key::addSubKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Key::addSubKey()
      */
     public function getSubKeys()
     {
@@ -109,7 +109,7 @@ class Crypt_GPG_Key
      *
      * @return array the user ids of this key.
      *
-     * @see Crypt_GPG_Key::addUserId()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Key::addUserId()
      */
     public function getUserIds()
     {
@@ -124,7 +124,7 @@ class Crypt_GPG_Key
      *
      * The primary key is the first added sub-key.
      *
-     * @return Crypt_GPG_SubKey the primary sub-key of this key.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the primary sub-key of this key.
      */
     public function getPrimaryKey()
     {
@@ -189,11 +189,11 @@ class Crypt_GPG_Key
      *
      * The first added sub-key will be the primary key of this key.
      *
-     * @param Crypt_GPG_SubKey $subKey the sub-key to add.
+     * @param SchumacherFM_Pgp_Model_Cli_Gpg_SubKey $subKey the sub-key to add.
      *
-     * @return Crypt_GPG_Key the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_Key the current object, for fluent interface.
      */
-    public function addSubKey(Crypt_GPG_SubKey $subKey)
+    public function addSubKey(SchumacherFM_Pgp_Model_Cli_Gpg_SubKey $subKey)
     {
         $this->_subKeys[] = $subKey;
         return $this;
@@ -205,11 +205,11 @@ class Crypt_GPG_Key
     /**
      * Adds a user id to this key
      *
-     * @param Crypt_GPG_UserId $userId the user id to add.
+     * @param SchumacherFM_Pgp_Model_Cli_Gpg_UserId $userId the user id to add.
      *
-     * @return Crypt_GPG_Key the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_Key the current object, for fluent interface.
      */
-    public function addUserId(Crypt_GPG_UserId $userId)
+    public function addUserId(SchumacherFM_Pgp_Model_Cli_Gpg_UserId $userId)
     {
         $this->_userIds[] = $userId;
         return $this;
@@ -219,5 +219,3 @@ class Crypt_GPG_Key
 }
 
 // }}}
-
-?>

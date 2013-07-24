@@ -33,13 +33,13 @@
  * @link      http://pear.php.net/package/Crypt_GPG
  */
 
-// {{{ class Crypt_GPG_SubKey
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_SubKey
 
 /**
  * A class for GPG sub-key information
  *
  * This class is used to store the results of the {@link Crypt_GPG::getKeys()}
- * method. Sub-key objects are members of a {@link Crypt_GPG_Key} object.
+ * method. Sub-key objects are members of a {@link SchumacherFM_Pgp_Model_Cli_Gpg_Key} object.
  *
  * @category  Encryption
  * @package   Crypt_GPG
@@ -49,9 +49,9 @@
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  * @see       Crypt_GPG::getKeys()
- * @see       Crypt_GPG_Key::getSubKeys()
+ * @see       SchumacherFM_Pgp_Model_Cli_Gpg_Key::getSubKeys()
  */
-class Crypt_GPG_SubKey
+class SchumacherFM_Pgp_Model_Cli_Gpg_SubKey
 {
     // {{{ algorithm class constants
 
@@ -112,7 +112,7 @@ class Crypt_GPG_SubKey
     /**
      * The algorithm used to create this sub-key
      *
-     * The value is one of the Crypt_GPG_SubKey::ALGORITHM_* constants.
+     * The value is one of the SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::ALGORITHM_* constants.
      *
      * @var integer
      */
@@ -156,28 +156,28 @@ class Crypt_GPG_SubKey
      *
      * @var boolean
      */
-    private $_canSign = false;
+    private $_canSign = FALSE;
 
     /**
      * Whether or not this sub-key can encrypt data
      *
      * @var boolean
      */
-    private $_canEncrypt = false;
+    private $_canEncrypt = FALSE;
 
     /**
      * Whether or not the private key for this sub-key exists in the keyring
      *
      * @var boolean
      */
-    private $_hasPrivate = false;
+    private $_hasPrivate = FALSE;
 
     /**
      * Whether or not this sub-key is revoked
      *
      * @var boolean
      */
-    private $_isRevoked = false;
+    private $_isRevoked = FALSE;
 
     // }}}
     // {{{ __construct()
@@ -209,9 +209,9 @@ class Crypt_GPG_SubKey
      * - <kbd>boolean isRevoked</kbd>   - whether or not this sub-key is
      *                                    revoked.
      *
-     * @param Crypt_GPG_SubKey|string|array $key optional. Either an existing
-     *        sub-key object, which is copied; a sub-key string, which is
-     *        parsed; or an array of initial values.
+     * @param SchumacherFM_Pgp_Model_Cli_Gpg_SubKey|string|array $key optional. Either an existing
+     *                                                                sub-key object, which is copied; a sub-key string, which is
+     *                                                                parsed; or an array of initial values.
      */
     public function __construct($key = null)
     {
@@ -221,7 +221,7 @@ class Crypt_GPG_SubKey
         }
 
         // copy from object
-        if ($key instanceof Crypt_GPG_SubKey) {
+        if ($key instanceof SchumacherFM_Pgp_Model_Cli_Gpg_SubKey) {
             $this->_id             = $key->_id;
             $this->_algorithm      = $key->_algorithm;
             $this->_fingerprint    = $key->_fingerprint;
@@ -297,7 +297,7 @@ class Crypt_GPG_SubKey
     /**
      * Gets the algorithm used by this sub-key
      *
-     * The algorithm should be one of the Crypt_GPG_SubKey::ALGORITHM_*
+     * The algorithm should be one of the SchumacherFM_Pgp_Model_Cli_Gpg_SubKey::ALGORITHM_*
      * constants.
      *
      * @return integer the algorithm used by this sub-key.
@@ -430,7 +430,7 @@ class Crypt_GPG_SubKey
      *
      * @param integer $creationDate the creation date of this sub-key.
      *
-     * @return Crypt_GPG_SubKey the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the current object, for fluent interface.
      */
     public function setCreationDate($creationDate)
     {
@@ -449,7 +449,7 @@ class Crypt_GPG_SubKey
      *
      * @param integer $expirationDate the expiration date of this sub-key.
      *
-     * @return Crypt_GPG_SubKey the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the current object, for fluent interface.
      */
     public function setExpirationDate($expirationDate)
     {
@@ -465,7 +465,7 @@ class Crypt_GPG_SubKey
      *
      * @param string $id the id of this sub-key.
      *
-     * @return Crypt_GPG_SubKey the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the current object, for fluent interface.
      */
     public function setId($id)
     {
@@ -481,7 +481,7 @@ class Crypt_GPG_SubKey
      *
      * @param integer $algorithm the algorithm used by this sub-key.
      *
-     * @return Crypt_GPG_SubKey the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the current object, for fluent interface.
      */
     public function setAlgorithm($algorithm)
     {
@@ -497,7 +497,7 @@ class Crypt_GPG_SubKey
      *
      * @param string $fingerprint the fingerprint of this sub-key.
      *
-     * @return Crypt_GPG_SubKey the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the current object, for fluent interface.
      */
     public function setFingerprint($fingerprint)
     {
@@ -513,7 +513,7 @@ class Crypt_GPG_SubKey
      *
      * @param integer $length the length of this sub-key in bits.
      *
-     * @return Crypt_GPG_SubKey the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the current object, for fluent interface.
      */
     public function setLength($length)
     {
@@ -530,11 +530,11 @@ class Crypt_GPG_SubKey
      * @param boolean $canSign true if this sub-key can sign data and false if
      *                         it can not.
      *
-     * @return Crypt_GPG_SubKey the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the current object, for fluent interface.
      */
     public function setCanSign($canSign)
     {
-        $this->_canSign = ($canSign) ? true : false;
+        $this->_canSign = ($canSign) ? TRUE : FALSE;
         return $this;
     }
 
@@ -547,11 +547,11 @@ class Crypt_GPG_SubKey
      * @param boolean $canEncrypt true if this sub-key can encrypt data and
      *                            false if it can not.
      *
-     * @return Crypt_GPG_SubKey the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the current object, for fluent interface.
      */
     public function setCanEncrypt($canEncrypt)
     {
-        $this->_canEncrypt = ($canEncrypt) ? true : false;
+        $this->_canEncrypt = ($canEncrypt) ? TRUE : FALSE;
         return $this;
     }
 
@@ -566,11 +566,11 @@ class Crypt_GPG_SubKey
      *                            exists in the keyring and false if it does
      *                            not.
      *
-     * @return Crypt_GPG_SubKey the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the current object, for fluent interface.
      */
     public function setHasPrivate($hasPrivate)
     {
-        $this->_hasPrivate = ($hasPrivate) ? true : false;
+        $this->_hasPrivate = ($hasPrivate) ? TRUE : FALSE;
         return $this;
     }
 
@@ -582,11 +582,11 @@ class Crypt_GPG_SubKey
      *
      * @param boolean $isRevoked whether or not this sub-key is revoked.
      *
-     * @return Crypt_GPG_SubKey the current object, for fluent interface.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the current object, for fluent interface.
      */
     public function setRevoked($isRevoked)
     {
-        $this->_isRevoked = ($isRevoked) ? true : false;
+        $this->_isRevoked = ($isRevoked) ? TRUE : FALSE;
         return $this;
     }
 
@@ -602,13 +602,13 @@ class Crypt_GPG_SubKey
      *
      * @param string $string the string containing the sub-key.
      *
-     * @return Crypt_GPG_SubKey the sub-key object parsed from the string.
+     * @return SchumacherFM_Pgp_Model_Cli_Gpg_SubKey the sub-key object parsed from the string.
      */
     public static function parse($string)
     {
         $tokens = explode(':', $string);
 
-        $subKey = new Crypt_GPG_SubKey();
+        $subKey = new SchumacherFM_Pgp_Model_Cli_Gpg_SubKey();
 
         $subKey->setId($tokens[4]);
         $subKey->setLength($tokens[2]);
@@ -617,15 +617,15 @@ class Crypt_GPG_SubKey
         $subKey->setExpirationDate(self::_parseDate($tokens[6]));
 
         if ($tokens[1] == 'r') {
-            $subKey->setRevoked(true);
+            $subKey->setRevoked(TRUE);
         }
 
-        if (strpos($tokens[11], 's') !== false) {
-            $subKey->setCanSign(true);
+        if (strpos($tokens[11], 's') !== FALSE) {
+            $subKey->setCanSign(TRUE);
         }
 
-        if (strpos($tokens[11], 'e') !== false) {
-            $subKey->setCanEncrypt(true);
+        if (strpos($tokens[11], 'e') !== FALSE) {
+            $subKey->setCanEncrypt(TRUE);
         }
 
         return $subKey;
@@ -650,7 +650,7 @@ class Crypt_GPG_SubKey
             // all times are in UTC according to GPG documentation
             $timeZone = new DateTimeZone('UTC');
 
-            if (strpos($string, 'T') === false) {
+            if (strpos($string, 'T') === FALSE) {
                 // interpret as UNIX timestamp
                 $string = '@' . $string;
             }
@@ -668,5 +668,3 @@ class Crypt_GPG_SubKey
 }
 
 // }}}
-
-?>

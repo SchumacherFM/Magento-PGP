@@ -37,32 +37,7 @@
  * @link      http://www.gnupg.org/
  */
 
-/**
- * Crypt_GPG base class.
- */
-require_once 'Crypt/GPG.php';
-
-/**
- * GPG exception classes.
- */
-require_once 'Crypt/GPG/Exceptions.php';
-
-/**
- * Byte string operations.
- */
-require_once 'Crypt/GPG/ByteUtils.php';
-
-/**
- * Process control methods.
- */
-require_once 'Crypt/GPG/ProcessControl.php';
-
-/**
- * Standard PEAR exception is used if GPG binary is not found.
- */
-require_once 'PEAR/Exception.php';
-
-// {{{ class Crypt_GPG_Engine
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
 
 /**
  * Native PHP Crypt_GPG I/O engine
@@ -85,7 +60,7 @@ require_once 'PEAR/Exception.php';
  * @link      http://pear.php.net/package/Crypt_GPG
  * @link      http://www.gnupg.org/
  */
-class Crypt_GPG_Engine
+class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
 {
     // {{{ constants
 
@@ -159,7 +134,7 @@ class Crypt_GPG_Engine
      * Debugging is off by default.
      *
      * @var boolean
-     * @see Crypt_GPG_Engine::__construct()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::__construct()
      */
     private $_debug = false;
 
@@ -167,8 +142,8 @@ class Crypt_GPG_Engine
      * Location of GPG binary
      *
      * @var string
-     * @see Crypt_GPG_Engine::__construct()
-     * @see Crypt_GPG_Engine::_getBinary()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::__construct()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::_getBinary()
      */
     private $_binary = '';
 
@@ -178,8 +153,8 @@ class Crypt_GPG_Engine
      * Only used for GnuPG 2.x
      *
      * @var string
-     * @see Crypt_GPG_Engine::__construct()
-     * @see Crypt_GPG_Engine::_getAgent()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::__construct()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::_getAgent()
      */
     private $_agent = '';
 
@@ -190,7 +165,7 @@ class Crypt_GPG_Engine
      * is specified in the constructor.
      *
      * @var string
-     * @see Crypt_GPG_Engine::__construct()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::__construct()
      */
     private $_homedir = '';
 
@@ -205,7 +180,7 @@ class Crypt_GPG_Engine
      * <kbd>~/.gnupg</kbd>.
      *
      * @var string
-     * @see Crypt_GPG_Engine::__construct()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::__construct()
      */
     private $_publicKeyring = '';
 
@@ -220,7 +195,7 @@ class Crypt_GPG_Engine
      * <kbd>~/.gnupg</kbd>.
      *
      * @var string
-     * @see Crypt_GPG_Engine::__construct()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::__construct()
      */
     private $_privateKeyring = '';
 
@@ -235,7 +210,7 @@ class Crypt_GPG_Engine
      * <kbd>~/.gnupg</kbd>.
      *
      * @var string
-     * @see Crypt_GPG_Engine::__construct()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::__construct()
      */
     private $_trustDb = '';
 
@@ -262,11 +237,11 @@ class Crypt_GPG_Engine
      *
      * This array is used to keep track of remaining opened pipes so they can
      * be closed when the GPG subprocess is finished. This array is a subset of
-     * the {@link Crypt_GPG_Engine::$_pipes} array and contains opened file
+     * the {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine::$_pipes} array and contains opened file
      * descriptor resources.
      *
      * @var array
-     * @see Crypt_GPG_Engine::_closePipe()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::_closePipe()
      */
     private $_openPipes = array();
 
@@ -302,7 +277,7 @@ class Crypt_GPG_Engine
      * Commands to be sent to GPG's command input stream
      *
      * @var string
-     * @see Crypt_GPG_Engine::sendCommand()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::sendCommand()
      */
     private $_commandBuffer = '';
 
@@ -310,7 +285,7 @@ class Crypt_GPG_Engine
      * Array of status line handlers
      *
      * @var array
-     * @see Crypt_GPG_Engine::addStatusHandler()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::addStatusHandler()
      */
     private $_statusHandlers = array();
 
@@ -318,7 +293,7 @@ class Crypt_GPG_Engine
      * Array of error line handlers
      *
      * @var array
-     * @see Crypt_GPG_Engine::addErrorHandler()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::addErrorHandler()
      */
     private $_errorHandlers = array();
 
@@ -326,7 +301,7 @@ class Crypt_GPG_Engine
      * The error code of the current operation
      *
      * @var integer
-     * @see Crypt_GPG_Engine::getErrorCode()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::getErrorCode()
      */
     private $_errorCode = Crypt_GPG::ERROR_NONE;
 
@@ -334,7 +309,7 @@ class Crypt_GPG_Engine
      * File related to the error code of the current operation
      *
      * @var string
-     * @see Crypt_GPG_Engine::getErrorFilename()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::getErrorFilename()
      */
     private $_errorFilename = '';
 
@@ -342,7 +317,7 @@ class Crypt_GPG_Engine
      * Key id related to the error code of the current operation
      *
      * @var string
-     * @see Crypt_GPG_Engine::getErrorKeyId()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::getErrorKeyId()
      */
     private $_errorkeyId = '';
 
@@ -362,7 +337,7 @@ class Crypt_GPG_Engine
      * This is data to send to GPG. Either a string or a stream resource.
      *
      * @var string|resource
-     * @see Crypt_GPG_Engine::setInput()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setInput()
      */
     private $_input = null;
 
@@ -372,7 +347,7 @@ class Crypt_GPG_Engine
      * Either a string or a stream resource.
      *
      * @var string|resource
-     * @see Crypt_GPG_Engine::setMessage()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setMessage()
      */
     private $_message = null;
 
@@ -383,7 +358,7 @@ class Crypt_GPG_Engine
      * resource.
      *
      * @var string|resource
-     * @see Crypt_GPG_Engine::setOutput()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOutput()
      */
     private $_output = '';
 
@@ -391,7 +366,7 @@ class Crypt_GPG_Engine
      * The GPG operation to execute
      *
      * @var string
-     * @see Crypt_GPG_Engine::setOperation()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation()
      */
     private $_operation;
 
@@ -399,7 +374,7 @@ class Crypt_GPG_Engine
      * Arguments for the current operation
      *
      * @var array
-     * @see Crypt_GPG_Engine::setOperation()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation()
      */
     private $_arguments = array();
 
@@ -407,7 +382,7 @@ class Crypt_GPG_Engine
      * The version number of the GPG binary
      *
      * @var string
-     * @see Crypt_GPG_Engine::getVersion()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::getVersion()
      */
     private $_version = '';
 
@@ -483,7 +458,7 @@ class Crypt_GPG_Engine
      *                       GPG object. All options are optional and are
      *                       represented as key-value pairs.
      *
-     * @throws Crypt_GPG_FileException if the <kbd>homedir</kbd> does not exist
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the <kbd>homedir</kbd> does not exist
      *         and cannot be created. This can happen if <kbd>homedir</kbd> is
      *         not specified, Crypt_GPG is run as the web user, and the web
      *         user has no home directory. This exception is also thrown if any
@@ -523,7 +498,7 @@ class Crypt_GPG_Engine
             }
 
             if ($this->_homedir === false) {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not locate homedir. Please specify the homedir ' .
                     'to use with the \'homedir\' option when instantiating ' .
                     'the Crypt_GPG object.'
@@ -538,7 +513,7 @@ class Crypt_GPG_Engine
                 // with 0777, homedir is set to 0700.
                 chmod($this->_homedir, 0700);
             } else {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'The \'homedir\' "' . $this->_homedir . '" is not ' .
                     'readable or does not exist and cannot be created. This ' .
                     'can happen if \'homedir\' is not specified in the ' .
@@ -552,7 +527,7 @@ class Crypt_GPG_Engine
 
         // check homedir permissions (See Bug #19833)
         if (!is_executable($this->_homedir)) {
-            throw new Crypt_GPG_FileException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                 'The \'homedir\' "' . $this->_homedir . '" is not enterable ' .
                 'by the current user. Please check the permissions on your ' .
                 'homedir and make sure the current user can both enter and ' .
@@ -562,7 +537,7 @@ class Crypt_GPG_Engine
             );
         }
         if (!is_writeable($this->_homedir)) {
-            throw new Crypt_GPG_FileException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                 'The \'homedir\' "' . $this->_homedir . '" is not writable ' .
                 'by the current user. Please check the permissions on your ' .
                 'homedir and make sure the current user can both enter and ' .
@@ -590,7 +565,7 @@ class Crypt_GPG_Engine
             );
         }
 
-        // get agent 
+        // get agent
         if (array_key_exists('agent', $options)) {
             $this->_agent = (string)$options['agent'];
         } else {
@@ -622,7 +597,7 @@ class Crypt_GPG_Engine
         if (array_key_exists('publicKeyring', $options)) {
             $this->_publicKeyring = (string)$options['publicKeyring'];
             if (!is_readable($this->_publicKeyring)) {
-                 throw new Crypt_GPG_FileException('The \'publicKeyring\' "' .
+                 throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException('The \'publicKeyring\' "' .
                     $this->_publicKeyring . '" does not exist or is ' .
                     'not readable. Check the location and ensure the file ' .
                     'permissions are correct.', 0, $this->_publicKeyring);
@@ -633,7 +608,7 @@ class Crypt_GPG_Engine
         if (array_key_exists('privateKeyring', $options)) {
             $this->_privateKeyring = (string)$options['privateKeyring'];
             if (!is_readable($this->_privateKeyring)) {
-                 throw new Crypt_GPG_FileException('The \'privateKeyring\' "' .
+                 throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException('The \'privateKeyring\' "' .
                     $this->_privateKeyring . '" does not exist or is ' .
                     'not readable. Check the location and ensure the file ' .
                     'permissions are correct.', 0, $this->_privateKeyring);
@@ -644,7 +619,7 @@ class Crypt_GPG_Engine
         if (array_key_exists('trustDb', $options)) {
             $this->_trustDb = (string)$options['trustDb'];
             if (!is_readable($this->_trustDb)) {
-                 throw new Crypt_GPG_FileException('The \'trustDb\' "' .
+                 throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException('The \'trustDb\' "' .
                     $this->_trustDb . '" does not exist or is not readable. ' .
                     'Check the location and ensure the file permissions are ' .
                     'correct.', 0, $this->_trustDb);
@@ -746,8 +721,8 @@ class Crypt_GPG_Engine
      *
      * @return void
      *
-     * @see Crypt_GPG_Engine::run()
-     * @see Crypt_GPG_Engine::setOperation()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::run()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation()
      */
     public function reset()
     {
@@ -780,22 +755,22 @@ class Crypt_GPG_Engine
      *
      * This creates and manages the GPG subprocess.
      *
-     * The operation must be set with {@link Crypt_GPG_Engine::setOperation()}
+     * The operation must be set with {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation()}
      * before this method is called.
      *
      * @return void
      *
-     * @throws Crypt_GPG_InvalidOperationException if no operation is specified.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_InvalidOperationException if no operation is specified.
      *
-     * @see Crypt_GPG_Engine::reset()
-     * @see Crypt_GPG_Engine::setOperation()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::reset()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation()
      */
     public function run()
     {
         if ($this->_operation === '') {
-            throw new Crypt_GPG_InvalidOperationException('No GPG operation ' .
-                'specified. Use Crypt_GPG_Engine::setOperation() before ' .
-                'calling Crypt_GPG_Engine::run().');
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_InvalidOperationException('No GPG operation ' .
+                'specified. Use SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation() before ' .
+                'calling SchumacherFM_Pgp_Model_Cli_Gpg_Engine::run().');
         }
 
         $this->_openSubprocess();
@@ -809,7 +784,7 @@ class Crypt_GPG_Engine
     /**
      * Gets the error code of the last executed operation
      *
-     * This value is only meaningful after {@link Crypt_GPG_Engine::run()} has
+     * This value is only meaningful after {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine::run()} has
      * been executed.
      *
      * @return integer the error code of the last executed operation.
@@ -825,7 +800,7 @@ class Crypt_GPG_Engine
     /**
      * Gets the file related to the error code of the last executed operation
      *
-     * This value is only meaningful after {@link Crypt_GPG_Engine::run()} has
+     * This value is only meaningful after {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine::run()} has
      * been executed. If there is no file related to the error, an empty string
      * is returned.
      *
@@ -843,7 +818,7 @@ class Crypt_GPG_Engine
     /**
      * Gets the key id related to the error code of the last executed operation
      *
-     * This value is only meaningful after {@link Crypt_GPG_Engine::run()} has
+     * This value is only meaningful after {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine::run()} has
      * been executed. If there is no key id related to the error, an empty
      * string is returned.
      *
@@ -927,8 +902,8 @@ class Crypt_GPG_Engine
      *
      * @return void
      *
-     * @see Crypt_GPG_Engine::reset()
-     * @see Crypt_GPG_Engine::run()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::reset()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::run()
      */
     public function setOperation($operation, array $arguments = array())
     {
@@ -946,11 +921,11 @@ class Crypt_GPG_Engine
      *                being used. This value is suitable to use with PHP's
      *                version_compare() function.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
-     * @throws Crypt_GPG_UnsupportedException if the provided binary is not
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_UnsupportedException if the provided binary is not
      *         GnuPG or if the GnuPG version is less than 1.0.2.
      */
     public function getVersion()
@@ -978,7 +953,7 @@ class Crypt_GPG_Engine
             $code = $this->getErrorCode();
 
             if ($code !== Crypt_GPG::ERROR_NONE) {
-                throw new Crypt_GPG_Exception(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                     'Unknown error getting GnuPG version information. Please ' .
                     'use the \'debug\' option when creating the Crypt_GPG ' .
                     'object, and file a bug report at ' . Crypt_GPG::BUG_URI,
@@ -991,13 +966,13 @@ class Crypt_GPG_Engine
             if (preg_match($expression, $info, $matches) === 1) {
                 $this->_version = $matches[1];
             } else {
-                throw new Crypt_GPG_Exception(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                     'No GnuPG version information provided by the binary "' .
                     $this->_binary . '". Are you sure it is GnuPG?');
             }
 
             if (version_compare($this->_version, self::MIN_VERSION, 'lt')) {
-                throw new Crypt_GPG_Exception(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                     'The version of GnuPG being used (' . $this->_version .
                     ') is not supported by Crypt_GPG. The minimum version ' .
                     'required by Crypt_GPG is ' . self::MIN_VERSION);
@@ -1015,7 +990,7 @@ class Crypt_GPG_Engine
      * Handles error values in the status output from GPG
      *
      * This method is responsible for setting the
-     * {@link Crypt_GPG_Engine::$_errorCode}. See <b>doc/DETAILS</b> in the
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine::$_errorCode}. See <b>doc/DETAILS</b> in the
      * {@link http://www.gnupg.org/download/ GPG distribution} for detailed
      * information on GPG's status output.
      *
@@ -1086,7 +1061,7 @@ class Crypt_GPG_Engine
      * Handles error values in the error output from GPG
      *
      * This method is responsible for setting the
-     * {@link Crypt_GPG_Engine::$_errorCode}.
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine::$_errorCode}.
      *
      * @param string $line the error line to handle.
      *
@@ -1170,7 +1145,7 @@ class Crypt_GPG_Engine
      *
      * @return void
      *
-     * @throws Crypt_GPG_Exception if there is an error selecting streams for
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if there is an error selecting streams for
      *         reading or writing. If this occurs, please file a bug report at
      *         http://pear.php.net/bugs/report.php?package=Crypt_GPG.
      */
@@ -1293,14 +1268,14 @@ class Crypt_GPG_Engine
             $this->_debug('=> got ' . $ready);
 
             if ($ready === false) {
-                throw new Crypt_GPG_Exception(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                     'Error selecting stream for communication with GPG ' .
                     'subprocess. Please file a bug report at: ' .
                     'http://pear.php.net/bugs/report.php?package=Crypt_GPG');
             }
 
             if ($ready === 0) {
-                throw new Crypt_GPG_Exception(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                     'stream_select() returned 0. This can not happen! Please ' .
                     'file a bug report at: ' .
                     'http://pear.php.net/bugs/report.php?package=Crypt_GPG');
@@ -1310,13 +1285,13 @@ class Crypt_GPG_Engine
             if (in_array($fdInput, $outputStreams, true)) {
                 $this->_debug('GPG is ready for input');
 
-                $chunk = Crypt_GPG_ByteUtils::substr(
+                $chunk = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
                     $inputBuffer,
                     0,
                     self::CHUNK_SIZE
                 );
 
-                $length = Crypt_GPG_ByteUtils::strlen($chunk);
+                $length = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
 
                 $this->_debug(
                     '=> about to write ' . $length . ' bytes to GPG input'
@@ -1333,7 +1308,7 @@ class Crypt_GPG_Engine
                     $this->_closePipe(self::FD_INPUT);
                 } else {
                     $this->_debug('=> wrote ' . $length . ' bytes');
-                    $inputBuffer = Crypt_GPG_ByteUtils::substr(
+                    $inputBuffer = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
                         $inputBuffer,
                         $length
                     );
@@ -1349,7 +1324,7 @@ class Crypt_GPG_Engine
                 );
 
                 $chunk        = fread($this->_input, self::CHUNK_SIZE);
-                $length       = Crypt_GPG_ByteUtils::strlen($chunk);
+                $length       = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
                 $inputBuffer .= $chunk;
 
                 $this->_debug('=> read ' . $length . ' bytes');
@@ -1359,13 +1334,13 @@ class Crypt_GPG_Engine
             if (in_array($fdMessage, $outputStreams, true)) {
                 $this->_debug('GPG is ready for message data');
 
-                $chunk = Crypt_GPG_ByteUtils::substr(
+                $chunk = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
                     $messageBuffer,
                     0,
                     self::CHUNK_SIZE
                 );
 
-                $length = Crypt_GPG_ByteUtils::strlen($chunk);
+                $length = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
 
                 $this->_debug(
                     '=> about to write ' . $length . ' bytes to GPG message'
@@ -1382,7 +1357,7 @@ class Crypt_GPG_Engine
                     $this->_closePipe(self::FD_MESSAGE);
                 } else {
                     $this->_debug('=> wrote ' . $length . ' bytes');
-                    $messageBuffer = Crypt_GPG_ByteUtils::substr(
+                    $messageBuffer = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
                         $messageBuffer,
                         $length
                     );
@@ -1398,7 +1373,7 @@ class Crypt_GPG_Engine
                 );
 
                 $chunk          = fread($this->_message, self::CHUNK_SIZE);
-                $length         = Crypt_GPG_ByteUtils::strlen($chunk);
+                $length         = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
                 $messageBuffer .= $chunk;
 
                 $this->_debug('=> read ' . $length . ' bytes');
@@ -1413,7 +1388,7 @@ class Crypt_GPG_Engine
                 );
 
                 $chunk         = fread($fdOutput, self::CHUNK_SIZE);
-                $length        = Crypt_GPG_ByteUtils::strlen($chunk);
+                $length        = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
                 $outputBuffer .= $chunk;
 
                 $this->_debug('=> read ' . $length . ' bytes');
@@ -1423,13 +1398,13 @@ class Crypt_GPG_Engine
             if (in_array($this->_output, $outputStreams, true)) {
                 $this->_debug('output stream is ready for data');
 
-                $chunk = Crypt_GPG_ByteUtils::substr(
+                $chunk = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
                     $outputBuffer,
                     0,
                     self::CHUNK_SIZE
                 );
 
-                $length = Crypt_GPG_ByteUtils::strlen($chunk);
+                $length = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
 
                 $this->_debug(
                     '=> about to write ' . $length . ' bytes to output stream'
@@ -1439,7 +1414,7 @@ class Crypt_GPG_Engine
 
                 $this->_debug('=> wrote ' . $length . ' bytes');
 
-                $outputBuffer = Crypt_GPG_ByteUtils::substr(
+                $outputBuffer = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
                     $outputBuffer,
                     $length
                 );
@@ -1454,14 +1429,14 @@ class Crypt_GPG_Engine
                 );
 
                 $chunk        = fread($fdError, self::CHUNK_SIZE);
-                $length       = Crypt_GPG_ByteUtils::strlen($chunk);
+                $length       = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
                 $errorBuffer .= $chunk;
 
                 $this->_debug('=> read ' . $length . ' bytes');
 
                 // pass lines to error handlers
                 while (($pos = strpos($errorBuffer, PHP_EOL)) !== false) {
-                    $line = Crypt_GPG_ByteUtils::substr($errorBuffer, 0, $pos);
+                    $line = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr($errorBuffer, 0, $pos);
                     foreach ($this->_errorHandlers as $handler) {
                         array_unshift($handler['args'], $line);
                         call_user_func_array(
@@ -1471,9 +1446,9 @@ class Crypt_GPG_Engine
 
                         array_shift($handler['args']);
                     }
-                    $errorBuffer = Crypt_GPG_ByteUtils::substr(
+                    $errorBuffer = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
                         $errorBuffer,
-                        $pos + Crypt_GPG_ByteUtils::strlen(PHP_EOL)
+                        $pos + SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen(PHP_EOL)
                     );
                 }
             }
@@ -1487,17 +1462,17 @@ class Crypt_GPG_Engine
                 );
 
                 $chunk         = fread($fdStatus, self::CHUNK_SIZE);
-                $length        = Crypt_GPG_ByteUtils::strlen($chunk);
+                $length        = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
                 $statusBuffer .= $chunk;
 
                 $this->_debug('=> read ' . $length . ' bytes');
 
                 // pass lines to status handlers
                 while (($pos = strpos($statusBuffer, PHP_EOL)) !== false) {
-                    $line = Crypt_GPG_ByteUtils::substr($statusBuffer, 0, $pos);
+                    $line = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr($statusBuffer, 0, $pos);
                     // only pass lines beginning with magic prefix
-                    if (Crypt_GPG_ByteUtils::substr($line, 0, 9) == '[GNUPG:] ') {
-                        $line = Crypt_GPG_ByteUtils::substr($line, 9);
+                    if (SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr($line, 0, 9) == '[GNUPG:] ') {
+                        $line = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr($line, 9);
                         foreach ($this->_statusHandlers as $handler) {
                             array_unshift($handler['args'], $line);
                             call_user_func_array(
@@ -1508,9 +1483,9 @@ class Crypt_GPG_Engine
                             array_shift($handler['args']);
                         }
                     }
-                    $statusBuffer = Crypt_GPG_ByteUtils::substr(
+                    $statusBuffer = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
                         $statusBuffer,
-                        $pos + Crypt_GPG_ByteUtils::strlen(PHP_EOL)
+                        $pos + SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen(PHP_EOL)
                     );
                 }
             }
@@ -1520,13 +1495,13 @@ class Crypt_GPG_Engine
                 $this->_debug('GPG is ready for command data');
 
                 // send commands
-                $chunk = Crypt_GPG_ByteUtils::substr(
+                $chunk = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
                     $this->_commandBuffer,
                     0,
                     self::CHUNK_SIZE
                 );
 
-                $length = Crypt_GPG_ByteUtils::strlen($chunk);
+                $length = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
 
                 $this->_debug(
                     '=> about to write ' . $length . ' bytes to GPG command'
@@ -1543,7 +1518,7 @@ class Crypt_GPG_Engine
                     $this->_closePipe(self::FD_COMMAND);
                 } else {
                     $this->_debug('=> wrote ' . $length);
-                    $this->_commandBuffer = Crypt_GPG_ByteUtils::substr(
+                    $this->_commandBuffer = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
                         $this->_commandBuffer,
                         $length
                     );
@@ -1576,17 +1551,17 @@ class Crypt_GPG_Engine
      * Opens an internal GPG subprocess for the current operation
      *
      * Opens a GPG subprocess, then connects the subprocess to some pipes. Sets
-     * the private class property {@link Crypt_GPG_Engine::$_process} to
+     * the private class property {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine::$_process} to
      * the new subprocess.
      *
      * @return void
      *
-     * @throws Crypt_GPG_OpenSubprocessException if the subprocess could not be
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_OpenSubprocessException if the subprocess could not be
      *         opened.
      *
-     * @see Crypt_GPG_Engine::setOperation()
-     * @see Crypt_GPG_Engine::_closeSubprocess()
-     * @see Crypt_GPG_Engine::$_process
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::_closeSubprocess()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::$_process
      */
     private function _openSubprocess()
     {
@@ -1647,7 +1622,7 @@ class Crypt_GPG_Engine
             );
 
             if (!is_resource($this->_agentProcess)) {
-                throw new Crypt_GPG_OpenSubprocessException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_OpenSubprocessException(
                     'Unable to open gpg-agent subprocess.',
                     0,
                     $agentCommandLine
@@ -1747,7 +1722,7 @@ class Crypt_GPG_Engine
         );
 
         if (!is_resource($this->_process)) {
-            throw new Crypt_GPG_OpenSubprocessException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_OpenSubprocessException(
                 'Unable to open GPG subprocess.', 0, $commandLine);
         }
 
@@ -1767,12 +1742,12 @@ class Crypt_GPG_Engine
      * Closes a the internal GPG subprocess
      *
      * Closes the internal GPG subprocess. Sets the private class property
-     * {@link Crypt_GPG_Engine::$_process} to null.
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg_Engine::$_process} to null.
      *
      * @return void
      *
-     * @see Crypt_GPG_Engine::_openSubprocess()
-     * @see Crypt_GPG_Engine::$_process
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::_openSubprocess()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::$_process
      */
     private function _closeSubprocess()
     {
@@ -1815,7 +1790,7 @@ class Crypt_GPG_Engine
 
             $parts   = explode(':', $this->_agentInfo, 3);
             $pid     = $parts[1];
-            $process = new Crypt_GPG_ProcessControl($pid);
+            $process = new SchumacherFM_Pgp_Model_Cli_Gpg_ProcessControl($pid);
 
             // terminate agent daemon
             $process->terminate();
@@ -2002,5 +1977,3 @@ class Crypt_GPG_Engine
 }
 
 // }}}
-
-?>

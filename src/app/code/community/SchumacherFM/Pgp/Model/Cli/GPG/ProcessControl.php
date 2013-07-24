@@ -32,7 +32,7 @@
  * @link      http://pear.php.net/package/Crypt_GPG
  */
 
-// {{{ class Crypt_GPG_ProcessControl
+// {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_ProcessControl
 
 /**
  * A class for monitoring and terminating processes by PID
@@ -48,7 +48,7 @@
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
  */
-class Crypt_GPG_ProcessControl
+class SchumacherFM_Pgp_Model_Cli_Gpg_ProcessControl
 {
     // {{{ protected properties
 
@@ -146,5 +146,3 @@ class Crypt_GPG_ProcessControl
 }
 
 // }}}
-
-?>

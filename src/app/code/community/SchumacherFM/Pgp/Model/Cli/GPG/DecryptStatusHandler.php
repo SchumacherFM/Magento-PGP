@@ -37,17 +37,6 @@
  */
 
 /**
- * Crypt_GPG base class
- */
-require_once 'Crypt/GPG.php';
-
-/**
- * Crypt_GPG exception classes
- */
-require_once 'Crypt/GPG/Exceptions.php';
-
-
-/**
  * Status line handler for the decrypt operation
  *
  * This class is used internally by Crypt_GPG and does not need be used
@@ -69,7 +58,7 @@ require_once 'Crypt/GPG/Exceptions.php';
  * @link      http://pear.php.net/package/Crypt_GPG
  * @link      http://www.gnupg.org/
  */
-class Crypt_GPG_DecryptStatusHandler
+class SchumacherFM_Pgp_Model_Cli_Gpg_DecryptStatusHandler
 {
     // {{{ protected properties
 
@@ -93,7 +82,7 @@ class Crypt_GPG_DecryptStatusHandler
     /**
      * Engine used to which passphrases are passed
      *
-     * @var Crypt_GPG_Engine
+     * @var SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      */
     protected $engine = null;
 
@@ -113,14 +102,14 @@ class Crypt_GPG_DecryptStatusHandler
      *
      * @var boolean
      */
-    protected $decryptionOkay = true;
+    protected $decryptionOkay = TRUE;
 
     /**
      * Whether or not there was no data for decryption
      *
      * @var boolean
      */
-    protected $noData = false;
+    protected $noData = FALSE;
 
     /**
      * Keys for which the passhprase is missing
@@ -159,11 +148,11 @@ class Crypt_GPG_DecryptStatusHandler
     /**
      * Creates a new decryption status handler
      *
-     * @param Crypt_GPG_Engine $engine the GPG engine to which passphrases are
-     *                                 passed.
-     * @param array            $keys   the decryption keys to use.
+     * @param SchumacherFM_Pgp_Model_Cli_Gpg_Engine $engine the GPG engine to which passphrases are
+     *                                                      passed.
+     * @param array                                 $keys   the decryption keys to use.
      */
-    public function __construct(Crypt_GPG_Engine $engine, array $keys)
+    public function __construct(SchumacherFM_Pgp_Model_Cli_Gpg_Engine $engine, array $keys)
     {
         $this->engine = $engine;
         $this->keys   = $keys;
@@ -183,59 +172,59 @@ class Crypt_GPG_DecryptStatusHandler
     {
         $tokens = explode(' ', $line);
         switch ($tokens[0]) {
-        case 'ENC_TO':
-            // Now we know the message is encrypted. Set flag to check if
-            // decryption succeeded.
-            $this->decryptionOkay = false;
+            case 'ENC_TO':
+                // Now we know the message is encrypted. Set flag to check if
+                // decryption succeeded.
+                $this->decryptionOkay = FALSE;
 
-            // this is the new key message
-            $this->currentSubKeyId = $tokens[1];
-            break;
+                // this is the new key message
+                $this->currentSubKeyId = $tokens[1];
+                break;
 
-        case 'NEED_PASSPHRASE':
-            // send passphrase to the GPG engine
-            $subKeyId = $tokens[1];
-            if (array_key_exists($subKeyId, $this->keys)) {
-                $passphrase = $this->keys[$subKeyId]['passphrase'];
-                $this->engine->sendCommand($passphrase);
-            } else {
-                $this->engine->sendCommand('');
-            }
-            break;
+            case 'NEED_PASSPHRASE':
+                // send passphrase to the GPG engine
+                $subKeyId = $tokens[1];
+                if (array_key_exists($subKeyId, $this->keys)) {
+                    $passphrase = $this->keys[$subKeyId]['passphrase'];
+                    $this->engine->sendCommand($passphrase);
+                } else {
+                    $this->engine->sendCommand('');
+                }
+                break;
 
-        case 'USERID_HINT':
-            // remember the user id for pretty exception messages
-            $this->badPassphrases[$tokens[1]]
-                = implode(' ', array_splice($tokens, 2));
+            case 'USERID_HINT':
+                // remember the user id for pretty exception messages
+                $this->badPassphrases[$tokens[1]]
+                    = implode(' ', array_splice($tokens, 2));
 
-            break;
+                break;
 
-        case 'GOOD_PASSPHRASE':
-            // if we got a good passphrase, remove the key from the list of
-            // bad passphrases.
-            unset($this->badPassphrases[$this->currentSubKeyId]);
-            break;
+            case 'GOOD_PASSPHRASE':
+                // if we got a good passphrase, remove the key from the list of
+                // bad passphrases.
+                unset($this->badPassphrases[$this->currentSubKeyId]);
+                break;
 
-        case 'MISSING_PASSPHRASE':
-            $this->missingPassphrases[$this->currentSubKeyId]
-                = $this->currentSubKeyId;
+            case 'MISSING_PASSPHRASE':
+                $this->missingPassphrases[$this->currentSubKeyId]
+                    = $this->currentSubKeyId;
 
-            break;
+                break;
 
-        case 'NO_SECKEY':
-            // note: this message is also received if there are multiple
-            // recipients and a previous key had a correct passphrase.
-            $this->missingKeys[$tokens[1]] = $tokens[1];
-            break;
+            case 'NO_SECKEY':
+                // note: this message is also received if there are multiple
+                // recipients and a previous key had a correct passphrase.
+                $this->missingKeys[$tokens[1]] = $tokens[1];
+                break;
 
-        case 'NODATA':
-            $this->noData = true;
-            break;
+            case 'NODATA':
+                $this->noData = TRUE;
+                break;
 
-        case 'DECRYPTION_OKAY':
-            // If the message is encrypted, this is the all-clear signal.
-            $this->decryptionOkay = true;
-            break;
+            case 'DECRYPTION_OKAY':
+                // If the message is encrypted, this is the all-clear signal.
+                $this->decryptionOkay = TRUE;
+                break;
         }
     }
 
@@ -250,17 +239,17 @@ class Crypt_GPG_DecryptStatusHandler
      *
      * @return void
      *
-     * @throws Crypt_GPG_KeyNotFoundException if the private key needed to
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if the private key needed to
      *         decrypt the data is not in the user's keyring.
      *
-     * @throws Crypt_GPG_NoDataException if specified data does not contain
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if specified data does not contain
      *         GPG encrypted data.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a required passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
      *         {@link Crypt_GPG::addDecryptKey()}.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <i>debug</i> option and file a bug report if these
      *         exceptions occur.
      */
@@ -281,64 +270,62 @@ class Crypt_GPG_DecryptStatusHandler
         }
 
         switch ($code) {
-        case Crypt_GPG::ERROR_NONE:
-            break;
+            case Crypt_GPG::ERROR_NONE:
+                break;
 
-        case Crypt_GPG::ERROR_KEY_NOT_FOUND:
-            if (count($this->missingKeys) > 0) {
-                $keyId = reset($this->missingKeys);
-            } else {
-                $keyId = '';
-            }
-            throw new Crypt_GPG_KeyNotFoundException(
-                'Cannot decrypt data. No suitable private key is in the ' .
-                'keyring. Import a suitable private key before trying to ' .
-                'decrypt this data.',
-                $code,
-                $keyId
-            );
-        case Crypt_GPG::ERROR_BAD_PASSPHRASE:
-            $badPassphrases = array_diff_key(
-                $this->badPassphrases,
-                $this->missingPassphrases
-            );
+            case Crypt_GPG::ERROR_KEY_NOT_FOUND:
+                if (count($this->missingKeys) > 0) {
+                    $keyId = reset($this->missingKeys);
+                } else {
+                    $keyId = '';
+                }
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
+                    'Cannot decrypt data. No suitable private key is in the ' .
+                    'keyring. Import a suitable private key before trying to ' .
+                    'decrypt this data.',
+                    $code,
+                    $keyId
+                );
+            case Crypt_GPG::ERROR_BAD_PASSPHRASE:
+                $badPassphrases = array_diff_key(
+                    $this->badPassphrases,
+                    $this->missingPassphrases
+                );
 
-            $missingPassphrases = array_intersect_key(
-                $this->badPassphrases,
-                $this->missingPassphrases
-            );
+                $missingPassphrases = array_intersect_key(
+                    $this->badPassphrases,
+                    $this->missingPassphrases
+                );
 
-            $message =  'Cannot decrypt data.';
-            if (count($badPassphrases) > 0) {
-                $message = ' Incorrect passphrase provided for keys: "' .
-                    implode('", "', $badPassphrases) . '".';
-            }
-            if (count($missingPassphrases) > 0) {
-                $message = ' No passphrase provided for keys: "' .
-                    implode('", "', $badPassphrases) . '".';
-            }
+                $message = 'Cannot decrypt data.';
+                if (count($badPassphrases) > 0) {
+                    $message = ' Incorrect passphrase provided for keys: "' .
+                        implode('", "', $badPassphrases) . '".';
+                }
+                if (count($missingPassphrases) > 0) {
+                    $message = ' No passphrase provided for keys: "' .
+                        implode('", "', $badPassphrases) . '".';
+                }
 
-            throw new Crypt_GPG_BadPassphraseException(
-                $message,
-                $code,
-                $badPassphrases,
-                $missingPassphrases
-            );
-        case Crypt_GPG::ERROR_NO_DATA:
-            throw new Crypt_GPG_NoDataException(
-                'Cannot decrypt data. No PGP encrypted data was found in '.
-                'the provided data.',
-                $code
-            );
-        default:
-            throw new Crypt_GPG_Exception(
-                'Unknown error decrypting data.',
-                $code
-            );
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException(
+                    $message,
+                    $code,
+                    $badPassphrases,
+                    $missingPassphrases
+                );
+            case Crypt_GPG::ERROR_NO_DATA:
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException(
+                    'Cannot decrypt data. No PGP encrypted data was found in ' .
+                    'the provided data.',
+                    $code
+                );
+            default:
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
+                    'Unknown error decrypting data.',
+                    $code
+                );
         }
     }
 
     // }}}
 }
-
-?>

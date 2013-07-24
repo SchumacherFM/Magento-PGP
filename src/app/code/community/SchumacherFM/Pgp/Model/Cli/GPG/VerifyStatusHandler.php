@@ -37,11 +37,6 @@
  */
 
 /**
- * Signature object class definition
- */
-require_once 'Crypt/GPG/Signature.php';
-
-/**
  * Status line handler for the verify operation
  *
  * This class is used internally by Crypt_GPG and does not need be used
@@ -60,7 +55,7 @@ require_once 'Crypt/GPG/Signature.php';
  * @link      http://pear.php.net/package/Crypt_GPG
  * @link      http://www.gnupg.org/
  */
-class Crypt_GPG_VerifyStatusHandler
+class SchumacherFM_Pgp_Model_Cli_Gpg_VerifyStatusHandler
 {
     // {{{ protected properties
 
@@ -75,7 +70,7 @@ class Crypt_GPG_VerifyStatusHandler
     protected $signatureId = '';
 
     /**
-     * List of parsed {@link Crypt_GPG_Signature} objects
+     * List of parsed {@link SchumacherFM_Pgp_Model_Cli_Gpg_Signature} objects
      *
      * @var array
      */
@@ -107,7 +102,7 @@ class Crypt_GPG_VerifyStatusHandler
         case 'EXPKEYSIG':
         case 'REVKEYSIG':
         case 'BADSIG':
-            $signature = new Crypt_GPG_Signature();
+            $signature = new SchumacherFM_Pgp_Model_Cli_Gpg_Signature();
 
             // if there was a signature id, set it on the new signature
             if ($this->signatureId != '') {
@@ -131,14 +126,14 @@ class Crypt_GPG_VerifyStatusHandler
             $string = implode(' ', array_splice($tokens, 2));
             $string = rawurldecode($string);
 
-            $signature->setUserId(Crypt_GPG_UserId::parse($string));
+            $signature->setUserId(SchumacherFM_Pgp_Model_Cli_Gpg_UserId::parse($string));
 
             $this->index++;
             $this->signatures[$this->index] = $signature;
             break;
 
         case 'ERRSIG':
-            $signature = new Crypt_GPG_Signature();
+            $signature = new SchumacherFM_Pgp_Model_Cli_Gpg_Signature();
 
             // if there was a signature id, set it on the new signature
             if ($this->signatureId != '') {
@@ -201,7 +196,7 @@ class Crypt_GPG_VerifyStatusHandler
     // {{{ getSignatures()
 
     /**
-     * Gets the {@link Crypt_GPG_Signature} objects parsed by this handler
+     * Gets the {@link SchumacherFM_Pgp_Model_Cli_Gpg_Signature} objects parsed by this handler
      *
      * @return array the signature objects parsed by this handler.
      */
@@ -212,5 +207,3 @@ class Crypt_GPG_VerifyStatusHandler
 
     // }}}
 }
-
-?>

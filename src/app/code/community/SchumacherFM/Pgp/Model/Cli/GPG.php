@@ -56,11 +56,6 @@
  */
 
 /**
- * Base class for GPG methods
- */
-require_once 'Crypt/GPGAbstract.php';
-
-/**
  * Signature handler class
  */
 require_once 'Crypt/GPG/VerifyStatusHandler.php';
@@ -89,7 +84,7 @@ require_once 'Crypt/GPG/DecryptStatusHandler.php';
  * @link      http://pear.php.net/package/Crypt_GPG
  * @link      http://www.gnupg.org/
  */
-class Crypt_GPG extends Crypt_GPGAbstract
+class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstract
 {
     // {{{ class constants for data signing modes
 
@@ -188,7 +183,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
     /**
      * Engine used to control the GPG subprocess
      *
-     * @var Crypt_GPG_Engine
+     * @var SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      *
      * @see Crypt_GPG::setEngine()
      */
@@ -275,10 +270,10 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *               - <kbd>private_unchanged</kbd> - the number of unchanged
      *                                                private keys.
      *
-     * @throws Crypt_GPG_NoDataException if the key data is missing or if the
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if the key data is missing or if the
      *         data is is not valid key data.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -312,12 +307,12 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *                                                private keys.
      *                                                  private keys.
      *
-     * @throws Crypt_GPG_NoDataException if the key data is missing or if the
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if the key data is missing or if the
      *         data is is not valid key data.
      *
-     * @throws Crypt_GPG_FileException if the key file is not readable.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the key file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -350,10 +345,10 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *
      * @return string the public key data.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if a public key with the given
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if a public key with the given
      *         <kbd>$keyId</kbd> is not found.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -362,7 +357,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         $fingerprint = $this->getFingerprint($keyId);
 
         if ($fingerprint === null) {
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'Public key not found: ' . $keyId,
                 self::ERROR_KEY_NOT_FOUND,
                 $keyId
@@ -381,7 +376,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         $code = $this->engine->getErrorCode();
 
         if ($code !== self::ERROR_NONE) {
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error exporting public key. Please use the ' .
                 '\'debug\' option when creating the Crypt_GPG object, and ' .
                 'file a bug report at ' . self::BUG_URI,
@@ -413,14 +408,14 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *
      * @return void
      *
-     * @throws Crypt_GPG_KeyNotFoundException if a public key with the given
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if a public key with the given
      *         <kbd>$keyId</kbd> is not found.
      *
-     * @throws Crypt_GPG_DeletePrivateKeyException if the specified public key
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_DeletePrivateKeyException if the specified public key
      *         has an associated private key on the keyring. The private key
      *         must be deleted first.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -429,7 +424,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         $fingerprint = $this->getFingerprint($keyId);
 
         if ($fingerprint === null) {
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'Public key not found: ' . $keyId,
                 self::ERROR_KEY_NOT_FOUND,
                 $keyId
@@ -452,14 +447,14 @@ class Crypt_GPG extends Crypt_GPGAbstract
         case self::ERROR_NONE:
             break;
         case self::ERROR_DELETE_PRIVATE_KEY:
-            throw new Crypt_GPG_DeletePrivateKeyException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_DeletePrivateKeyException(
                 'Private key must be deleted before public key can be ' .
                 'deleted.',
                 $code,
                 $keyId
             );
         default:
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error deleting public key. Please use the ' .
                 '\'debug\' option when creating the Crypt_GPG object, and ' .
                 'file a bug report at ' . self::BUG_URI,
@@ -488,10 +483,10 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *
      * @return void
      *
-     * @throws Crypt_GPG_KeyNotFoundException if a private key with the given
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if a private key with the given
      *         <kbd>$keyId</kbd> is not found.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -500,7 +495,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         $fingerprint = $this->getFingerprint($keyId);
 
         if ($fingerprint === null) {
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'Private key not found: ' . $keyId,
                 self::ERROR_KEY_NOT_FOUND,
                 $keyId
@@ -523,13 +518,13 @@ class Crypt_GPG extends Crypt_GPGAbstract
         case self::ERROR_NONE:
             break;
         case self::ERROR_KEY_NOT_FOUND:
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'Private key not found: ' . $keyId,
                 $code,
                 $keyId
             );
         default:
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error deleting private key. Please use the ' .
                 '\'debug\' option when creating the Crypt_GPG object, and ' .
                 'file a bug report at ' . self::BUG_URI,
@@ -554,15 +549,15 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *                      a user id, a key id or a key fingerprint. If not
      *                      specified, all keys are returned.
      *
-     * @return array an array of {@link Crypt_GPG_Key} objects. If no keys
+     * @return array an array of {@link SchumacherFM_Pgp_Model_Cli_Gpg_Key} objects. If no keys
      *               match the specified <kbd>$keyId</kbd> an empty array is
      *               returned.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
-     * @see Crypt_GPG_Key
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Key
      */
     public function getKeys($keyId = '')
     {
@@ -598,7 +593,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * @return string the fingerprint of the key, or null if no fingerprint
      *                is found for the given <kbd>$keyId</kbd>.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -624,7 +619,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
             // ignore not found key errors
             break;
         default:
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error getting key fingerprint. Please use the ' .
                 '\'debug\' option when creating the Crypt_GPG object, and ' .
                 'file a bug report at ' . self::BUG_URI,
@@ -676,10 +671,10 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *
      * @return string the encrypted data.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if no encryption key is specified.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified.
      *         See {@link Crypt_GPG::addEncryptKey()}.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
@@ -711,13 +706,13 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * @return void|string if the <kbd>$encryptedFile</kbd> parameter is null,
      *                     a string containing the encrypted data is returned.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if no encryption key is specified.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified.
      *         See {@link Crypt_GPG::addEncryptKey()}.
      *
-     * @throws Crypt_GPG_FileException if the output file is not writeable or
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -750,15 +745,15 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *
      * @return string the encrypted signed data.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if no encryption key is specified
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified
      *         or if no signing key is specified. See
      *         {@link Crypt_GPG::addEncryptKey()} and
      *         {@link Crypt_GPG::addSignKey()}.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a specified passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
@@ -798,18 +793,18 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *                     string containing the encrypted, signed data is
      *                     returned.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if no encryption key is specified
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified
      *         or if no signing key is specified. See
      *         {@link Crypt_GPG::addEncryptKey()} and
      *         {@link Crypt_GPG::addSignKey()}.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a specified passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
      *
-     * @throws Crypt_GPG_FileException if the output file is not writeable or
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
@@ -838,17 +833,17 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *
      * @return string the decrypted data.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if the private key needed to
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if the private key needed to
      *         decrypt the data is not in the user's keyring.
      *
-     * @throws Crypt_GPG_NoDataException if specified data does not contain
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if specified data does not contain
      *         GPG encrypted data.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a required passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
      *         {@link Crypt_GPG::addDecryptKey()}.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -878,20 +873,20 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * @return void|string if the <kbd>$decryptedFile</kbd> parameter is null,
      *                     a string containing the decrypted data is returned.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if the private key needed to
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if the private key needed to
      *         decrypt the data is not in the user's keyring.
      *
-     * @throws Crypt_GPG_NoDataException if specified data does not contain
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if specified data does not contain
      *         GPG encrypted data.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a required passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
      *         {@link Crypt_GPG::addDecryptKey()}.
      *
-     * @throws Crypt_GPG_FileException if the output file is not writeable or
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -917,19 +912,19 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * @return array two element array. The array has an element 'data'
      *               containing the decrypted data and an element
      *               'signatures' containing an array of
-     *               {@link Crypt_GPG_Signature} objects for the signed data.
+     *               {@link SchumacherFM_Pgp_Model_Cli_Gpg_Signature} objects for the signed data.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if the private key needed to
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if the private key needed to
      *         decrypt the data is not in the user's keyring.
      *
-     * @throws Crypt_GPG_NoDataException if specified data does not contain
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if specified data does not contain
      *         GPG encrypted data.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a required passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
      *         {@link Crypt_GPG::addDecryptKey()}.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -959,24 +954,24 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * @return array two element array. The array has an element 'data'
      *               containing the decrypted data and an element
      *               'signatures' containing an array of
-     *               {@link Crypt_GPG_Signature} objects for the signed data.
+     *               {@link SchumacherFM_Pgp_Model_Cli_Gpg_Signature} objects for the signed data.
      *               If the decrypted data is written to a file, the 'data'
      *               element is null.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if the private key needed to
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if the private key needed to
      *         decrypt the data is not in the user's keyring.
      *
-     * @throws Crypt_GPG_NoDataException if specified data does not contain
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if specified data does not contain
      *         GPG encrypted data.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a required passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
      *         {@link Crypt_GPG::addDecryptKey()}.
      *
-     * @throws Crypt_GPG_FileException if the output file is not writeable or
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -1019,13 +1014,13 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * @return string the signed data, or the signature data if a detached
      *                signature is requested.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if no signing key is specified.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no signing key is specified.
      *         See {@link Crypt_GPG::addSignKey()}.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a specified passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -1080,16 +1075,16 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *                     data if a detached signature is requested) is
      *                     returned.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if no signing key is specified.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no signing key is specified.
      *         See {@link Crypt_GPG::addSignKey()}.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a specified passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
      *
-     * @throws Crypt_GPG_FileException if the output file is not writeable or
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -1126,18 +1121,18 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *                           signature data. The data that was signed is
      *                           specified in <kbd>$signedData</kbd>.
      *
-     * @return array an array of {@link Crypt_GPG_Signature} objects for the
+     * @return array an array of {@link SchumacherFM_Pgp_Model_Cli_Gpg_Signature} objects for the
      *               signed data. For each signature that is valid, the
-     *               {@link Crypt_GPG_Signature::isValid()} will return true.
+     *               {@link SchumacherFM_Pgp_Model_Cli_Gpg_Signature::isValid()} will return true.
      *
-     * @throws Crypt_GPG_NoDataException if the provided data is not signed
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if the provided data is not signed
      *         data.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
-     * @see Crypt_GPG_Signature
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Signature
      */
     public function verify($signedData, $signature = '')
     {
@@ -1160,20 +1155,20 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *                          signature data. The file that was signed is
      *                          specified in <kbd>$filename</kbd>.
      *
-     * @return array an array of {@link Crypt_GPG_Signature} objects for the
+     * @return array an array of {@link SchumacherFM_Pgp_Model_Cli_Gpg_Signature} objects for the
      *               signed data. For each signature that is valid, the
-     *               {@link Crypt_GPG_Signature::isValid()} will return true.
+     *               {@link SchumacherFM_Pgp_Model_Cli_Gpg_Signature::isValid()} will return true.
      *
-     * @throws Crypt_GPG_NoDataException if the provided data is not signed
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if the provided data is not signed
      *         data.
      *
-     * @throws Crypt_GPG_FileException if the input file is not readable.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
-     * @see Crypt_GPG_Signature
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Signature
      */
     public function verifyFile($filename, $signature = '')
     {
@@ -1187,8 +1182,8 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * Adds a key to use for decryption
      *
      * @param mixed  $key        the key to use. This may be a key identifier,
-     *                           user id, fingerprint, {@link Crypt_GPG_Key} or
-     *                           {@link Crypt_GPG_SubKey}. The key must be able
+     *                           user id, fingerprint, {@link SchumacherFM_Pgp_Model_Cli_Gpg_Key} or
+     *                           {@link SchumacherFM_Pgp_Model_Cli_Gpg_SubKey}. The key must be able
      *                           to encrypt.
      * @param string $passphrase optional. The passphrase of the key required
      *                           for decryption.
@@ -1199,7 +1194,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * @see Crypt_GPG::decryptFile()
      * @see Crypt_GPG::clearDecryptKeys()
      * @see Crypt_GPG::_addKey()
-     * @see Crypt_GPG_DecryptStatusHandler
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_DecryptStatusHandler
      *
      * @sensitive $passphrase
      */
@@ -1216,8 +1211,8 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * Adds a key to use for encryption
      *
      * @param mixed $key the key to use. This may be a key identifier, user id
-     *                   user id, fingerprint, {@link Crypt_GPG_Key} or
-     *                   {@link Crypt_GPG_SubKey}. The key must be able to
+     *                   user id, fingerprint, {@link SchumacherFM_Pgp_Model_Cli_Gpg_Key} or
+     *                   {@link SchumacherFM_Pgp_Model_Cli_Gpg_SubKey}. The key must be able to
      *                   encrypt.
      *
      * @return Crypt_GPG the current object, for fluent interface.
@@ -1240,8 +1235,8 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * Adds a key to use for signing
      *
      * @param mixed  $key        the key to use. This may be a key identifier,
-     *                           user id, fingerprint, {@link Crypt_GPG_Key} or
-     *                           {@link Crypt_GPG_SubKey}. The key must be able
+     *                           user id, fingerprint, {@link SchumacherFM_Pgp_Model_Cli_Gpg_Key} or
+     *                           {@link SchumacherFM_Pgp_Model_Cli_Gpg_SubKey}. The key must be able
      *                           to sign.
      * @param string $passphrase optional. The passphrase of the key required
      *                           for signing.
@@ -1365,7 +1360,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *
      * @see Crypt_GPG::importKey()
      * @see Crypt_GPG::importKeyFile()
-     * @see Crypt_GPG_Engine::addStatusHandler()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::addStatusHandler()
      */
     public function handleImportKeyStatus($line, array &$result)
     {
@@ -1398,8 +1393,8 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *                            encrypt.
      * @param boolean $sign       whether or not the key must be able to sign.
      * @param mixed   $key        the key to add. This may be a key identifier,
-     *                            user id, fingerprint, {@link Crypt_GPG_Key} or
-     *                            {@link Crypt_GPG_SubKey}.
+     *                            user id, fingerprint, {@link SchumacherFM_Pgp_Model_Cli_Gpg_Key} or
+     *                            {@link SchumacherFM_Pgp_Model_Cli_Gpg_SubKey}.
      * @param string  $passphrase optional. The passphrase associated with the
      *                            key.
      *
@@ -1415,7 +1410,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         if (is_scalar($key)) {
             $keys = $this->getKeys($key);
             if (count($keys) == 0) {
-                throw new Crypt_GPG_KeyNotFoundException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                     'Key "' . $key . '" not found.',
                     0,
                     $key
@@ -1424,7 +1419,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
             $key = $keys[0];
         }
 
-        if ($key instanceof Crypt_GPG_Key) {
+        if ($key instanceof SchumacherFM_Pgp_Model_Cli_Gpg_Key) {
             if ($encrypt && !$key->canEncrypt()) {
                 throw new InvalidArgumentException(
                     'Key "' . $key . '" cannot encrypt.'
@@ -1449,7 +1444,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
                     $subKeys[] = $subKey;
                 }
             }
-        } elseif ($key instanceof Crypt_GPG_SubKey) {
+        } elseif ($key instanceof SchumacherFM_Pgp_Model_Cli_Gpg_SubKey) {
             $subKeys[] = $key;
         }
 
@@ -1531,12 +1526,12 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *               - <kbd>private_unchanged</kbd> - the number of unchanged
      *                                                private keys.
      *
-     * @throws Crypt_GPG_NoDataException if the key data is missing or if the
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if the key data is missing or if the
      *         data is is not valid key data.
      *
-     * @throws Crypt_GPG_FileException if the key file is not readable.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the key file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -1547,7 +1542,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         if ($isFile) {
             $input = @fopen($key, 'rb');
             if ($input === false) {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open key file "' . $key . '" for importing.',
                     0,
                     $key
@@ -1556,7 +1551,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         } else {
             $input = strval($key);
             if ($input == '') {
-                throw new Crypt_GPG_NoDataException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException(
                     'No valid GPG key data found.',
                     self::ERROR_NO_DATA
                 );
@@ -1594,12 +1589,12 @@ class Crypt_GPG extends Crypt_GPGAbstract
             // ignore duplicate key import errors
             break;
         case self::ERROR_NO_DATA:
-            throw new Crypt_GPG_NoDataException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException(
                 'No valid GPG key data found.',
                 $code
             );
         default:
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error importing GPG key. Please use the \'debug\' ' .
                 'option when creating the Crypt_GPG object, and file a bug ' .
                 'report at ' . self::BUG_URI,
@@ -1627,20 +1622,20 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * @return void|string if the <kbd>$outputFile</kbd> parameter is null, a
      *                     string containing the encrypted data is returned.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if no encryption key is specified.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified.
      *         See {@link Crypt_GPG::addEncryptKey()}.
      *
-     * @throws Crypt_GPG_FileException if the output file is not writeable or
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
     protected function _encrypt($data, $isFile, $outputFile, $armor)
     {
         if (count($this->encryptKeys) === 0) {
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'No encryption keys specified.'
             );
         }
@@ -1648,7 +1643,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         if ($isFile) {
             $input = @fopen($data, 'rb');
             if ($input === false) {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open input file "' . $data .
                     '" for encryption.',
                     0,
@@ -1667,7 +1662,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
                 if ($isFile) {
                     fclose($input);
                 }
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open output file "' . $outputFile .
                     '" for storing encrypted data.',
                     0,
@@ -1698,7 +1693,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         $code = $this->engine->getErrorCode();
 
         if ($code !== self::ERROR_NONE) {
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error encrypting data. Please use the \'debug\' ' .
                 'option when creating the Crypt_GPG object, and file a bug ' .
                 'report at ' . self::BUG_URI,
@@ -1726,20 +1721,20 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * @return void|string if the <kbd>$outputFile</kbd> parameter is null, a
      *                     string containing the decrypted data is returned.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if the private key needed to
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if the private key needed to
      *         decrypt the data is not in the user's keyring.
      *
-     * @throws Crypt_GPG_NoDataException if specified data does not contain
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if specified data does not contain
      *         GPG encrypted data.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a required passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
      *         {@link Crypt_GPG::addDecryptKey()}.
      *
-     * @throws Crypt_GPG_FileException if the output file is not writeable or
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -1748,7 +1743,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         if ($isFile) {
             $input = @fopen($data, 'rb');
             if ($input === false) {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open input file "' . $data .
                     '" for decryption.',
                     0,
@@ -1758,7 +1753,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         } else {
             $input = strval($data);
             if ($input == '') {
-                throw new Crypt_GPG_NoDataException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException(
                     'Cannot decrypt data. No PGP encrypted data was found in '.
                     'the provided data.',
                     self::ERROR_NO_DATA
@@ -1774,7 +1769,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
                 if ($isFile) {
                     fclose($input);
                 }
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open output file "' . $outputFile .
                     '" for storing decrypted data.',
                     0,
@@ -1783,7 +1778,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
             }
         }
 
-        $handler = new Crypt_GPG_DecryptStatusHandler(
+        $handler = new SchumacherFM_Pgp_Model_Cli_Gpg_DecryptStatusHandler(
             $this->engine,
             $this->decryptKeys
         );
@@ -1848,16 +1843,16 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *                     data if a detached signature is requested) is
      *                     returned.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if no signing key is specified.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no signing key is specified.
      *         See {@link Crypt_GPG::addSignKey()}.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a specified passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
      *
-     * @throws Crypt_GPG_FileException if the output file is not writeable or
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
@@ -1865,7 +1860,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         $textmode
     ) {
         if (count($this->signKeys) === 0) {
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'No signing keys specified.'
             );
         }
@@ -1873,7 +1868,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         if ($isFile) {
             $input = @fopen($data, 'rb');
             if ($input === false) {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open input file "' . $data . '" for signing.',
                     0,
                     $data
@@ -1891,7 +1886,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
                 if ($isFile) {
                     fclose($input);
                 }
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open output file "' . $outputFile .
                     '" for storing signed data.',
                     0,
@@ -1951,24 +1946,24 @@ class Crypt_GPG extends Crypt_GPGAbstract
         case self::ERROR_NONE:
             break;
         case self::ERROR_KEY_NOT_FOUND:
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'Cannot sign data. Private key not found. Import the '.
                 'private key before trying to sign data.',
                 $code,
                 $this->engine->getErrorKeyId()
             );
         case self::ERROR_BAD_PASSPHRASE:
-            throw new Crypt_GPG_BadPassphraseException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException(
                 'Cannot sign data. Incorrect passphrase provided.',
                 $code
             );
         case self::ERROR_MISSING_PASSPHRASE:
-            throw new Crypt_GPG_BadPassphraseException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException(
                 'Cannot sign data. No passphrase provided.',
                 $code
             );
         default:
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error signing data. Please use the \'debug\' option ' .
                 'when creating the Crypt_GPG object, and file a bug report ' .
                 'at ' . self::BUG_URI,
@@ -2000,31 +1995,31 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *                     string containing the encrypted, signed data is
      *                     returned.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if no encryption key is specified
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified
      *         or if no signing key is specified. See
      *         {@link Crypt_GPG::addEncryptKey()} and
      *         {@link Crypt_GPG::addSignKey()}.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a specified passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
      *
-     * @throws Crypt_GPG_FileException if the output file is not writeable or
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      */
     protected function _encryptAndSign($data, $isFile, $outputFile, $armor)
     {
         if (count($this->signKeys) === 0) {
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'No signing keys specified.'
             );
         }
 
         if (count($this->encryptKeys) === 0) {
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'No encryption keys specified.'
             );
         }
@@ -2033,7 +2028,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         if ($isFile) {
             $input = @fopen($data, 'rb');
             if ($input === false) {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open input file "' . $data .
                     '" for encrypting and signing.',
                     0,
@@ -2052,7 +2047,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
                 if ($isFile) {
                     fclose($input);
                 }
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open output file "' . $outputFile .
                     '" for storing encrypted, signed data.',
                     0,
@@ -2096,24 +2091,24 @@ class Crypt_GPG extends Crypt_GPGAbstract
         case self::ERROR_NONE:
             break;
         case self::ERROR_KEY_NOT_FOUND:
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'Cannot sign encrypted data. Private key not found. Import '.
                 'the private key before trying to sign the encrypted data.',
                 $code,
                 $this->engine->getErrorKeyId()
             );
         case self::ERROR_BAD_PASSPHRASE:
-            throw new Crypt_GPG_BadPassphraseException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException(
                 'Cannot sign encrypted data. Incorrect passphrase provided.',
                 $code
             );
         case self::ERROR_MISSING_PASSPHRASE:
-            throw new Crypt_GPG_BadPassphraseException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException(
                 'Cannot sign encrypted data. No passphrase provided.',
                 $code
             );
         default:
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error encrypting and signing data. Please use the ' .
                 '\'debug\' option when creating the Crypt_GPG object, and ' .
                 'file a bug report at ' . self::BUG_URI,
@@ -2138,19 +2133,19 @@ class Crypt_GPG extends Crypt_GPGAbstract
      *                           signature, this must be the detached signature
      *                           data. Otherwise, specify ''.
      *
-     * @return array an array of {@link Crypt_GPG_Signature} objects for the
+     * @return array an array of {@link SchumacherFM_Pgp_Model_Cli_Gpg_Signature} objects for the
      *               signed data.
      *
-     * @throws Crypt_GPG_NoDataException if the provided data is not signed
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if the provided data is not signed
      *         data.
      *
-     * @throws Crypt_GPG_FileException if the input file is not readable.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
-     * @see Crypt_GPG_Signature
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Signature
      */
     protected function _verify($data, $isFile, $signature)
     {
@@ -2160,16 +2155,16 @@ class Crypt_GPG extends Crypt_GPGAbstract
         } else {
             // Signed data goes in FD_MESSAGE, detached signature data goes in
             // FD_INPUT.
-            $operation = '--verify - "-&' . Crypt_GPG_Engine::FD_MESSAGE. '"';
+            $operation = '--verify - "-&' . SchumacherFM_Pgp_Model_Cli_Gpg_Engine::FD_MESSAGE. '"';
             $arguments = array('--enable-special-filenames');
         }
 
-        $handler = new Crypt_GPG_VerifyStatusHandler();
+        $handler = new SchumacherFM_Pgp_Model_Cli_Gpg_VerifyStatusHandler();
 
         if ($isFile) {
             $input = @fopen($data, 'rb');
             if ($input === false) {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open input file "' . $data . '" for verifying.',
                     0,
                     $data
@@ -2178,7 +2173,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         } else {
             $input = strval($data);
             if ($input == '') {
-                throw new Crypt_GPG_NoDataException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException(
                     'No valid signature data found.',
                     self::ERROR_NO_DATA
                 );
@@ -2211,18 +2206,18 @@ class Crypt_GPG extends Crypt_GPGAbstract
         case self::ERROR_BAD_SIGNATURE:
             break;
         case self::ERROR_NO_DATA:
-            throw new Crypt_GPG_NoDataException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException(
                 'No valid signature data found.',
                 $code
             );
         case self::ERROR_KEY_NOT_FOUND:
-            throw new Crypt_GPG_KeyNotFoundException(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                 'Public key required for data verification not in keyring.',
                 $code,
                 $this->engine->getErrorKeyId()
             );
         default:
-            throw new Crypt_GPG_Exception(
+            throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                 'Unknown error validating signature details. Please use the ' .
                 '\'debug\' option when creating the Crypt_GPG object, and ' .
                 'file a bug report at ' . self::BUG_URI,
@@ -2249,36 +2244,36 @@ class Crypt_GPG extends Crypt_GPGAbstract
      * @return array two element array. The array has an element 'data'
      *               containing the decrypted data and an element
      *               'signatures' containing an array of
-     *               {@link Crypt_GPG_Signature} objects for the signed data.
+     *               {@link SchumacherFM_Pgp_Model_Cli_Gpg_Signature} objects for the signed data.
      *               If the decrypted data is written to a file, the 'data'
      *               element is null.
      *
-     * @throws Crypt_GPG_KeyNotFoundException if the private key needed to
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if the private key needed to
      *         decrypt the data is not in the user's keyring or it the public
      *         key needed for verification is not in the user's keyring.
      *
-     * @throws Crypt_GPG_NoDataException if specified data does not contain
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException if specified data does not contain
      *         GPG signed, encrypted data.
      *
-     * @throws Crypt_GPG_BadPassphraseException if a required passphrase is
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
      *         {@link Crypt_GPG::addDecryptKey()}.
      *
-     * @throws Crypt_GPG_FileException if the output file is not writeable or
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
      *
-     * @throws Crypt_GPG_Exception if an unknown or unexpected error occurs.
+     * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
-     * @see Crypt_GPG_Signature
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Signature
      */
     protected function _decryptAndVerify($data, $isFile, $outputFile)
     {
         if ($isFile) {
             $input = @fopen($data, 'rb');
             if ($input === false) {
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open input file "' . $data .
                     '" for decrypting and verifying.',
                     0,
@@ -2288,7 +2283,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
         } else {
             $input = strval($data);
             if ($input == '') {
-                throw new Crypt_GPG_NoDataException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException(
                     'No valid encrypted signed data found.',
                     self::ERROR_NO_DATA
                 );
@@ -2303,7 +2298,7 @@ class Crypt_GPG extends Crypt_GPGAbstract
                 if ($isFile) {
                     fclose($input);
                 }
-                throw new Crypt_GPG_FileException(
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not open output file "' . $outputFile .
                     '" for storing decrypted data.',
                     0,
@@ -2312,9 +2307,9 @@ class Crypt_GPG extends Crypt_GPGAbstract
             }
         }
 
-        $verifyHandler = new Crypt_GPG_VerifyStatusHandler();
+        $verifyHandler = new SchumacherFM_Pgp_Model_Cli_Gpg_VerifyStatusHandler();
 
-        $decryptHandler = new Crypt_GPG_DecryptStatusHandler(
+        $decryptHandler = new SchumacherFM_Pgp_Model_Cli_Gpg_DecryptStatusHandler(
             $this->engine,
             $this->decryptKeys
         );
@@ -2348,8 +2343,8 @@ class Crypt_GPG extends Crypt_GPGAbstract
         try {
             $decryptHandler->throwException();
         } catch (Exception $e) {
-            if ($e instanceof Crypt_GPG_KeyNotFoundException) {
-                throw new Crypt_GPG_KeyNotFoundException(
+            if ($e instanceof SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException) {
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException(
                     'Public key required for data verification not in ',
                     'the keyring. Either no suitable private decryption key ' .
                     'is in the keyring or the public key required for data ' .
@@ -2360,8 +2355,8 @@ class Crypt_GPG extends Crypt_GPGAbstract
                 );
             }
 
-            if ($e instanceof Crypt_GPG_NoDataException) {
-                throw new Crypt_GPG_NoDataException(
+            if ($e instanceof SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException) {
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException(
                     'Cannot decrypt and verify data. No PGP encrypted data ' .
                     'was found in the provided data.',
                     self::ERROR_NO_DATA
@@ -2382,5 +2377,3 @@ class Crypt_GPG extends Crypt_GPGAbstract
 }
 
 // }}}
-
-?>
