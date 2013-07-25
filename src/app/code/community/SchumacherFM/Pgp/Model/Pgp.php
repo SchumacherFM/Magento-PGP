@@ -3,7 +3,6 @@
 class SchumacherFM_Pgp_Model_Pgp
 {
 
-    private $_methods = array('php' => 1, 'cli' => 1);
     private $_method = 'php';
     private $_encryptor = null;
     private $_publicKeyAscii = '';
@@ -29,6 +28,8 @@ class SchumacherFM_Pgp_Model_Pgp
 
     /**
      * @param string $plainTextString
+     *
+     * @return $this
      */
     public function setPlainTextString($plainTextString)
     {
@@ -46,6 +47,8 @@ class SchumacherFM_Pgp_Model_Pgp
 
     /**
      * @param string $publicKeyAscii
+     *
+     * @return $this
      */
     public function setPublicKeyAscii($publicKeyAscii)
     {
@@ -62,15 +65,20 @@ class SchumacherFM_Pgp_Model_Pgp
     }
 
     /**
-     * @param string $method
+     * @return $this
      */
-    public function setMethod($method)
+    public function setMethodPhp()
     {
-        if (isset($this->_methods[$method])) {
-            $this->_method = $method;
-        } else {
-            throw new Exception('PGP Encryption method not supported');
-        }
+        $this->_method = 'php';
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setMethodCli()
+    {
+        $this->_method = 'cli';
         return $this;
     }
 
@@ -82,7 +90,10 @@ class SchumacherFM_Pgp_Model_Pgp
         return $this->_method;
     }
 
-    public function getEncryptor()
+    /**
+     * @return SchumacherFM_Pgp_Model_AbstractFactory
+     */
+    protected function _getEncryptor()
     {
         if ($this->_encryptor === null) {
             $this->_encryptor = Mage::getModel('pgp/' . $this->getMethod() . '_factory');
@@ -90,10 +101,13 @@ class SchumacherFM_Pgp_Model_Pgp
         return $this->_encryptor;
     }
 
+    /**
+     * @return $this
+     */
     public function encrypt()
     {
         $this->_setEncrypted(
-            $this->getEncryptor()->encrypt($this->getPublicKeyAscii(), $this->getPlainTextString())
+            $this->_getEncryptor()->encrypt($this->getPublicKeyAscii(), $this->getPlainTextString())
         );
         return $this;
     }
