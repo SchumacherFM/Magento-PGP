@@ -11,7 +11,7 @@ class SchumacherFM_Pgp_Model_Cli_Factory extends SchumacherFM_Pgp_Model_Abstract
     public function encrypt($publicKey, $plainTextString)
     {
 
-        /** @var $gpg SchumacherFM_Pgp_Model_Php_Gpg */
+        /** @var $gpg SchumacherFM_Pgp_Model_Cli_Gpg */
         $gpg = Mage::getModel('pgp/cli_gpg',
             array(
                 'homedir' => '/my/writeable/directory',
