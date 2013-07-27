@@ -32,16 +32,6 @@
  * @link      http://pear.php.net/package/Crypt_GPG
  */
 
-/**
- * Sub-key class definition
- */
-require_once 'Crypt/GPG/SubKey.php';
-
-/**
- * User id class definition
- */
-require_once 'Crypt/GPG/UserId.php';
-
 // {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_Key
 
 /**

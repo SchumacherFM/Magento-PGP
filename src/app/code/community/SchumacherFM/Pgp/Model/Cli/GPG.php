@@ -55,16 +55,6 @@
  * @link      http://www.gnupg.org/
  */
 
-/**
- * Signature handler class
- */
-require_once 'Crypt/GPG/VerifyStatusHandler.php';
-
-/**
- * Decryption handler class
- */
-require_once 'Crypt/GPG/DecryptStatusHandler.php';
-
 // {{{ class Crypt_GPG
 
 /**

@@ -38,11 +38,6 @@
  * @link      http://pear.php.net/package/Crypt_GPG
  */
 
-/**
- * PEAR Exception handler and base class
- */
-require_once 'PEAR/Exception.php';
-
 // {{{ class SchumacherFM_Pgp_Model_Cli_Gpg_Exception
 
 /**
