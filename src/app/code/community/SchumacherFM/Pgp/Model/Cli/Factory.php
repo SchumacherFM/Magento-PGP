@@ -2,6 +2,8 @@
 
 class SchumacherFM_Pgp_Model_Cli_Factory extends SchumacherFM_Pgp_Model_AbstractFactory
 {
+    const DEBUG_LOG_FILE_NAME = 'gpg.log';
+
     /**
      * @param $publicKey
      * @param $plainTextString
@@ -12,18 +14,23 @@ class SchumacherFM_Pgp_Model_Cli_Factory extends SchumacherFM_Pgp_Model_Abstract
     {
 
         /** @var $gpg SchumacherFM_Pgp_Model_Cli_Gpg */
-        $gpg = Mage::getModel('pgp/cli_gpg',
-            array(
-                'homedir' => '/my/writeable/directory',
-                'debug'   => FALSE,
-                // 'binary' => '/home/joe/bin/gpg'
-            )
-        );
+        $gpg = Mage::getModel('pgp/cli_gpg', Mage::helper('pgp/cli')->getGpgEngineOptions());
 
-        // create an instance of a GPG public key object based on ASCII key
-        $pubKey = Mage::getModel('pgp/cli_gpg_publicKey', $publicKey);
+        $res = $gpg->importKey($publicKey);
 
-        // using the key, encrypt your plain text using the public key
-        return $gpg->encrypt($pubKey, $plainTextString);
+        Zend_Debug::dump($res);
+
+        $fingerprint = $res['fingerprint'];
+
+        Zend_Debug::dump($res['fingerprint']);
+
+        $key = $gpg->getKeys($res['fingerprint']);
+
+        Zend_Debug::dump($key);
+
+        $gpg->addEncryptKey($fingerprint);
+
+        $encryptedData = $gpg->encrypt('Hello World');
+        return $encryptedData;
     }
 }

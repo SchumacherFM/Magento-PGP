@@ -87,7 +87,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorStatusHandler
      *
      * @var integer
      */
-    protected $errorCode = Crypt_GPG::ERROR_NONE;
+    protected $errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE;
 
     // }}}
     // {{{ setHandle()
@@ -131,7 +131,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorStatusHandler
 
         case 'KEY_NOT_CREATED':
             if ($tokens[1] == $this->handle) {
-                $this->errorCode = Crypt_GPG::ERROR_KEY_NOT_CREATED;
+                $this->errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_KEY_NOT_CREATED;
             }
             break;
 

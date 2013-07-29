@@ -40,7 +40,7 @@
 /**
  * A class for GPG signature information
  *
- * This class is used to store the results of the Crypt_GPG::verify() method.
+ * This class is used to store the results of the SchumacherFM_Pgp_Model_Cli_Gpg::verify() method.
  *
  * @category  Encryption
  * @package   Crypt_GPG
@@ -49,7 +49,7 @@
  * @copyright 2005-2013 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
- * @see       Crypt_GPG::verify()
+ * @see       SchumacherFM_Pgp_Model_Cli_Gpg::verify()
  */
 class SchumacherFM_Pgp_Model_Cli_Gpg_Signature
 {

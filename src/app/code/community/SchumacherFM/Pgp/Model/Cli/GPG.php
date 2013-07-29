@@ -84,8 +84,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * This is the default signing mode.
      *
-     * @see Crypt_GPG::sign()
-     * @see Crypt_GPG::signFile()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::sign()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::signFile()
      */
     const SIGN_MODE_NORMAL = 1;
 
@@ -95,8 +95,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * message is unencrypted, the message will still be readable. The message
      * text will be in the original encoding.
      *
-     * @see Crypt_GPG::sign()
-     * @see Crypt_GPG::signFile()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::sign()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::signFile()
      */
     const SIGN_MODE_CLEAR = 2;
 
@@ -107,8 +107,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * useful for miltipart/signed email messages as per
      * {@link http://www.ietf.org/rfc/rfc3156.txt RFC 3156}.
      *
-     * @see Crypt_GPG::sign()
-     * @see Crypt_GPG::signFile()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::sign()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::signFile()
      */
     const SIGN_MODE_DETACHED = 3;
 
@@ -120,7 +120,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * Example: C3BC615AD9C766E5A85C1F2716D27458B1BBA1C4
      *
-     * @see Crypt_GPG::getFingerprint()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::getFingerprint()
      */
     const FORMAT_NONE = 1;
 
@@ -130,7 +130,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * Example: C3BC 615A D9C7 66E5 A85C  1F27 16D2 7458 B1BB A1C4
      *
-     * @see Crypt_GPG::getFingerprint()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::getFingerprint()
      */
     const FORMAT_CANONICAL = 2;
 
@@ -140,7 +140,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * Example: C3:BC:61:5A:D9:C7:66:E5:A8:5C:1F:27:16:D2:74:58:B1:BB:A1:C4
      *
-     * @see Crypt_GPG::getFingerprint()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::getFingerprint()
      */
     const FORMAT_X509 = 3;
 
@@ -175,7 +175,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @var SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      *
-     * @see Crypt_GPG::setEngine()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::setEngine()
      */
     protected $engine = null;
 
@@ -193,8 +193,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * </code>
      *
      * @var array
-     * @see Crypt_GPG::addEncryptKey()
-     * @see Crypt_GPG::clearEncryptKeys()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::addEncryptKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::clearEncryptKeys()
      */
     protected $encryptKeys = array();
 
@@ -212,8 +212,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * </code>
      *
      * @var array
-     * @see Crypt_GPG::addSignKey()
-     * @see Crypt_GPG::clearSignKeys()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::addSignKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::clearSignKeys()
      */
     protected $signKeys = array();
 
@@ -231,8 +231,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * </code>
      *
      * @var array
-     * @see Crypt_GPG::addDecryptKey()
-     * @see Crypt_GPG::clearDecryptKeys()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::addDecryptKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::clearDecryptKeys()
      */
     protected $decryptKeys = array();
 
@@ -243,8 +243,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * Imports a public or private key into the keyring
      *
      * Keys may be removed from the keyring using
-     * {@link Crypt_GPG::deletePublicKey()} or
-     * {@link Crypt_GPG::deletePrivateKey()}.
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::deletePublicKey()} or
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::deletePrivateKey()}.
      *
      * @param string $data the key data to be imported.
      *
@@ -279,8 +279,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * Imports a public or private key file into the keyring
      *
      * Keys may be removed from the keyring using
-     * {@link Crypt_GPG::deletePublicKey()} or
-     * {@link Crypt_GPG::deletePrivateKey()}.
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::deletePublicKey()} or
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::deletePrivateKey()}.
      *
      * @param string $filename the key file to be imported.
      *
@@ -318,7 +318,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * Exports a public key from the keyring
      *
      * The exported key remains on the keyring. To delete the public key, use
-     * {@link Crypt_GPG::deletePublicKey()}.
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::deletePublicKey()}.
      *
      * If more than one key fingerprint is available for the specified
      * <kbd>$keyId</kbd> (for example, if you use a non-unique uid) only the
@@ -388,7 +388,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * first public key is deleted.
      *
      * The private key must be deleted first or an exception will be thrown.
-     * See {@link Crypt_GPG::deletePrivateKey()}.
+     * See {@link SchumacherFM_Pgp_Model_Cli_Gpg::deletePrivateKey()}.
      *
      * @param string $keyId either the full uid of the public key, the email
      *                      part of the uid of the public key or the key id of
@@ -573,12 +573,12 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *                        "Test User (example) <test@example.com>",
      *                        "test@example.com" or a hexadecimal string.
      * @param integer $format optional. How the fingerprint should be formatted.
-     *                        Use {@link Crypt_GPG::FORMAT_X509} for X.509
+     *                        Use {@link SchumacherFM_Pgp_Model_Cli_Gpg::FORMAT_X509} for X.509
      *                        certificate format,
-     *                        {@link Crypt_GPG::FORMAT_CANONICAL} for the format
+     *                        {@link SchumacherFM_Pgp_Model_Cli_Gpg::FORMAT_CANONICAL} for the format
      *                        used by GnuPG output and
-     *                        {@link Crypt_GPG::FORMAT_NONE} for no formatting.
-     *                        Defaults to <code>Crypt_GPG::FORMAT_NONE</code>.
+     *                        {@link SchumacherFM_Pgp_Model_Cli_Gpg::FORMAT_NONE} for no formatting.
+     *                        Defaults to <code>SchumacherFM_Pgp_Model_Cli_Gpg::FORMAT_NONE</code>.
      *
      * @return string the fingerprint of the key, or null if no fingerprint
      *                is found for the given <kbd>$keyId</kbd>.
@@ -662,7 +662,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * @return string the encrypted data.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified.
-     *         See {@link Crypt_GPG::addEncryptKey()}.
+     *         See {@link SchumacherFM_Pgp_Model_Cli_Gpg::addEncryptKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
@@ -697,7 +697,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *                     a string containing the encrypted data is returned.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified.
-     *         See {@link Crypt_GPG::addEncryptKey()}.
+     *         See {@link SchumacherFM_Pgp_Model_Cli_Gpg::addEncryptKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
@@ -724,9 +724,9 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * NOTE: Until GnuPG version 1.4.10, it was not possible to verify
      * encrypted-signed data without decrypting it at the same time. If you try
-     * to use {@link Crypt_GPG::verify()} method on encrypted-signed data with
+     * to use {@link SchumacherFM_Pgp_Model_Cli_Gpg::verify()} method on encrypted-signed data with
      * earlier GnuPG versions, you will get an error. Please use
-     * {@link Crypt_GPG::decryptAndVerify()} to verify encrypted-signed data.
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::decryptAndVerify()} to verify encrypted-signed data.
      *
      * @param string  $data  the data to be encrypted and signed.
      * @param boolean $armor optional. If true, ASCII armored data is returned;
@@ -737,8 +737,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified
      *         or if no signing key is specified. See
-     *         {@link Crypt_GPG::addEncryptKey()} and
-     *         {@link Crypt_GPG::addSignKey()}.
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addEncryptKey()} and
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addSignKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
@@ -747,7 +747,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
-     * @see Crypt_GPG::decryptAndVerify()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::decryptAndVerify()
      */
     public function encryptAndSign($data, $armor = self::ARMOR_ASCII)
     {
@@ -764,9 +764,9 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * NOTE: Until GnuPG version 1.4.10, it was not possible to verify
      * encrypted-signed files without decrypting them at the same time. If you
-     * try to use {@link Crypt_GPG::verify()} method on encrypted-signed files
+     * try to use {@link SchumacherFM_Pgp_Model_Cli_Gpg::verify()} method on encrypted-signed files
      * with earlier GnuPG versions, you will get an error. Please use
-     * {@link Crypt_GPG::decryptAndVerifyFile()} to verify encrypted-signed
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::decryptAndVerifyFile()} to verify encrypted-signed
      * files.
      *
      * @param string  $filename   the name of the file containing the data to
@@ -785,8 +785,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified
      *         or if no signing key is specified. See
-     *         {@link Crypt_GPG::addEncryptKey()} and
-     *         {@link Crypt_GPG::addSignKey()}.
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addEncryptKey()} and
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addSignKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
@@ -798,7 +798,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *         Use the <kbd>debug</kbd> option and file a bug report if these
      *         exceptions occur.
      *
-     * @see Crypt_GPG::decryptAndVerifyFile()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::decryptAndVerifyFile()
      */
     public function encryptAndSignFile(
         $filename,
@@ -816,8 +816,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * This method assumes the required private key is available in the keyring
      * and throws an exception if the private key is not available. To add a
-     * private key to the keyring, use the {@link Crypt_GPG::importKey()} or
-     * {@link Crypt_GPG::importKeyFile()} methods.
+     * private key to the keyring, use the {@link SchumacherFM_Pgp_Model_Cli_Gpg::importKey()} or
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::importKeyFile()} methods.
      *
      * @param string $encryptedData the data to be decrypted.
      *
@@ -831,7 +831,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
-     *         {@link Crypt_GPG::addDecryptKey()}.
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addDecryptKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
@@ -850,8 +850,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * This method assumes the required private key is available in the keyring
      * and throws an exception if the private key is not available. To add a
-     * private key to the keyring, use the {@link Crypt_GPG::importKey()} or
-     * {@link Crypt_GPG::importKeyFile()} methods.
+     * private key to the keyring, use the {@link SchumacherFM_Pgp_Model_Cli_Gpg::importKey()} or
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::importKeyFile()} methods.
      *
      * @param string $encryptedFile the name of the encrypted file data to
      *                              decrypt.
@@ -871,7 +871,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
-     *         {@link Crypt_GPG::addDecryptKey()}.
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addDecryptKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
@@ -893,8 +893,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * This method assumes the required private key is available in the keyring
      * and throws an exception if the private key is not available. To add a
-     * private key to the keyring, use the {@link Crypt_GPG::importKey()} or
-     * {@link Crypt_GPG::importKeyFile()} methods.
+     * private key to the keyring, use the {@link SchumacherFM_Pgp_Model_Cli_Gpg::importKey()} or
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::importKeyFile()} methods.
      *
      * @param string $encryptedData the encrypted, signed data to be decrypted
      *                              and verified.
@@ -912,7 +912,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
-     *         {@link Crypt_GPG::addDecryptKey()}.
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addDecryptKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <kbd>debug</kbd> option and file a bug report if these
@@ -931,8 +931,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * This method assumes the required private key is available in the keyring
      * and throws an exception if the private key is not available. To add a
-     * private key to the keyring, use the {@link Crypt_GPG::importKey()} or
-     * {@link Crypt_GPG::importKeyFile()} methods.
+     * private key to the keyring, use the {@link SchumacherFM_Pgp_Model_Cli_Gpg::importKey()} or
+     * {@link SchumacherFM_Pgp_Model_Cli_Gpg::importKeyFile()} methods.
      *
      * @param string $encryptedFile the name of the signed, encrypted file to
      *                              to decrypt and verify.
@@ -956,7 +956,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
-     *         {@link Crypt_GPG::addDecryptKey()}.
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addDecryptKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
@@ -977,35 +977,35 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * Signs data
      *
      * Data may be signed using any one of the three available signing modes:
-     * - {@link Crypt_GPG::SIGN_MODE_NORMAL}
-     * - {@link Crypt_GPG::SIGN_MODE_CLEAR}
-     * - {@link Crypt_GPG::SIGN_MODE_DETACHED}
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_NORMAL}
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR}
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_DETACHED}
      *
      * @param string  $data     the data to be signed.
      * @param boolean $mode     optional. The data signing mode to use. Should
-     *                          be one of {@link Crypt_GPG::SIGN_MODE_NORMAL},
-     *                          {@link Crypt_GPG::SIGN_MODE_CLEAR} or
-     *                          {@link Crypt_GPG::SIGN_MODE_DETACHED}. If not
+     *                          be one of {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_NORMAL},
+     *                          {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR} or
+     *                          {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_DETACHED}. If not
      *                          specified, defaults to
-     *                          <kbd>Crypt_GPG::SIGN_MODE_NORMAL</kbd>.
+     *                          <kbd>SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_NORMAL</kbd>.
      * @param boolean $armor    optional. If true, ASCII armored data is
      *                          returned; otherwise, binary data is returned.
      *                          Defaults to true. This has no effect if the
-     *                          mode <kbd>Crypt_GPG::SIGN_MODE_CLEAR</kbd> is
+     *                          mode <kbd>SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR</kbd> is
      *                          used.
      * @param boolean $textmode optional. If true, line-breaks in signed data
      *                          are normalized. Use this option when signing
      *                          e-mail, or for greater compatibility between
      *                          systems with different line-break formats.
      *                          Defaults to false. This has no effect if the
-     *                          mode <kbd>Crypt_GPG::SIGN_MODE_CLEAR</kbd> is
+     *                          mode <kbd>SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR</kbd> is
      *                          used as clear-signing always uses textmode.
      *
      * @return string the signed data, or the signature data if a detached
      *                signature is requested.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no signing key is specified.
-     *         See {@link Crypt_GPG::addSignKey()}.
+     *         See {@link SchumacherFM_Pgp_Model_Cli_Gpg::addSignKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
@@ -1031,9 +1031,9 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * The file may be signed using any one of the three available signing
      * modes:
-     * - {@link Crypt_GPG::SIGN_MODE_NORMAL}
-     * - {@link Crypt_GPG::SIGN_MODE_CLEAR}
-     * - {@link Crypt_GPG::SIGN_MODE_DETACHED}
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_NORMAL}
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR}
+     * - {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_DETACHED}
      *
      * @param string  $filename   the name of the file containing the data to
      *                            be signed.
@@ -1042,22 +1042,22 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *                            unspecified, the signed data is returned as a
      *                            string.
      * @param boolean $mode       optional. The data signing mode to use. Should
-     *                            be one of {@link Crypt_GPG::SIGN_MODE_NORMAL},
-     *                            {@link Crypt_GPG::SIGN_MODE_CLEAR} or
-     *                            {@link Crypt_GPG::SIGN_MODE_DETACHED}. If not
+     *                            be one of {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_NORMAL},
+     *                            {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR} or
+     *                            {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_DETACHED}. If not
      *                            specified, defaults to
-     *                            <kbd>Crypt_GPG::SIGN_MODE_NORMAL</kbd>.
+     *                            <kbd>SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_NORMAL</kbd>.
      * @param boolean $armor      optional. If true, ASCII armored data is
      *                            returned; otherwise, binary data is returned.
      *                            Defaults to true. This has no effect if the
-     *                            mode <kbd>Crypt_GPG::SIGN_MODE_CLEAR</kbd> is
+     *                            mode <kbd>SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR</kbd> is
      *                            used.
      * @param boolean $textmode   optional. If true, line-breaks in signed data
      *                            are normalized. Use this option when signing
      *                            e-mail, or for greater compatibility between
      *                            systems with different line-break formats.
      *                            Defaults to false. This has no effect if the
-     *                            mode <kbd>Crypt_GPG::SIGN_MODE_CLEAR</kbd> is
+     *                            mode <kbd>SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR</kbd> is
      *                            used as clear-signing always uses textmode.
      *
      * @return void|string if the <kbd>$signedFile</kbd> parameter is null, a
@@ -1066,7 +1066,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *                     returned.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no signing key is specified.
-     *         See {@link Crypt_GPG::addSignKey()}.
+     *         See {@link SchumacherFM_Pgp_Model_Cli_Gpg::addSignKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
@@ -1101,7 +1101,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
     /**
      * Verifies signed data
      *
-     * The {@link Crypt_GPG::decrypt()} method may be used to get the original
+     * The {@link SchumacherFM_Pgp_Model_Cli_Gpg::decrypt()} method may be used to get the original
      * message if the signed data is not clearsigned and does not use a
      * detached signature.
      *
@@ -1135,7 +1135,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
     /**
      * Verifies a signed file
      *
-     * The {@link Crypt_GPG::decryptFile()} method may be used to get the
+     * The {@link SchumacherFM_Pgp_Model_Cli_Gpg::decryptFile()} method may be used to get the
      * original message if the signed data is not clearsigned and does not use
      * a detached signature.
      *
@@ -1180,10 +1180,10 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @return Crypt_GPG the current object, for fluent interface.
      *
-     * @see Crypt_GPG::decrypt()
-     * @see Crypt_GPG::decryptFile()
-     * @see Crypt_GPG::clearDecryptKeys()
-     * @see Crypt_GPG::_addKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::decrypt()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::decryptFile()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::clearDecryptKeys()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::_addKey()
      * @see SchumacherFM_Pgp_Model_Cli_Gpg_DecryptStatusHandler
      *
      * @sensitive $passphrase
@@ -1207,10 +1207,10 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @return Crypt_GPG the current object, for fluent interface.
      *
-     * @see Crypt_GPG::encrypt()
-     * @see Crypt_GPG::encryptFile()
-     * @see Crypt_GPG::clearEncryptKeys()
-     * @see Crypt_GPG::_addKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::encrypt()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::encryptFile()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::clearEncryptKeys()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::_addKey()
      */
     public function addEncryptKey($key)
     {
@@ -1233,11 +1233,11 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @return Crypt_GPG the current object, for fluent interface.
      *
-     * @see Crypt_GPG::sign()
-     * @see Crypt_GPG::signFile()
-     * @see Crypt_GPG::clearSignKeys()
-     * @see Crypt_GPG::handleSignStatus()
-     * @see Crypt_GPG::_addKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::sign()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::signFile()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::clearSignKeys()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::handleSignStatus()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::_addKey()
      *
      * @sensitive $passphrase
      */
@@ -1255,8 +1255,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @return Crypt_GPG the current object, for fluent interface.
      *
-     * @see Crypt_GPG::decrypt()
-     * @see Crypt_GPG::addDecryptKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::decrypt()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::addDecryptKey()
      */
     public function clearDecryptKeys()
     {
@@ -1272,8 +1272,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @return Crypt_GPG the current object, for fluent interface.
      *
-     * @see Crypt_GPG::encrypt()
-     * @see Crypt_GPG::addEncryptKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::encrypt()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::addEncryptKey()
      */
     public function clearEncryptKeys()
     {
@@ -1289,8 +1289,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @return Crypt_GPG the current object, for fluent interface.
      *
-     * @see Crypt_GPG::sign()
-     * @see Crypt_GPG::addSignKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::sign()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::addSignKey()
      */
     public function clearSignKeys()
     {
@@ -1305,7 +1305,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * Handles the status output from GPG for the sign operation
      *
      * This method is responsible for sending the passphrase commands when
-     * required by the {@link Crypt_GPG::sign()} method. See <b>doc/DETAILS</b>
+     * required by the {@link SchumacherFM_Pgp_Model_Cli_Gpg::sign()} method. See <b>doc/DETAILS</b>
      * in the {@link http://www.gnupg.org/download/ GPG distribution} for
      * detailed information on GPG's status output.
      *
@@ -1313,7 +1313,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @return void
      *
-     * @see Crypt_GPG::sign()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::sign()
      */
     public function handleSignStatus($line)
     {
@@ -1338,7 +1338,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      * Handles the status output from GPG for the import operation
      *
      * This method is responsible for building the result array that is
-     * returned from the {@link Crypt_GPG::importKey()} method. See
+     * returned from the {@link SchumacherFM_Pgp_Model_Cli_Gpg::importKey()} method. See
      * <b>doc/DETAILS</b> in the
      * {@link http://www.gnupg.org/download/ GPG distribution} for detailed
      * information on GPG's status output.
@@ -1348,8 +1348,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @return void
      *
-     * @see Crypt_GPG::importKey()
-     * @see Crypt_GPG::importKeyFile()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::importKey()
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg::importKeyFile()
      * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::addStatusHandler()
      */
     public function handleImportKeyStatus($line, array &$result)
@@ -1613,7 +1613,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *                     string containing the encrypted data is returned.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified.
-     *         See {@link Crypt_GPG::addEncryptKey()}.
+     *         See {@link SchumacherFM_Pgp_Model_Cli_Gpg::addEncryptKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
@@ -1719,7 +1719,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
-     *         {@link Crypt_GPG::addDecryptKey()}.
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addDecryptKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.
@@ -1812,20 +1812,20 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *                            should be stored. If null, the signed data is
      *                            returned as a string.
      * @param boolean $mode       the data signing mode to use. Should be one of
-     *                            {@link Crypt_GPG::SIGN_MODE_NORMAL},
-     *                            {@link Crypt_GPG::SIGN_MODE_CLEAR} or
-     *                            {@link Crypt_GPG::SIGN_MODE_DETACHED}.
+     *                            {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_NORMAL},
+     *                            {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR} or
+     *                            {@link SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_DETACHED}.
      * @param boolean $armor      if true, ASCII armored data is returned;
      *                            otherwise, binary data is returned. This has
      *                            no effect if the mode
-     *                            <kbd>Crypt_GPG::SIGN_MODE_CLEAR</kbd> is
+     *                            <kbd>SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR</kbd> is
      *                            used.
      * @param boolean $textmode   if true, line-breaks in signed data be
      *                            normalized. Use this option when signing
      *                            e-mail, or for greater compatibility between
      *                            systems with different line-break formats.
      *                            Defaults to false. This has no effect if the
-     *                            mode <kbd>Crypt_GPG::SIGN_MODE_CLEAR</kbd> is
+     *                            mode <kbd>SchumacherFM_Pgp_Model_Cli_Gpg::SIGN_MODE_CLEAR</kbd> is
      *                            used as clear-signing always uses textmode.
      *
      * @return void|string if the <kbd>$outputFile</kbd> parameter is null, a
@@ -1834,7 +1834,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *                     returned.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no signing key is specified.
-     *         See {@link Crypt_GPG::addSignKey()}.
+     *         See {@link SchumacherFM_Pgp_Model_Cli_Gpg::addSignKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
@@ -1987,8 +1987,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_KeyNotFoundException if no encryption key is specified
      *         or if no signing key is specified. See
-     *         {@link Crypt_GPG::addEncryptKey()} and
-     *         {@link Crypt_GPG::addSignKey()}.
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addEncryptKey()} and
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addSignKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a specified passphrase is
      *         incorrect or if a required passphrase is not specified.
@@ -2247,7 +2247,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg extends SchumacherFM_Pgp_Model_Cli_GpgAbstr
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
-     *         {@link Crypt_GPG::addDecryptKey()}.
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addDecryptKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_FileException if the output file is not writeable or
      *         if the input file is not readable.

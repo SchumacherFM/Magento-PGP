@@ -67,7 +67,7 @@ require_once 'Console/CommandLine.php';
  * @copyright 2013 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
- * @see       Crypt_GPG::getKeys()
+ * @see       SchumacherFM_Pgp_Model_Cli_Gpg::getKeys()
  */
 class SchumacherFM_Pgp_Model_Cli_Gpg_PinEntry
 {

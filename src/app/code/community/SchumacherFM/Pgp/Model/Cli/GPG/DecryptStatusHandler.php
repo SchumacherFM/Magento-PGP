@@ -43,7 +43,7 @@
  * directly. See the {@link Crypt_GPG} class for end-user API.
  *
  * This class is responsible for sending the passphrase commands when required
- * by the {@link Crypt_GPG::decrypt()} method. See <b>doc/DETAILS</b> in the
+ * by the {@link SchumacherFM_Pgp_Model_Cli_Gpg::decrypt()} method. See <b>doc/DETAILS</b> in the
  * {@link http://www.gnupg.org/download/ GnuPG distribution} for detailed
  * information on GnuPG's status output for the decrypt operation.
  *
@@ -247,7 +247,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_DecryptStatusHandler
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_BadPassphraseException if a required passphrase is
      *         incorrect or if a required passphrase is not specified. See
-     *         {@link Crypt_GPG::addDecryptKey()}.
+     *         {@link SchumacherFM_Pgp_Model_Cli_Gpg::addDecryptKey()}.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
      *         Use the <i>debug</i> option and file a bug report if these
@@ -255,25 +255,25 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_DecryptStatusHandler
      */
     public function throwException()
     {
-        $code = Crypt_GPG::ERROR_NONE;
+        $code = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE;
 
         if (!$this->decryptionOkay) {
             if (count($this->badPassphrases) > 0) {
-                $code = Crypt_GPG::ERROR_BAD_PASSPHRASE;
+                $code = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_BAD_PASSPHRASE;
             } elseif (count($this->missingKeys) > 0) {
-                $code = Crypt_GPG::ERROR_KEY_NOT_FOUND;
+                $code = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_KEY_NOT_FOUND;
             } else {
-                $code = Crypt_GPG::ERROR_UNKNOWN;
+                $code = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_UNKNOWN;
             }
         } elseif ($this->noData) {
-            $code = Crypt_GPG::ERROR_NO_DATA;
+            $code = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NO_DATA;
         }
 
         switch ($code) {
-            case Crypt_GPG::ERROR_NONE:
+            case SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE:
                 break;
 
-            case Crypt_GPG::ERROR_KEY_NOT_FOUND:
+            case SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_KEY_NOT_FOUND:
                 if (count($this->missingKeys) > 0) {
                     $keyId = reset($this->missingKeys);
                 } else {
@@ -286,7 +286,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_DecryptStatusHandler
                     $code,
                     $keyId
                 );
-            case Crypt_GPG::ERROR_BAD_PASSPHRASE:
+            case SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_BAD_PASSPHRASE:
                 $badPassphrases = array_diff_key(
                     $this->badPassphrases,
                     $this->missingPassphrases
@@ -313,7 +313,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_DecryptStatusHandler
                     $badPassphrases,
                     $missingPassphrases
                 );
-            case Crypt_GPG::ERROR_NO_DATA:
+            case SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NO_DATA:
                 throw new SchumacherFM_Pgp_Model_Cli_Gpg_NoDataException(
                     'Cannot decrypt data. No PGP encrypted data was found in ' .
                     'the provided data.',

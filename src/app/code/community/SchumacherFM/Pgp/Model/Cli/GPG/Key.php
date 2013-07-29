@@ -37,7 +37,7 @@
 /**
  * A data class for GPG key information
  *
- * This class is used to store the results of the {@link Crypt_GPG::getKeys()}
+ * This class is used to store the results of the {@link SchumacherFM_Pgp_Model_Cli_Gpg::getKeys()}
  * method.
  *
  * @category  Encryption
@@ -46,7 +46,7 @@
  * @copyright 2008-2010 silverorange
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://pear.php.net/package/Crypt_GPG
- * @see       Crypt_GPG::getKeys()
+ * @see       SchumacherFM_Pgp_Model_Cli_Gpg::getKeys()
  */
 class SchumacherFM_Pgp_Model_Cli_Gpg_Key
 {

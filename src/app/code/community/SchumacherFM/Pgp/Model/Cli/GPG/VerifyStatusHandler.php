@@ -43,7 +43,7 @@
  * directly. See the {@link Crypt_GPG} class for end-user API.
  *
  * This class is responsible for building signature objects that are returned
- * by the {@link Crypt_GPG::verify()} method. See <b>doc/DETAILS</b> in the
+ * by the {@link SchumacherFM_Pgp_Model_Cli_Gpg::verify()} method. See <b>doc/DETAILS</b> in the
  * {@link http://www.gnupg.org/download/ GPG distribution} for detailed
  * information on GPG's status output for the verify operation.
  *

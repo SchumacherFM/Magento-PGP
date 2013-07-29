@@ -59,7 +59,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorErrorHandler
      *
      * @var integer
      */
-    protected $errorCode = Crypt_GPG::ERROR_NONE;
+    protected $errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE;
 
     /**
      * Line number at which the error occurred
@@ -83,7 +83,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_KeyGeneratorErrorHandler
         $matches = array();
         $pattern = '/:([0-9]+): invalid algorithm$/';
         if (preg_match($pattern, $line, $matches) === 1) {
-            $this->errorCode  = Crypt_GPG::ERROR_BAD_KEY_PARAMS;
+            $this->errorCode  = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_BAD_KEY_PARAMS;
             $this->lineNumber = intval($matches[1]);
         }
     }
