@@ -4,6 +4,7 @@
  * @package     Helper
  * @author      Cyrill at Schumacher dot fm / @SchumacherFM
  * @copyright   Copyright (c)
+ * @license     http://www.gnu.org/licenses/gpl.html  GPL
  */
 class SchumacherFM_Pgp_Helper_Data extends Mage_Core_Helper_Abstract
 {
