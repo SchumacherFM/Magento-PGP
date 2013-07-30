@@ -94,18 +94,15 @@ class SchumacherFM_Pgp_Model_Pgp
     /**
      * @return $this
      */
-    public function setMethodPhp()
+    public function setMethod($type)
     {
-        $this->_method = 'php';
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function setMethodCli()
-    {
-        $this->_method = 'cli';
+        $type     = strtolower($type);
+        $_methods = array(
+            'php' => 1,
+            'cli' => 1,
+        );
+        $type     = isset($_methods[$type]) ? $type : 'php';
+        $this->_method = $type;
         return $this;
     }
 

@@ -136,7 +136,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      * @var boolean
      * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::__construct()
      */
-    private $_debug = false;
+    private $_debug = FALSE;
 
     /**
      * Location of GPG binary
@@ -271,7 +271,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      *
      * @var boolean
      */
-    private $_isDarwin = false;
+    private $_isDarwin = FALSE;
 
     /**
      * Commands to be sent to GPG's command input stream
@@ -303,7 +303,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      * @var integer
      * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::getErrorCode()
      */
-    private $_errorCode = Crypt_GPG::ERROR_NONE;
+    private $_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE;
 
     /**
      * File related to the error code of the current operation
@@ -325,7 +325,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      * The number of currently needed passphrases
      *
      * If this is not zero when the GPG command is completed, the error code is
-     * set to {@link Crypt_GPG::ERROR_MISSING_PASSPHRASE}.
+     * set to {@link SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_MISSING_PASSPHRASE}.
      *
      * @var integer
      */
@@ -469,11 +469,11 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      *         example, the Apache user) does not have permission to read the
      *         files.
      *
-     * @throws PEAR_Exception if the provided <kbd>binary</kbd> is invalid, or
+     * @throws Zend_Exception if the provided <kbd>binary</kbd> is invalid, or
      *         if no <kbd>binary</kbd> is provided and no suitable binary could
      *         be found.
      *
-     * @throws PEAR_Exception if the provided <kbd>agent</kbd> is invalid, or
+     * @throws Zend_Exception if the provided <kbd>agent</kbd> is invalid, or
      *         if no <kbd>agent</kbd> is provided and no suitable gpg-agent
      *         cound be found.
      */
@@ -487,8 +487,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
         } else {
             if (extension_loaded('posix')) {
                 // note: this requires the package OS dep exclude 'windows'
-                $info = posix_getpwuid(posix_getuid());
-                $this->_homedir = $info['dir'].'/.gnupg';
+                $info           = posix_getpwuid(posix_getuid());
+                $this->_homedir = $info['dir'] . '/.gnupg';
             } else {
                 if (isset($_SERVER['HOME'])) {
                     $this->_homedir = $_SERVER['HOME'];
@@ -497,7 +497,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
                 }
             }
 
-            if ($this->_homedir === false) {
+            if ($this->_homedir === FALSE) {
                 throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException(
                     'Could not locate homedir. Please specify the homedir ' .
                     'to use with the \'homedir\' option when instantiating ' .
@@ -508,7 +508,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
 
         // attempt to create homedir if it does not exist
         if (!is_dir($this->_homedir)) {
-            if (@mkdir($this->_homedir, 0777, true)) {
+            if (@mkdir($this->_homedir, 0777, TRUE)) {
                 // Set permissions on homedir. Parent directories are created
                 // with 0777, homedir is set to 0700.
                 chmod($this->_homedir, 0700);
@@ -558,7 +558,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
         }
 
         if ($this->_binary == '' || !is_executable($this->_binary)) {
-            throw new PEAR_Exception(
+            throw new Zend_Exception(
                 'GPG binary not found. If you are sure the GPG binary is ' .
                 'installed, please specify the location of the GPG binary ' .
                 'using the \'binary\' driver option.'
@@ -573,7 +573,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
         }
 
         if ($this->_agent == '' || !is_executable($this->_agent)) {
-            throw new PEAR_Exception(
+            throw new Zend_Exception(
                 'gpg-agent binary not found. If you are sure the gpg-agent ' .
                 'is installed, please specify the location of the gpg-agent ' .
                 'binary using the \'agent\' driver option.'
@@ -597,10 +597,10 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
         if (array_key_exists('publicKeyring', $options)) {
             $this->_publicKeyring = (string)$options['publicKeyring'];
             if (!is_readable($this->_publicKeyring)) {
-                 throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException('The \'publicKeyring\' "' .
-                    $this->_publicKeyring . '" does not exist or is ' .
-                    'not readable. Check the location and ensure the file ' .
-                    'permissions are correct.', 0, $this->_publicKeyring);
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException('The \'publicKeyring\' "' .
+                $this->_publicKeyring . '" does not exist or is ' .
+                'not readable. Check the location and ensure the file ' .
+                'permissions are correct.', 0, $this->_publicKeyring);
             }
         }
 
@@ -608,10 +608,10 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
         if (array_key_exists('privateKeyring', $options)) {
             $this->_privateKeyring = (string)$options['privateKeyring'];
             if (!is_readable($this->_privateKeyring)) {
-                 throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException('The \'privateKeyring\' "' .
-                    $this->_privateKeyring . '" does not exist or is ' .
-                    'not readable. Check the location and ensure the file ' .
-                    'permissions are correct.', 0, $this->_privateKeyring);
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException('The \'privateKeyring\' "' .
+                $this->_privateKeyring . '" does not exist or is ' .
+                'not readable. Check the location and ensure the file ' .
+                'permissions are correct.', 0, $this->_privateKeyring);
             }
         }
 
@@ -619,10 +619,10 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
         if (array_key_exists('trustDb', $options)) {
             $this->_trustDb = (string)$options['trustDb'];
             if (!is_readable($this->_trustDb)) {
-                 throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException('The \'trustDb\' "' .
-                    $this->_trustDb . '" does not exist or is not readable. ' .
-                    'Check the location and ensure the file permissions are ' .
-                    'correct.', 0, $this->_trustDb);
+                throw new SchumacherFM_Pgp_Model_Cli_Gpg_FileException('The \'trustDb\' "' .
+                $this->_trustDb . '" does not exist or is not readable. ' .
+                'Check the location and ensure the file permissions are ' .
+                'correct.', 0, $this->_trustDb);
             }
         }
 
@@ -731,7 +731,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
         $this->_input          = null;
         $this->_message        = null;
         $this->_output         = '';
-        $this->_errorCode      = Crypt_GPG::ERROR_NONE;
+        $this->_errorCode      = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE;
         $this->_needPassphrase = 0;
         $this->_commandBuffer  = '';
 
@@ -769,8 +769,8 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
     {
         if ($this->_operation === '') {
             throw new SchumacherFM_Pgp_Model_Cli_Gpg_InvalidOperationException('No GPG operation ' .
-                'specified. Use SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation() before ' .
-                'calling SchumacherFM_Pgp_Model_Cli_Gpg_Engine::run().');
+            'specified. Use SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation() before ' .
+            'calling SchumacherFM_Pgp_Model_Cli_Gpg_Engine::run().');
         }
 
         $this->_openSubprocess();
@@ -922,11 +922,11 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      *                version_compare() function.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception if an unknown or unexpected error occurs.
-     *         Use the <kbd>debug</kbd> option and file a bug report if these
-     *         exceptions occur.
+     *                Use the <kbd>debug</kbd> option and file a bug report if these
+     *                exceptions occur.
      *
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_UnsupportedException if the provided binary is not
-     *         GnuPG or if the GnuPG version is less than 1.0.2.
+     *                GnuPG or if the GnuPG version is less than 1.0.2.
      */
     public function getVersion()
     {
@@ -952,11 +952,11 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
 
             $code = $this->getErrorCode();
 
-            if ($code !== Crypt_GPG::ERROR_NONE) {
+            if ($code !== SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE) {
                 throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                     'Unknown error getting GnuPG version information. Please ' .
                     'use the \'debug\' option when creating the Crypt_GPG ' .
-                    'object, and file a bug report at ' . Crypt_GPG::BUG_URI,
+                    'object, and file a bug report at ' . SchumacherFM_Pgp_Model_Cli_Gpg::BUG_URI,
                     $code);
             }
 
@@ -978,7 +978,6 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
                     'required by Crypt_GPG is ' . self::MIN_VERSION);
             }
         }
-
 
         return $this->_version;
     }
@@ -1002,54 +1001,54 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
     {
         $tokens = explode(' ', $line);
         switch ($tokens[0]) {
-        case 'BAD_PASSPHRASE':
-            $this->_errorCode = Crypt_GPG::ERROR_BAD_PASSPHRASE;
-            break;
-
-        case 'MISSING_PASSPHRASE':
-            $this->_errorCode = Crypt_GPG::ERROR_MISSING_PASSPHRASE;
-            break;
-
-        case 'NODATA':
-            $this->_errorCode = Crypt_GPG::ERROR_NO_DATA;
-            break;
-
-        case 'DELETE_PROBLEM':
-            if ($tokens[1] == '1') {
-                $this->_errorCode = Crypt_GPG::ERROR_KEY_NOT_FOUND;
+            case 'BAD_PASSPHRASE':
+                $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_BAD_PASSPHRASE;
                 break;
-            } elseif ($tokens[1] == '2') {
-                $this->_errorCode = Crypt_GPG::ERROR_DELETE_PRIVATE_KEY;
+
+            case 'MISSING_PASSPHRASE':
+                $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_MISSING_PASSPHRASE;
                 break;
-            }
-            break;
 
-        case 'IMPORT_RES':
-            if ($tokens[12] > 0) {
-                $this->_errorCode = Crypt_GPG::ERROR_DUPLICATE_KEY;
-            }
-            break;
+            case 'NODATA':
+                $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NO_DATA;
+                break;
 
-        case 'NO_PUBKEY':
-        case 'NO_SECKEY':
-            $this->_errorKeyId = $tokens[1];
-            $this->_errorCode  = Crypt_GPG::ERROR_KEY_NOT_FOUND;
-            break;
+            case 'DELETE_PROBLEM':
+                if ($tokens[1] == '1') {
+                    $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_KEY_NOT_FOUND;
+                    break;
+                } elseif ($tokens[1] == '2') {
+                    $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_DELETE_PRIVATE_KEY;
+                    break;
+                }
+                break;
 
-        case 'NEED_PASSPHRASE':
-            $this->_needPassphrase++;
-            break;
+            case 'IMPORT_RES':
+                if ($tokens[12] > 0) {
+                    $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_DUPLICATE_KEY;
+                }
+                break;
 
-        case 'GOOD_PASSPHRASE':
-            $this->_needPassphrase--;
-            break;
+            case 'NO_PUBKEY':
+            case 'NO_SECKEY':
+                $this->_errorKeyId = $tokens[1];
+                $this->_errorCode  = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_KEY_NOT_FOUND;
+                break;
 
-        case 'EXPSIG':
-        case 'EXPKEYSIG':
-        case 'REVKEYSIG':
-        case 'BADSIG':
-            $this->_errorCode = Crypt_GPG::ERROR_BAD_SIGNATURE;
-            break;
+            case 'NEED_PASSPHRASE':
+                $this->_needPassphrase++;
+                break;
+
+            case 'GOOD_PASSPHRASE':
+                $this->_needPassphrase--;
+                break;
+
+            case 'EXPSIG':
+            case 'EXPKEYSIG':
+            case 'REVKEYSIG':
+            case 'BADSIG':
+                $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_BAD_SIGNATURE;
+                break;
 
         }
     }
@@ -1069,33 +1068,33 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      */
     private function _handleErrorError($line)
     {
-        if ($this->_errorCode === Crypt_GPG::ERROR_NONE) {
+        if ($this->_errorCode === SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE) {
             $pattern = '/no valid OpenPGP data found/';
             if (preg_match($pattern, $line) === 1) {
-                $this->_errorCode = Crypt_GPG::ERROR_NO_DATA;
+                $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NO_DATA;
             }
         }
 
-        if ($this->_errorCode === Crypt_GPG::ERROR_NONE) {
+        if ($this->_errorCode === SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE) {
             $pattern = '/No secret key|secret key not available/';
             if (preg_match($pattern, $line) === 1) {
-                $this->_errorCode = Crypt_GPG::ERROR_KEY_NOT_FOUND;
+                $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_KEY_NOT_FOUND;
             }
         }
 
-        if ($this->_errorCode === Crypt_GPG::ERROR_NONE) {
+        if ($this->_errorCode === SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE) {
             $pattern = '/No public key|public key not found/';
             if (preg_match($pattern, $line) === 1) {
-                $this->_errorCode = Crypt_GPG::ERROR_KEY_NOT_FOUND;
+                $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_KEY_NOT_FOUND;
             }
         }
 
-        if ($this->_errorCode === Crypt_GPG::ERROR_NONE) {
+        if ($this->_errorCode === SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE) {
             $matches = array();
             $pattern = '/can\'t (?:access|open) `(.*?)\'/';
             if (preg_match($pattern, $line, $matches) === 1) {
                 $this->_errorFilename = $matches[1];
-                $this->_errorCode = Crypt_GPG::ERROR_FILE_PERMISSIONS;
+                $this->_errorCode     = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_FILE_PERMISSIONS;
             }
         }
     }
@@ -1153,23 +1152,23 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
     {
         $this->_debug('BEGIN PROCESSING');
 
-        $this->_commandBuffer = '';    // buffers input to GPG
-        $messageBuffer        = '';    // buffers input to GPG
-        $inputBuffer          = '';    // buffers input to GPG
-        $outputBuffer         = '';    // buffers output from GPG
-        $statusBuffer         = '';    // buffers output from GPG
-        $errorBuffer          = '';    // buffers output from GPG
-        $inputComplete        = false; // input stream is completely buffered
-        $messageComplete      = false; // message stream is completely buffered
+        $this->_commandBuffer = ''; // buffers input to GPG
+        $messageBuffer        = ''; // buffers input to GPG
+        $inputBuffer          = ''; // buffers input to GPG
+        $outputBuffer         = ''; // buffers output from GPG
+        $statusBuffer         = ''; // buffers output from GPG
+        $errorBuffer          = ''; // buffers output from GPG
+        $inputComplete        = FALSE; // input stream is completely buffered
+        $messageComplete      = FALSE; // message stream is completely buffered
 
         if (is_string($this->_input)) {
             $inputBuffer   = $this->_input;
-            $inputComplete = true;
+            $inputComplete = TRUE;
         }
 
         if (is_string($this->_message)) {
             $messageBuffer   = $this->_message;
-            $messageComplete = true;
+            $messageComplete = TRUE;
         }
 
         if (is_string($this->_output)) {
@@ -1187,7 +1186,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
         // select loop delay in milliseconds
         $delay = 0;
 
-        while (true) {
+        while (TRUE) {
 
             $inputStreams     = array();
             $outputStreams    = array();
@@ -1196,7 +1195,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             // set up input streams
             if (is_resource($this->_input) && !$inputComplete) {
                 if (feof($this->_input)) {
-                    $inputComplete = true;
+                    $inputComplete = TRUE;
                 } else {
                     $inputStreams[] = $this->_input;
                 }
@@ -1210,7 +1209,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
 
             if (is_resource($this->_message) && !$messageComplete) {
                 if (feof($this->_message)) {
-                    $messageComplete = true;
+                    $messageComplete = TRUE;
                 } else {
                     $inputStreams[] = $this->_message;
                 }
@@ -1267,7 +1266,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
 
             $this->_debug('=> got ' . $ready);
 
-            if ($ready === false) {
+            if ($ready === FALSE) {
                 throw new SchumacherFM_Pgp_Model_Cli_Gpg_Exception(
                     'Error selecting stream for communication with GPG ' .
                     'subprocess. Please file a bug report at: ' .
@@ -1282,7 +1281,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             }
 
             // write input (to GPG)
-            if (in_array($fdInput, $outputStreams, true)) {
+            if (in_array($fdInput, $outputStreams, TRUE)) {
                 $this->_debug('GPG is ready for input');
 
                 $chunk = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
@@ -1316,22 +1315,22 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             }
 
             // read input (from PHP stream)
-            if (in_array($this->_input, $inputStreams, true)) {
+            if (in_array($this->_input, $inputStreams, TRUE)) {
                 $this->_debug('input stream is ready for reading');
                 $this->_debug(
                     '=> about to read ' . self::CHUNK_SIZE .
                     ' bytes from input stream'
                 );
 
-                $chunk        = fread($this->_input, self::CHUNK_SIZE);
-                $length       = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
+                $chunk  = fread($this->_input, self::CHUNK_SIZE);
+                $length = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
                 $inputBuffer .= $chunk;
 
                 $this->_debug('=> read ' . $length . ' bytes');
             }
 
             // write message (to GPG)
-            if (in_array($fdMessage, $outputStreams, true)) {
+            if (in_array($fdMessage, $outputStreams, TRUE)) {
                 $this->_debug('GPG is ready for message data');
 
                 $chunk = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
@@ -1365,37 +1364,37 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             }
 
             // read message (from PHP stream)
-            if (in_array($this->_message, $inputStreams, true)) {
+            if (in_array($this->_message, $inputStreams, TRUE)) {
                 $this->_debug('message stream is ready for reading');
                 $this->_debug(
                     '=> about to read ' . self::CHUNK_SIZE .
                     ' bytes from message stream'
                 );
 
-                $chunk          = fread($this->_message, self::CHUNK_SIZE);
-                $length         = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
+                $chunk  = fread($this->_message, self::CHUNK_SIZE);
+                $length = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
                 $messageBuffer .= $chunk;
 
                 $this->_debug('=> read ' . $length . ' bytes');
             }
 
             // read output (from GPG)
-            if (in_array($fdOutput, $inputStreams, true)) {
+            if (in_array($fdOutput, $inputStreams, TRUE)) {
                 $this->_debug('GPG output stream ready for reading');
                 $this->_debug(
                     '=> about to read ' . self::CHUNK_SIZE .
                     ' bytes from GPG output'
                 );
 
-                $chunk         = fread($fdOutput, self::CHUNK_SIZE);
-                $length        = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
+                $chunk  = fread($fdOutput, self::CHUNK_SIZE);
+                $length = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
                 $outputBuffer .= $chunk;
 
                 $this->_debug('=> read ' . $length . ' bytes');
             }
 
             // write output (to PHP stream)
-            if (in_array($this->_output, $outputStreams, true)) {
+            if (in_array($this->_output, $outputStreams, TRUE)) {
                 $this->_debug('output stream is ready for data');
 
                 $chunk = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr(
@@ -1421,21 +1420,21 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             }
 
             // read error (from GPG)
-            if (in_array($fdError, $inputStreams, true)) {
+            if (in_array($fdError, $inputStreams, TRUE)) {
                 $this->_debug('GPG error stream ready for reading');
                 $this->_debug(
                     '=> about to read ' . self::CHUNK_SIZE .
                     ' bytes from GPG error'
                 );
 
-                $chunk        = fread($fdError, self::CHUNK_SIZE);
-                $length       = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
+                $chunk  = fread($fdError, self::CHUNK_SIZE);
+                $length = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
                 $errorBuffer .= $chunk;
 
                 $this->_debug('=> read ' . $length . ' bytes');
 
                 // pass lines to error handlers
-                while (($pos = strpos($errorBuffer, PHP_EOL)) !== false) {
+                while (($pos = strpos($errorBuffer, PHP_EOL)) !== FALSE) {
                     $line = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr($errorBuffer, 0, $pos);
                     foreach ($this->_errorHandlers as $handler) {
                         array_unshift($handler['args'], $line);
@@ -1454,21 +1453,21 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             }
 
             // read status (from GPG)
-            if (in_array($fdStatus, $inputStreams, true)) {
+            if (in_array($fdStatus, $inputStreams, TRUE)) {
                 $this->_debug('GPG status stream ready for reading');
                 $this->_debug(
                     '=> about to read ' . self::CHUNK_SIZE .
                     ' bytes from GPG status'
                 );
 
-                $chunk         = fread($fdStatus, self::CHUNK_SIZE);
-                $length        = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
+                $chunk  = fread($fdStatus, self::CHUNK_SIZE);
+                $length = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::strlen($chunk);
                 $statusBuffer .= $chunk;
 
                 $this->_debug('=> read ' . $length . ' bytes');
 
                 // pass lines to status handlers
-                while (($pos = strpos($statusBuffer, PHP_EOL)) !== false) {
+                while (($pos = strpos($statusBuffer, PHP_EOL)) !== FALSE) {
                     $line = SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr($statusBuffer, 0, $pos);
                     // only pass lines beginning with magic prefix
                     if (SchumacherFM_Pgp_Model_Cli_Gpg_ByteUtils::substr($line, 0, 9) == '[GNUPG:] ') {
@@ -1491,7 +1490,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             }
 
             // write command (to GPG)
-            if (in_array($fdCommand, $outputStreams, true)) {
+            if (in_array($fdCommand, $outputStreams, TRUE)) {
                 $this->_debug('GPG is ready for command data');
 
                 // send commands
@@ -1559,9 +1558,9 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_OpenSubprocessException if the subprocess could not be
      *         opened.
      *
-     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation()
-     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::_closeSubprocess()
-     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::$_process
+     * @see    SchumacherFM_Pgp_Model_Cli_Gpg_Engine::setOperation()
+     * @see    SchumacherFM_Pgp_Model_Cli_Gpg_Engine::_closeSubprocess()
+     * @see    SchumacherFM_Pgp_Model_Cli_Gpg_Engine::$_process
      */
     private function _openSubprocess()
     {
@@ -1599,14 +1598,13 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
                     escapeshellarg($this->_homedir);
             }
 
-
             $agentCommandLine .= ' ' . implode(' ', $agentArguments)
                 . ' --daemon';
 
             $agentDescriptorSpec = array(
-                self::FD_INPUT   => array('pipe', $rb), // stdin
-                self::FD_OUTPUT  => array('pipe', $wb), // stdout
-                self::FD_ERROR   => array('pipe', $wb)  // stderr
+                self::FD_INPUT  => array('pipe', $rb), // stdin
+                self::FD_OUTPUT => array('pipe', $wb), // stdout
+                self::FD_ERROR  => array('pipe', $wb) // stderr
             );
 
             $this->_debug('OPENING GPG-AGENT SUBPROCESS WITH THE FOLLOWING COMMAND:');
@@ -1618,7 +1616,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
                 $this->_agentPipes,
                 null,
                 $env,
-                array('binary_pipes' => true)
+                array('binary_pipes' => TRUE)
             );
 
             if (!is_resource($this->_agentProcess)) {
@@ -1652,7 +1650,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             '--no-secmem-warning',
             '--no-tty',
             '--no-default-keyring', // ignored if keying files are not specified
-            '--no-options'          // prevent creation of ~/.gnupg directory
+            '--no-options' // prevent creation of ~/.gnupg directory
         );
 
         if (version_compare($version, '1.0.7', 'ge')) {
@@ -1706,7 +1704,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             self::FD_ERROR   => array('pipe', $wb), // stderr
             self::FD_STATUS  => array('pipe', $wb), // status
             self::FD_COMMAND => array('pipe', $rb), // command
-            self::FD_MESSAGE => array('pipe', $rb)  // message
+            self::FD_MESSAGE => array('pipe', $rb) // message
         );
 
         $this->_debug('OPENING GPG SUBPROCESS WITH THE FOLLOWING COMMAND:');
@@ -1718,7 +1716,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             $this->_pipes,
             null,
             $env,
-            array('binary_pipes' => true)
+            array('binary_pipes' => TRUE)
         );
 
         if (!is_resource($this->_process)) {
@@ -1732,7 +1730,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
         }
 
         $this->_openPipes = $this->_pipes;
-        $this->_errorCode = Crypt_GPG::ERROR_NONE;
+        $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE;
     }
 
     // }}}
@@ -1770,11 +1768,11 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
                     $exitCode
                 );
 
-                if ($this->_errorCode === Crypt_GPG::ERROR_NONE) {
+                if ($this->_errorCode === SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_NONE) {
                     if ($this->_needPassphrase > 0) {
-                        $this->_errorCode = Crypt_GPG::ERROR_MISSING_PASSPHRASE;
+                        $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_MISSING_PASSPHRASE;
                     } else {
-                        $this->_errorCode = Crypt_GPG::ERROR_UNKNOWN;
+                        $this->_errorCode = SchumacherFM_Pgp_Model_Cli_Gpg::ERROR_UNKNOWN;
                     }
                 }
             }
@@ -1875,7 +1873,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             $binaryFiles = array(
                 '/opt/local/bin/gpg', // MacPorts
                 '/usr/local/bin/gpg', // Mac GPG
-                '/sw/bin/gpg',        // Fink
+                '/sw/bin/gpg', // Fink
                 '/usr/bin/gpg'
             );
         } else {
@@ -1906,7 +1904,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
             $agentFiles = array(
                 '/opt/local/bin/gpg-agent', // MacPorts
                 '/usr/local/bin/gpg-agent', // Mac GPG
-                '/sw/bin/gpg-agent',        // Fink
+                '/sw/bin/gpg-agent', // Fink
                 '/usr/bin/gpg-agent'
             );
         } else {
@@ -1959,6 +1957,10 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
     private function _debug($text)
     {
         if ($this->_debug) {
+
+            Mage::log($text, null, Mage::helper('pgp/cli')->getLogFileName());
+
+            /*
             if (php_sapi_name() === 'cli') {
                 foreach (explode(PHP_EOL, $text) as $line) {
                     echo "Crypt_GPG DEBUG: ", $line, PHP_EOL;
@@ -1969,7 +1971,7 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_Engine
                     echo "Crypt_GPG DEBUG: <strong>", $line,
                         '</strong><br />', PHP_EOL;
                 }
-            }
+            } */
         }
     }
 

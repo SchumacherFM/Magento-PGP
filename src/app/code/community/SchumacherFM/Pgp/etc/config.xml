@@ -20,6 +20,11 @@
             <pgp>
                 <class>SchumacherFM_Pgp_Model</class>
             </pgp>
+            <core>
+                <rewrite>
+                    <email_template>SchumacherFM_Pgp_Model_Core_Email_Template</email_template>
+                </rewrite>
+            </core>
         </models>
         <resources>
             <pgp_setup>

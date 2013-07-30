@@ -26,3 +26,7 @@ Author
 [Cyrill Schumacher](https://github.com/SchumacherFM)
 
 Made in Sydney, Australia :-)
+
+License GPL
+-----------
+[http://www.gnu.org/licenses/gpl.html](http://www.gnu.org/licenses/gpl.html)

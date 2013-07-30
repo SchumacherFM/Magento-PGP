@@ -26,4 +26,13 @@ class SchumacherFM_Pgp_Helper_Data extends Mage_Core_Helper_Abstract
         $encrypted = $gpg->encrypt($pub_key,$plain_text_string);
         */
     }
+
+    /**
+     * @todo configurable via backend so that user can choose
+     * @return string
+     */
+    public function getMethod()
+    {
+        return 'Php';
+    }
 }
