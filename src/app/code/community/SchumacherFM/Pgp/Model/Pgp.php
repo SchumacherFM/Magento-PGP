@@ -3,14 +3,35 @@
 class SchumacherFM_Pgp_Model_Pgp
 {
 
+    /**
+     * @var string
+     */
     private $_method = 'php';
+
+    /**
+     * @var SchumacherFM_Pgp_Model_AbstractFactory
+     */
     private $_encryptor = null;
+
+    /**
+     * @var string
+     */
     private $_publicKeyAscii = '';
+
+    /**
+     * @var string
+     */
     private $_plainTextString = '';
+
+    /**
+     * @var string
+     */
     private $_encrypted = '';
 
     /**
      * @param string $encrypted
+     *
+     * @return $this
      */
     protected function _setEncrypted($encrypted)
     {

@@ -4,13 +4,16 @@
  * @package     Helper
  * @author      Cyrill at Schumacher dot fm / @SchumacherFM
  * @copyright   Copyright (c)
+ * @license     http://www.gnu.org/licenses/gpl.html  GPL
  */
 class SchumacherFM_Pgp_Helper_Cli extends Mage_Core_Helper_Abstract
 {
 
     /**
      * @todo configurable via backend
-     *
+     */
+
+    /**
      * @return string
      */
     public function getHomeDir()
@@ -41,5 +44,14 @@ class SchumacherFM_Pgp_Helper_Cli extends Mage_Core_Helper_Abstract
                 // trustDb
 
             );
+    }
+
+    /**
+     * @see SchumacherFM_Pgp_Model_Cli_Gpg_Engine::_debug
+     * @return string
+     */
+    public function getLogFileName()
+    {
+        return 'gpg.log';
     }
 }

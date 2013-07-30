@@ -246,11 +246,11 @@ class SchumacherFM_Pgp_Model_Cli_Gpg_KeyGenerator extends SchumacherFM_Pgp_Model
      *         example, the Apache user) does not have permission to read the
      *         files.
      *
-     * @throws PEAR_Exception if the provided <kbd>binary</kbd> is invalid, or
+     * @throws Zend_Exception if the provided <kbd>binary</kbd> is invalid, or
      *         if no <kbd>binary</kbd> is provided and no suitable binary could
      *         be found.
      *
-     * @throws PEAR_Exception if the provided <kbd>agent</kbd> is invalid, or
+     * @throws Zend_Exception if the provided <kbd>agent</kbd> is invalid, or
      *         if no <kbd>agent</kbd> is provided and no suitable gpg-agent
      *         cound be found.
      */
