@@ -19,13 +19,32 @@
         <models>
             <pgp>
                 <class>SchumacherFM_Pgp_Model</class>
+                <resourceModel>pgp_resource</resourceModel>
             </pgp>
+            <pgp_resource>
+                <class>SchumacherFM_Pgp_Model_Resource</class>
+                <entities>
+                    <keys>
+                        <table>pgp_public_keys</table>
+                    </keys>
+                </entities>
+            </pgp_resource>
             <core>
                 <rewrite>
                     <email_template>SchumacherFM_Pgp_Model_Core_Email_Template</email_template>
                 </rewrite>
             </core>
         </models>
+        <resources>
+            <pgp_setup>
+                <setup>
+                    <module>SchumacherFM_Pgp</module>
+                    <class>SchumacherFM_Pgp_Model_Resource_Setup</class>
+                </setup>
+            </pgp_setup>
+        </resources>
+
+
         <resources>
             <pgp_setup>
                 <setup>
