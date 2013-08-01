@@ -10,15 +10,20 @@ class SchumacherFM_Pgp_Helper_Cli extends Mage_Core_Helper_Abstract
 {
 
     /**
-     * @todo configurable via backend
-     */
-
-    /**
      * @return string
      */
     public function getHomeDir()
     {
-        return '/tmp';
+        return Mage::getStoreConfig('schumacherfm/pgp/cli_homedir');
+    }
+
+    /**
+     * @return string
+     */
+    public function getBinary()
+    {
+        $config = trim(Mage::getStoreConfig('schumacherfm/pgp/cli_binary'));
+        return !empty($config) ? $config : FALSE;
     }
 
     /**
@@ -28,22 +33,28 @@ class SchumacherFM_Pgp_Helper_Cli extends Mage_Core_Helper_Abstract
      */
     public function isDebug()
     {
-        return FALSE;
+        return (int)Mage::getStoreConfig('schumacherfm/pgp/cli_debug') === 1;
     }
 
+    /**
+     * @return array
+     */
     public function getGpgEngineOptions()
     {
-        return
-            array(
-                'homedir' => $this->getHomeDir(),
-                'debug'   => $this->isDebug(),
-                // 'binary' => '/home/joe/bin/gpg'
-                // agent
-                // publicKeyring
-                // privateKeyring
-                // trustDb
+        $return = array(
+            'homedir' => $this->getHomeDir(),
+            'debug'   => $this->isDebug(),
+            // agent
+            // publicKeyring
+            // privateKeyring
+            // trustDb
 
-            );
+        );
+        $binary = $this->getBinary();
+        if ($binary) {
+            $return['binary'] = $binary;
+        }
+        return $return;
     }
 
     /**
@@ -52,6 +63,6 @@ class SchumacherFM_Pgp_Helper_Cli extends Mage_Core_Helper_Abstract
      */
     public function getLogFileName()
     {
-        return 'gpg.log';
+        return Mage::getStoreConfig('schumacherfm/pgp/cli_logfile');
     }
 }

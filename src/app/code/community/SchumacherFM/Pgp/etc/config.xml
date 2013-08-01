@@ -66,6 +66,19 @@
 
         </events>
     </adminhtml>
+
+    <default>
+        <schumacherfm>
+            <pgp>
+                <engine>php</engine>
+                <cli_debug>0</cli_debug>
+                <cli_logfile>gpg.log</cli_logfile>
+                <cli_homedir>/tmp</cli_homedir>
+                <cli_binary></cli_binary>
+            </pgp>
+        </schumacherfm>
+    </default>
+
     <phpunit>
         <suite>
             <modules>
