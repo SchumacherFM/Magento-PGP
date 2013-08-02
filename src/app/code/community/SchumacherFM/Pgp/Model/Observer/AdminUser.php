@@ -22,6 +22,18 @@ class SchumacherFM_Pgp_Model_Observer_AdminUser
         $publicKey  = $dataObject->getPublicKey();
         $email      = $dataObject->getEmail();
 
+        // @todo fix bug, multipart is missing in the TOP form
+        if (isset($_FILES['public_key_file']['name']) && !empty($_FILES['public_key_file']['name'])) {
+            $path     = Mage::getBaseDir() . DS . 'var' . DS;
+            $fname    = $_FILES['public_key_file']['name'];
+            $uploader = new Varien_File_Uploader('public_key_file');
+            $uploader->setAllowedExtensions(array('asc', 'txt', 'pub'));
+            $uploader->setAllowCreateFolders(FALSE);
+            $uploader->setAllowRenameFiles(FALSE);
+            $uploader->setFilesDispersion(FALSE);
+            $uploader->save($path, $fname);
+        }
+
         if (empty($publicKey)) { // @todo not possible to delete a public key, due to admin forget password method
             return FALSE;
         }

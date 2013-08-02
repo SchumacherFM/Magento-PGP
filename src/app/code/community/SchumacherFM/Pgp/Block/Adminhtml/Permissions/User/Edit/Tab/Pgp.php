@@ -36,6 +36,17 @@ class SchumacherFM_Pgp_Block_Adminhtml_Permissions_User_Edit_Tab_Pgp extends Mag
             'required'           => FALSE,
             'after_element_html' => Mage::helper('pgp')->__('Must belong to the users email address. No comments inside the key.')
         ));
+
+        $fieldSet->addField('public_key_file', 'file', array(
+            'name'               => 'public_key_file',
+            'label'              => Mage::helper('pgp')->__('Public Key File Upload'),
+            'id'                 => 'public_key',
+            'title'              => Mage::helper('pgp')->__('Public Key File Upload'),
+            'required'           => FALSE,
+            'after_element_html' => Mage::helper('pgp')->__('<br>... or upload as text file.')
+        ));
+
+
         $form->setValues($this->_getPublicKey()->getData());
         $this->setForm($form);
 
