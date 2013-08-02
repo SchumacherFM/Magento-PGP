@@ -33,6 +33,17 @@ class SchumacherFM_Pgp_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getMethod()
     {
+//        return Mage::getStoreConfig('schumacherfm/pgp/cli_homedir');
         return 'Php';
+    }
+
+    /**
+     * @param string $asc
+     *
+     * @return bool
+     */
+    public function isPublicKey($asc)
+    {
+        return strpos($asc, '-----BEGIN PGP PUBLIC KEY BLOCK-----') !== FALSE;
     }
 }

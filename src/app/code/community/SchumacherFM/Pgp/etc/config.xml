@@ -24,9 +24,9 @@
             <pgp_resource>
                 <class>SchumacherFM_Pgp_Model_Resource</class>
                 <entities>
-                    <keys>
+                    <pgp_public_keys>
                         <table>pgp_public_keys</table>
-                    </keys>
+                    </pgp_public_keys>
                 </entities>
             </pgp_resource>
             <core>
@@ -82,7 +82,14 @@
             </modules>
         </translate>
         <events>
-
+            <admin_user_save_after>
+                <observers>
+                    <schumacherfm_pgp_admin_user>
+                        <class>pgp/observer_adminUser</class>
+                        <method>savePublicKey</method>
+                    </schumacherfm_pgp_admin_user>
+                </observers>
+            </admin_user_save_after>
         </events>
     </adminhtml>
 

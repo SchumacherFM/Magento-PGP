@@ -1,4 +1,13 @@
 <?xml version="1.0"?>
 <layout>
-
+    <adminhtml_permissions_user_edit>
+        <reference name="adminhtml.permissions.user.edit.tabs">
+            <block type="pgp/adminhtml_permissions_user_edit_tab_pgp" name="adminhtml.permissions.user.edit.tab.pgp"/>
+            <action method="addTabAfter">
+                <id>pgp_section</id>
+                <block>adminhtml.permissions.user.edit.tab.pgp</block>
+                <after>roles_section</after>
+            </action>
+        </reference>
+    </adminhtml_permissions_user_edit>
 </layout>

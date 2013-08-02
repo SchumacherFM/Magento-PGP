@@ -12,9 +12,8 @@ $installer = $this;
 $installer->startSetup();
 
 $table = $installer->getConnection()
-    ->newTable($installer->getTable('pgp/keys'))
+    ->newTable($installer->getTable('pgp/pgp_public_keys'))
     ->addColumn('key_id', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
-        'identity' => FALSE,
         'nullable' => FALSE,
         'primary'  => TRUE,
     ), 'Key ID')
@@ -26,10 +25,11 @@ $table = $installer->getConnection()
     ->addColumn('public_key', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
         'nullable' => FALSE,
     ), 'PGP Public Key')
-    ->addColumn('creation_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(), 'Creation Time')
-    ->addColumn('update_time', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(), 'Modification Time')
     ->addIndex(
-        $installer->getIdxName('pgp/keys', array('email')),
+        $installer->getIdxName('pgp/pgp_public_keys', array('key_id')),
+        array('key_id'), array('type' => 'UNIQUE'))
+    ->addIndex(
+        $installer->getIdxName('pgp/pgp_public_keys', array('email')),
         array('email'), array('type' => 'UNIQUE'))
     ->setComment('PGP Public Key Table');
 $installer->getConnection()->createTable($table);

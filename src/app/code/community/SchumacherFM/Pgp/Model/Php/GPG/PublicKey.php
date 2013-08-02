@@ -38,6 +38,7 @@ class SchumacherFM_Pgp_Model_Php_Gpg_PublicKey
             return;
         }
 
+        // @todo bug, if the key contains a comment then this parsing fails
         $a = strpos($asc, "\n", $i);
         if ($a > 0) $a = strpos($asc, "\n", $a + 1);
         $e = strpos($asc, "\n=", $i);
@@ -48,12 +49,12 @@ class SchumacherFM_Pgp_Model_Php_Gpg_PublicKey
             $this->key_id     = '';
             $this->user       = '';
             $this->public_key = '';
-
             return;
         }
 
         $len = 0;
         $s   = base64_decode($asc);
+
         for ($i = 0; $i < strlen($s);) {
             $tag = ord($s[$i++]);
 
