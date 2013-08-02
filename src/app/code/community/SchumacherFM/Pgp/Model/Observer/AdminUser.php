@@ -21,6 +21,12 @@ class SchumacherFM_Pgp_Model_Observer_AdminUser
         /** @var SchumacherFM_Pgp_Model_Php_Gpg_PublicKey $gpgPublicKey */
         $gpgPublicKey = Mage::getModel('pgp/php_gpg_publicKey', $publicKey);
 
+        /** @var SchumacherFM_Pgp_Model_Pgp $pgp */
+        $pgp = Mage::getModel('pgp/pgp');
+        $pgp->setPublicKeyAscii($publicKey);
+
+        $keyDetails = $pgp->getPublicKeyDetails(); // @todo
+
         if (empty($gpgPublicKey->key_id)) {
             Mage::getSingleton('adminhtml/session')->addError(
                 Mage::helper('pgp')->__('Invalid PGP public key.')

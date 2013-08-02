@@ -139,11 +139,9 @@ class SchumacherFM_Pgp_Model_Pgp
     }
 
     /**
-     * @param $asc
-     *
      * @return array
      */
-    public function getPublicKeyDetails($asc)
+    public function getPublicKeyDetails()
     {
 
         $return = array();
