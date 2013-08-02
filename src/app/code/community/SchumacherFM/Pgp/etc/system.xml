@@ -27,7 +27,10 @@
                             <show_in_store>0</show_in_store>
                             <comment>PHP based encryption or native binaries (must be installed on server).
                                 With the PHP based method only encryption is available.
-                                While with the native binaries (GPG) every option is available.</comment>
+                                While with the native binaries (GPG) every option is available.
+                                Always stick to one method, never change that method later.
+                                Try using the GPG method which is more reliable.
+                            </comment>
                         </engine>
                         <cli_debug translate="label">
                             <label>GPG Debug</label>

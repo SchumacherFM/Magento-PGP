@@ -32,7 +32,7 @@ class SchumacherFM_Pgp_Model_Cli_Factory extends SchumacherFM_Pgp_Model_Abstract
 
         $fingerPrint = $this->_importKey($publicKey);
         $this->_getInstance()->addEncryptKey($fingerPrint);
-        return $this->_getInstance()->encrypt('Hello World');
+        return $this->_getInstance()->encrypt($plainTextString);
     }
 
     /**

@@ -8,15 +8,23 @@
  */
 class SchumacherFM_Pgp_Model_Observer_AdminUser
 {
+    /**
+     * @param Varien_Event_Observer $observer
+     *
+     * @return bool
+     */
     public function savePublicKey(Varien_Event_Observer $observer)
     {
 
         $event = $observer->getEvent();
         /** @var Mage_Admin_Model_User $dataObject */
         $dataObject = $event->getDataObject();
+        $publicKey  = $dataObject->getPublicKey();
+        $email      = $dataObject->getEmail();
 
-        $publicKey = $dataObject->getPublicKey();
-        $email     = $dataObject->getEmail();
+        if (empty($publicKey)) { // @todo not possible to delete a public key, due to admin forget password method
+            return FALSE;
+        }
 
         /** @var SchumacherFM_Pgp_Model_Pgp $pgp */
         $pgp = Mage::getModel('pgp/pgp');

@@ -3,13 +3,25 @@
  * @category    SchumacherFM_Pgp
  * @package     Helper
  * @author      Cyrill at Schumacher dot fm / @SchumacherFM
- * @copyright   Copyright (c)
- * @license     http://www.gnu.org/licenses/gpl.html  GPL
  */
 class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_Template
 {
+    /**
+     * @var SchumacherFM_Pgp_Model_Pgp
+     */
+    protected $_encryptor = null;
 
-    const KEY = '';
+    /**
+     * @return SchumacherFM_Pgp_Model_Pgp
+     */
+    protected function _getEncryptor()
+    {
+        if ($this->_encryptor === null) {
+            $this->_encryptor = Mage::getModel('pgp/pgp');
+            $this->_encryptor->setEngine(Mage::helper('pgp')->getEngine());
+        }
+        return $this->_encryptor;
+    }
 
     /**
      * Process email template code
@@ -21,17 +33,17 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
     public function getProcessedTemplate(array $variables = array())
     {
         $text = parent::getProcessedTemplate($variables);
-        $this->setTemplateType(self::TYPE_TEXT);
 
-        /** @var SchumacherFM_Pgp_Model_Pgp $pgp */
-        $pgp = Mage::getModel('pgp/pgp');
-        $pgp->setEngine(Mage::helper('pgp')->getEngine());
+        // @todo bug sending GPG HTML mails not possible
+        // $this->setTemplateType(self::TYPE_TEXT);
+//Zend_Debug::dump($text);
 
-        $pgp
+        $emailAddressForEncryption = $this->getEmailAddressForEncryption();
+        $this->_getEncryptor()
             ->setPlainTextString($text)
-            ->setPublicKeyAscii(self::KEY);
+            ->setEmailAddress($emailAddressForEncryption);
 
-        $encrypted = $pgp->encrypt()->getEncrypted();
+        $encrypted = $this->_getEncryptor()->encrypt()->getEncrypted();
 
 //        $this->getMail()->createAttachment(
 //            'Version: 1',
@@ -54,7 +66,6 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
         return $encrypted;
     }
 
-
     /**
      * Send mail to recipient
      *
@@ -64,7 +75,7 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
      *
      * @return  boolean
      **/
-    public function XXXsend($email, $name = null, array $variables = array())
+    public function send($email, $name = null, array $variables = array())
     {
         if (!$this->isValidForSend()) {
             Mage::logException(new Exception('This letter cannot be sent.')); // translation is intentionally omitted
@@ -111,8 +122,10 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
         }
 
         $this->setUseAbsoluteLinks(TRUE);
-        $text = $this->getProcessedTemplate($variables, TRUE);
-
+        $this->setEmailAddressForEncryption($variables['email']);
+        $text = $this->getProcessedTemplate($variables);
+//    Zend_Debug::dump($text);
+//    exit;
         if ($this->isPlain()) {
             $mail->setBodyText($text);
         } else {

@@ -35,6 +35,11 @@ class SchumacherFM_Pgp_Model_Pgp
     private $_encrypted = '';
 
     /**
+     * @var string used for getting the key
+     */
+    private $_emailAddress = '';
+
+    /**
      * @param string $encrypted
      *
      * @return $this
@@ -88,7 +93,40 @@ class SchumacherFM_Pgp_Model_Pgp
      */
     public function getPublicKeyAscii()
     {
+        if (empty($this->_publicKeyAscii)) {
+            $this->_publicKeyAscii = $this->_getPublicKeyByEmail();
+        }
+
         return $this->_publicKeyAscii;
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getPublicKeyByEmail()
+    {
+        /** @var SchumacherFM_Pgp_Model_Pubkeys $pubkey */
+        $pubkey = Mage::getModel('pgp/pubkeys')->load($this->getEmailAddress(), 'email');
+        return $pubkey->getPublicKey();
+    }
+
+    public function setEmailAddress($email)
+    {
+
+        if (!Zend_Validate::is($email, 'EmailAddress')) {
+            throw new Exception('Bad email address for pgp encryption');
+        }
+
+        $this->_emailAddress = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmailAddress()
+    {
+        return $this->_emailAddress;
     }
 
     /**
