@@ -18,23 +18,21 @@ class SchumacherFM_Pgp_Model_Observer_AdminUser
         $publicKey = $dataObject->getPublicKey();
         $email     = $dataObject->getEmail();
 
-        /** @var SchumacherFM_Pgp_Model_Php_Gpg_PublicKey $gpgPublicKey */
-        $gpgPublicKey = Mage::getModel('pgp/php_gpg_publicKey', $publicKey);
-
         /** @var SchumacherFM_Pgp_Model_Pgp $pgp */
         $pgp = Mage::getModel('pgp/pgp');
+        $pgp->setEngine(Mage::helper('pgp')->getEngine());
         $pgp->setPublicKeyAscii($publicKey);
 
-        $keyDetails = $pgp->getPublicKeyDetails(); // @todo
+        $keyDetails = $pgp->getPublicKeyDetails();
 
-        if (empty($gpgPublicKey->key_id)) {
+        if (empty($keyDetails['id'])) {
             Mage::getSingleton('adminhtml/session')->addError(
                 Mage::helper('pgp')->__('Invalid PGP public key.')
             );
             return FALSE;
         }
 
-        if (stristr($gpgPublicKey->user, $email) === FALSE) {
+        if (stristr($keyDetails['usr'], $email) === FALSE) {
             Mage::getSingleton('adminhtml/session')->addError(
                 Mage::helper('pgp')->__('Email address of the key does not match the email address of the public key.')
             );
@@ -44,7 +42,7 @@ class SchumacherFM_Pgp_Model_Observer_AdminUser
         /** @var SchumacherFM_Pgp_Model_Pubkeys $userKey */
         $userKey = Mage::getModel('pgp/pubkeys');
         $userKey->setData(array(
-            'key_id'     => $gpgPublicKey->key_id,
+            'key_id'     => $keyDetails['id'],
             'email'      => $email,
             'public_key' => $publicKey,
         ));

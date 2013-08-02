@@ -143,9 +143,7 @@ class SchumacherFM_Pgp_Model_Pgp
      */
     public function getPublicKeyDetails()
     {
-
-        $return = array();
-
+        $return = $this->_getEncryptor()->getPublicKeyDetails($this->getPublicKeyAscii());
         return $return;
     }
 
