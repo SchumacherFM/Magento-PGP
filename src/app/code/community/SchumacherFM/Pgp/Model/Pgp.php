@@ -12,7 +12,7 @@ class SchumacherFM_Pgp_Model_Pgp
     /**
      * @var string
      */
-    private $_method = 'php';
+    private $_engine = 'php';
 
     /**
      * @var SchumacherFM_Pgp_Model_AbstractFactory
@@ -92,26 +92,28 @@ class SchumacherFM_Pgp_Model_Pgp
     }
 
     /**
+     * @param string $type
+     *
      * @return $this
      */
-    public function setMethod($type)
+    public function setEngine($type)
     {
-        $type     = strtolower($type);
-        $_methods = array(
+        $type          = strtolower($type);
+        $_methods      = array(
             'php' => 1,
             'cli' => 1,
         );
-        $type     = isset($_methods[$type]) ? $type : 'php';
-        $this->_method = $type;
+        $type          = isset($_methods[$type]) ? $type : 'php';
+        $this->_engine = $type;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getMethod()
+    public function getEngine()
     {
-        return $this->_method;
+        return $this->_engine;
     }
 
     /**
@@ -120,7 +122,7 @@ class SchumacherFM_Pgp_Model_Pgp
     protected function _getEncryptor()
     {
         if ($this->_encryptor === null) {
-            $this->_encryptor = Mage::getModel('pgp/' . $this->getMethod() . '_factory');
+            $this->_encryptor = Mage::getModel('pgp/' . $this->getEngine() . '_factory');
         }
         return $this->_encryptor;
     }
@@ -134,6 +136,19 @@ class SchumacherFM_Pgp_Model_Pgp
             $this->_getEncryptor()->encrypt($this->getPublicKeyAscii(), $this->getPlainTextString())
         );
         return $this;
+    }
+
+    /**
+     * @param $asc
+     *
+     * @return array
+     */
+    public function getPublicKeyDetails($asc)
+    {
+
+        $return = array();
+
+        return $return;
     }
 
 }

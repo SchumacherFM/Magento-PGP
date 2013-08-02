@@ -28,13 +28,12 @@ class SchumacherFM_Pgp_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @todo configurable via backend so that user can choose
      * @return string
      */
-    public function getMethod()
+    public function getEngine()
     {
-//        return Mage::getStoreConfig('schumacherfm/pgp/cli_homedir');
-        return 'Php';
+        return Mage::getStoreConfig('schumacherfm/pgp/engine');
+
     }
 
     /**

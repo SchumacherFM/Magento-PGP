@@ -25,7 +25,7 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
 
         /** @var SchumacherFM_Pgp_Model_Pgp $pgp */
         $pgp = Mage::getModel('pgp/pgp');
-        $pgp->setMethod(Mage::helper('pgp')->getMethod());
+        $pgp->setEngine(Mage::helper('pgp')->getEngine());
 
         $pgp
             ->setPlainTextString($text)
