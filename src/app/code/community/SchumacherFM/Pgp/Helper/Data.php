@@ -28,6 +28,63 @@ class SchumacherFM_Pgp_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * disable sending via attachment, after decryption user will see plain HTML, not rendered one.
+     *
+     * @return bool
+     */
+    public function isForcePlainText()
+    {
+        return TRUE;
+    }
+
+    /**
+     * if isForcePlainText and strip tags true, then all HTML will be removed
+     *
+     * @return bool
+     */
+    public function isStripHtml()
+    {
+        return TRUE;
+    }
+
+    /**
+     * @todo
+     * @return bool
+     */
+    public function isMoveSubjectToBody()
+    {
+        return TRUE;
+    }
+
+    /**
+     * @todo
+     * @return array|bool
+     */
+    public function getRandomSender()
+    {
+
+        if ((int)Mage::getStoreConfig('schumacherfm/pgp/email_random_sender') === 0) {
+            return FALSE;
+        }
+
+        $return = array(
+            'sender_email'      => 'john.doe234234@gmail.com',
+            'sender_name'       => 'John Doe',
+            'return_path_email' => 'john.doe234234@gmail.com',
+        );
+        return $return;
+    }
+
+    /**
+     * @todo
+     * @return bool
+     */
+    public function getAllowOnlyOneRecipient()
+    {
+        return false;
+    }
+
+    /**
      * @return string
      */
     public function getEngine()

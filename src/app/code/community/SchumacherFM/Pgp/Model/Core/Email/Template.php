@@ -34,9 +34,12 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
     {
         $text = parent::getProcessedTemplate($variables);
 
-        // @todo bug sending GPG HTML mails not possible
-        // $this->setTemplateType(self::TYPE_TEXT);
-//Zend_Debug::dump($text);
+        if (Mage::helper('pgp')->isForcePlainText() === TRUE) {
+            $this->setTemplateType(self::TYPE_TEXT);
+            if (Mage::helper('pgp')->isStripHtml() === TRUE) {
+                $text = $this->_html2text($text);
+            }
+        }
 
         $emailAddressForEncryption = $this->getEmailAddressForEncryption();
         $this->_getEncryptor()
@@ -45,28 +48,36 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
 
         $encrypted = $this->_getEncryptor()->encrypt()->getEncrypted();
 
-//        $this->getMail()->createAttachment(
-//            'Version: 1',
-//            'application/pgp-encrypted',
-//            Zend_Mime::DISPOSITION_INLINE,
-//            Zend_Mime::ENCODING_7BIT
-//        );
+        if ($this->isPlain()) {
+            return $encrypted;
+        } else {
 
-        /*
-        $this->getMail()->createAttachment(
-            $encrypted,
-            Zend_Mime::TYPE_OCTETSTREAM,
-            Zend_Mime::DISPOSITION_INLINE,
-            Zend_Mime::ENCODING_7BIT,
-            'encrypted.asc'
-        );
-        return 'This is an OpenPGP/MIME encrypted message (RFC 2440 and 3156)';
-        */
+            $mp              = new Zend_Mime_Part($encrypted);
+            $mp->encoding    = Zend_Mime::ENCODING_7BIT;
+            $mp->type        = Zend_Mime::TYPE_OCTETSTREAM;
+            $mp->disposition = Zend_Mime::DISPOSITION_INLINE;
+            $mp->filename    = 'encrypted.html.asc';
+            $mp->description = 'OpenPGP encrypted message';
+            $this->getMail()->addAttachment($mp);
 
-        return $encrypted;
+            return 'This is an OpenPGP/MIME encrypted message (RFC 2440 and 3156)';
+        }
     }
 
     /**
+     * @param string $text
+     *
+     * @return string
+     */
+    protected function _html2text($text)
+    {
+        return Mage::getModel('pgp/htmlToText', $text)->getText();
+    }
+
+    /**
+     * not really make sense to overwrite this method because it could be different
+     * in different Magento versions. but AFAIK there is no other possibility ...
+     *
      * Send mail to recipient
      *
      * @param   array|string      $email        E-mail(s)
@@ -124,8 +135,7 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
         $this->setUseAbsoluteLinks(TRUE);
         $this->setEmailAddressForEncryption($variables['email']);
         $text = $this->getProcessedTemplate($variables);
-//    Zend_Debug::dump($text);
-//    exit;
+
         if ($this->isPlain()) {
             $mail->setBodyText($text);
         } else {
