@@ -33,9 +33,9 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
     {
         $text = parent::getProcessedTemplate($variables);
 
-        if (Mage::helper('gpg')->isMoveSubjectToBody() === TRUE) {
+        if (Mage::helper('pgp')->isMoveSubjectToBody() === TRUE) {
             $this->getMail()->setSubject('');
-            $text = Mage::helper('gpg')->__('Subject:') . ' ' . $this->getProcessedTemplateSubject($variables) . '<br><br>' . "\n" . $text;
+            $text = Mage::helper('pgp')->__('Subject:') . ' ' . $this->getProcessedTemplateSubject($variables) . '<br><br>' . "\n" . $text;
         }
 
         if (Mage::helper('pgp')->isForcePlainText() === TRUE) {
@@ -128,7 +128,7 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
                 break;
         }
 
-        $randomSender = Mage::helper('gpg')->getRandomSender();
+        $randomSender = Mage::helper('pgp')->getRandomSender();
         if ($randomSender !== FALSE) {
             $returnPathEmail = $randomSender['return_path_email'];
             $mail->setFrom($randomSender['sender_email'], $randomSender['sender_name']);
@@ -155,7 +155,7 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
             $mail->setBodyHTML($text);
         }
 
-        if (Mage::helper('gpg')->isMoveSubjectToBody() === FALSE) {
+        if (Mage::helper('pgp')->isMoveSubjectToBody() === FALSE) {
             $mail->setSubject('=?utf-8?B?' . base64_encode($this->getProcessedTemplateSubject($variables)) . '?=');
         }
 
