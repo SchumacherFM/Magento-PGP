@@ -121,6 +121,37 @@
         </schumacherfm>
     </default>
 
+    <frontend>
+        <routers>
+            <pgp>
+                <use>standard</use>
+                <args>
+                    <module>SchumacherFM_Pgp</module>
+                    <frontName>pgp</frontName>
+                </args>
+            </pgp>
+        </routers>
+        <translate>
+            <modules>
+                <SchumacherFM_Pgp>
+                    <files>
+                        <default>SchumacherFM_Pgp.csv</default>
+                    </files>
+                </SchumacherFM_Pgp>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <pgp module="SchumacherFM_Pgp">
+                    <file>pgp.xml</file>
+                </pgp>
+            </updates>
+        </layout>
+        <secure_url>
+            <pgp>/pgp/</pgp>
+        </secure_url>
+    </frontend>
+
     <phpunit>
         <suite>
             <modules>

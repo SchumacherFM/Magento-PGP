@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+-->
+<layout version="0.1.0">
+
+    <!--
+    Customer account pages, rendered for all tabs in dashboard
+    -->
+    <customer_account>
+        <!-- Mage_Newsletter -->
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="pgp">
+                <name>pgp</name>
+                <path>pgp/manage/</path>
+                <label>PGP Keys</label>
+            </action>
+        </reference>
+        <remove name="left.pgp"/>
+    </customer_account>
+
+    <!--
+    Customer account home dashboard layout
+    -->
+
+    <!--<customer_account_index>-->
+    <!--<reference name="right">-->
+    <!--<action method="unsetChild">-->
+    <!--<name>pgp</name>-->
+    <!--</action>-->
+    <!--</reference>-->
+    <!--</customer_account_index>-->
+
+
+    <pgp_manage_index translate="label">
+        <label>Customer My Account Newsletter Subscriptions</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="customer/pgp" name="customer_pgp">
+                <block type="page/html_wrapper" name="customer.pgp.form.before" as="form_before" translate="label">
+                    <label>PGP Key Form Before</label>
+
+                </block>
+            </block>
+        </reference>
+    </pgp_manage_index>
+
+</layout>
