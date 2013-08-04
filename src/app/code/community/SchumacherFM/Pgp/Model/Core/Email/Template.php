@@ -34,11 +34,17 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
     {
         $text = parent::getProcessedTemplate($variables);
 
+        if (Mage::helper('gpg')->isMoveSubjectToBody() === TRUE) {
+            $this->getMail()->setSubject('');
+            $text = Mage::helper('gpg')->__('Subject:') . ' ' . $this->getProcessedTemplateSubject($variables) . '<br><br>' . "\n" . $text;
+        }
+
         if (Mage::helper('pgp')->isForcePlainText() === TRUE) {
             $this->setTemplateType(self::TYPE_TEXT);
-            if (Mage::helper('pgp')->isStripHtml() === TRUE) {
-                $text = $this->_html2text($text);
-            }
+        }
+        if (Mage::helper('pgp')->isHtmlToText() === TRUE) {
+            $this->setTemplateType(self::TYPE_TEXT);
+            $text = $this->_html2text($text);
         }
 
         $emailAddressForEncryption = $this->getEmailAddressForEncryption();
@@ -123,6 +129,14 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
                 break;
         }
 
+        $randomSender = Mage::helper('gpg')->getRandomSender();
+        if ($randomSender !== FALSE) {
+            $returnPathEmail = $randomSender['return_path_email'];
+            $mail->setFrom($randomSender['sender_email'], $randomSender['sender_name']);
+        } else {
+            $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
+        }
+
         if ($returnPathEmail !== null) {
             $mailTransport = new Zend_Mail_Transport_Sendmail("-f" . $returnPathEmail);
             Zend_Mail::setDefaultTransport($mailTransport);
@@ -142,8 +156,9 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
             $mail->setBodyHTML($text);
         }
 
-        $mail->setSubject('=?utf-8?B?' . base64_encode($this->getProcessedTemplateSubject($variables)) . '?=');
-        $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
+        if (Mage::helper('gpg')->isMoveSubjectToBody() === FALSE) {
+            $mail->setSubject('=?utf-8?B?' . base64_encode($this->getProcessedTemplateSubject($variables)) . '?=');
+        }
 
         try {
             $mail->send();

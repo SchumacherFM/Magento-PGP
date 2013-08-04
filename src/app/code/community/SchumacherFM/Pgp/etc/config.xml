@@ -101,6 +101,10 @@
                 <cli_logfile>gpg.log</cli_logfile>
                 <cli_homedir>/tmp</cli_homedir>
                 <cli_binary></cli_binary>
+                <email_force_plain_text>0</email_force_plain_text>
+                <email_html_to_text>0</email_html_to_text>
+                <email_move_subject_to_body>0</email_move_subject_to_body>
+                <email_random_sender>0</email_random_sender>
             </pgp>
         </schumacherfm>
     </default>

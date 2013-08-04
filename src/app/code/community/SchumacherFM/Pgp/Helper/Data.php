@@ -8,25 +8,6 @@
  */
 class SchumacherFM_Pgp_Helper_Data extends Mage_Core_Helper_Abstract
 {
-
-    /**
-     * @param $publicKey
-     *
-     * @return mixed
-     */
-    public function encrypt($publicKeyAscii)
-    {
-        /*
-        $gpg = new GPG();
-
-        // create an instance of a GPG public key object based on ASCII key
-        $pub_key = new GPG_Public_Key($public_key_ascii);
-
-        // using the key, encrypt your plain text using the public key
-        $encrypted = $gpg->encrypt($pub_key,$plain_text_string);
-        */
-    }
-
     /**
      * disable sending via attachment, after decryption user will see plain HTML, not rendered one.
      *
@@ -34,7 +15,7 @@ class SchumacherFM_Pgp_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isForcePlainText()
     {
-        return TRUE;
+        return (int)Mage::getStoreConfig('schumacherfm/pgp/email_force_plain_text') === 1;
     }
 
     /**
@@ -42,22 +23,22 @@ class SchumacherFM_Pgp_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return bool
      */
-    public function isStripHtml()
+    public function isHtmlToText()
     {
-        return TRUE;
+        return (int)Mage::getStoreConfig('schumacherfm/pgp/email_html_to_text') === 1;
     }
 
     /**
-     * @todo
      * @return bool
      */
     public function isMoveSubjectToBody()
     {
-        return TRUE;
+        return (int)Mage::getStoreConfig('schumacherfm/pgp/email_move_subject_to_body') === 1;
     }
 
     /**
-     * @todo
+     * @todo more configurable options
+     *
      * @return array|bool
      */
     public function getRandomSender()
@@ -66,22 +47,13 @@ class SchumacherFM_Pgp_Helper_Data extends Mage_Core_Helper_Abstract
         if ((int)Mage::getStoreConfig('schumacherfm/pgp/email_random_sender') === 0) {
             return FALSE;
         }
-
+        $mail   = 'john.doe.' . time() . '@gmail.com';
         $return = array(
-            'sender_email'      => 'john.doe234234@gmail.com',
+            'sender_email'      => $mail,
             'sender_name'       => 'John Doe',
-            'return_path_email' => 'john.doe234234@gmail.com',
+            'return_path_email' => $mail,
         );
         return $return;
-    }
-
-    /**
-     * @todo
-     * @return bool
-     */
-    public function getAllowOnlyOneRecipient()
-    {
-        return false;
     }
 
     /**
