@@ -40,6 +40,21 @@ class SchumacherFM_Pgp_Model_Pgp
     private $_emailAddress = '';
 
     /**
+     * @param array $args can contain publicKeyAscii and engine
+     */
+    public function __construct(array $args = null)
+    {
+        $publicKeyAscii = isset($args['publicKeyAscii']) ? $args['publicKeyAscii'] : null;
+        if (!empty($publicKeyAscii)) {
+            $this->setPublicKeyAscii($publicKeyAscii);
+        }
+        $engine = isset($args['engine']) ? $args['engine'] : null;
+        if (empty($engine)) {
+            $this->setEngine(Mage::helper('pgp')->getEngine());
+        }
+    }
+
+    /**
      * @param string $encrypted
      *
      * @return $this
@@ -84,6 +99,9 @@ class SchumacherFM_Pgp_Model_Pgp
      */
     public function setPublicKeyAscii($publicKeyAscii)
     {
+        if (!Mage::helper('pgp')->isPublicKey($publicKeyAscii)) {
+            throw new Exception('Public Key is invalid!');
+        }
         $this->_publicKeyAscii = $publicKeyAscii;
         return $this;
     }

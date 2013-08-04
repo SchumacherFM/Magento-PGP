@@ -69,19 +69,35 @@ class SchumacherFM_Pgp_Adminhtml_PgpkeyController extends Mage_Adminhtml_Control
         if ($data = $this->getRequest()->getPost()) {
 
             /** @var SchumacherFM_Pgp_Model_Pubkeys $model */
-            $model = $this->_initPubkeys();
+            $model = $this->_initPubkeys('key_id');
 
-            if (!$model->getId()) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('pgp')->__('This PGP Key no longer exists.'));
-                $this->_redirect('*/*/');
-                return;
+            if (isset($_FILES['public_key_file']) && isset($_FILES['public_key_file']['name']) && !empty($_FILES['public_key_file']['name'])) {
+
+                $fileName = $_FILES['public_key_file']['name'];
+
+                if (!Mage::helper('pgp')->isAllowedUploadedFile($fileName)) {
+                    Mage::getSingleton('adminhtml/session')->addError(
+                        Mage::helper('pgp')->__('Disallowed file extension! Only asc, txt and pub are supported.')
+                    );
+                    $this->_redirect('*/*/');
+                    return;
+                }
+
+                $data['public_key'] = file_get_contents($_FILES['public_key_file']['tmp_name']);
+                if (empty($data['public_key'])) {
+                    throw new Exception('Failed to load public key from tmp_name...');
+                }
             }
 
             /**
              * extract key id and email address from pub key ...
              */
+            if (!$model->getCreatedAt() || strstr($model->getCreatedAt(), '0000') !== FALSE) {
+                $model->setCreatedAt(date('Y-m-d H:i:s'));
+            }
 
             // save model
+            $data = $this->_getPkDetails($data);
             try {
                 if (!empty($data)) {
                     $model->addData($data);
@@ -104,6 +120,27 @@ class SchumacherFM_Pgp_Adminhtml_PgpkeyController extends Mage_Adminhtml_Control
             }
         }
         $this->_redirect('*/*/');
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     */
+    protected function _getPkDetails(array $data)
+    {
+
+        /** @var SchumacherFM_Pgp_Model_Pgp $pgp */
+        $pgp = Mage::getModel('pgp/pgp', array(
+            'publicKeyAscii' => $data['public_key'],
+            'engine'         => null,
+        ));
+
+        $pgpDetails = $pgp->getPublicKeyDetails();
+
+        $data['key_id'] = $pgpDetails['id'];
+        $data['email']  = $pgpDetails['usr'];
+        return $data;
     }
 
     /**

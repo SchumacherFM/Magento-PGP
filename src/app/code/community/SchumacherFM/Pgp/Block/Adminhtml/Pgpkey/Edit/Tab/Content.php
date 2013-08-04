@@ -58,6 +58,7 @@ class SchumacherFM_Pgp_Block_Adminhtml_Pgpkey_Edit_Tab_Content extends Mage_Admi
     {
 
         $form = new Varien_Data_Form();
+
         $form->setHtmlIdPrefix('pgpkey_content_');
 
         $fieldsetHtmlClass = 'fieldset-wide';
@@ -95,8 +96,17 @@ class SchumacherFM_Pgp_Block_Adminhtml_Pgpkey_Edit_Tab_Content extends Mage_Admi
                 'title'    => Mage::helper('pgp')->__('Public Key'),
 //                'format'   => Mage::app()->getLocale()
 //                    ->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
-                'required' => TRUE
+                'required' => FALSE
             ));
+
+        $fieldset->addField('public_key_file', 'file', array(
+            'name'               => 'public_key_file',
+            'label'              => Mage::helper('pgp')->__('Public Key File Upload'),
+            'id'                 => 'public_key',
+            'title'              => Mage::helper('pgp')->__('Public Key File Upload'),
+            'required'           => FALSE,
+            'after_element_html' => Mage::helper('pgp')->__('<br>... or upload as text file.')
+        ));
 
         if ($model) {
             $form->setValues($model->getData());

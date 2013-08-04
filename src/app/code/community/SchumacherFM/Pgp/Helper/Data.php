@@ -74,4 +74,25 @@ class SchumacherFM_Pgp_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return strpos($asc, '-----BEGIN PGP PUBLIC KEY BLOCK-----') !== FALSE;
     }
+
+    /**
+     * @param $fileName
+     *
+     * @return bool
+     */
+    public function isAllowedUploadedFile($fileName)
+    {
+
+        $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+
+        $allowed   = array(
+            'asc' => 1,
+            'txt' => 1,
+            'pub' => 1,
+        );
+        $extension = strtolower($extension);
+        return isset($allowed[$extension]);
+
+    }
+
 }

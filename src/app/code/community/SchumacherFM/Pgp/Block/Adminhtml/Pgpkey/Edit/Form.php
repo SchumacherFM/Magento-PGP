@@ -16,7 +16,14 @@ class SchumacherFM_Pgp_Block_Adminhtml_Pgpkey_Edit_Form extends Mage_Adminhtml_B
      */
     protected function _prepareForm()
     {
-        $form = new Varien_Data_Form(array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post'));
+        $form = new Varien_Data_Form(
+            array(
+                'id'      => 'edit_form',
+                'action'  => $this->getData('action'),
+                'method'  => 'post',
+                'enctype' => 'multipart/form-data',
+            )
+        );
 
         $pubkeys = Mage::registry('current_pubkeys');
 

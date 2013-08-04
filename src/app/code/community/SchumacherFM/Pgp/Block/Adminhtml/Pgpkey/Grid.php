@@ -18,8 +18,8 @@ class SchumacherFM_Pgp_Block_Adminhtml_Pgpkey_Grid extends Mage_Adminhtml_Block_
         $this->setDefaultSort('updated_at');
         $this->setDefaultDir('asc');
         $this->setSaveParametersInSession(TRUE);
-//        $this->setUseAjax(true);
-//        $this->setVarNameFilter('pgpkey_filter');
+        $this->setUseAjax(TRUE);
+        $this->setVarNameFilter('pgpkey_filter');
     }
 
     /**
