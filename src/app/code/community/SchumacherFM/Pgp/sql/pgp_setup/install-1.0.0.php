@@ -25,6 +25,11 @@ $table = $installer->getConnection()
     ->addColumn('public_key', Varien_Db_Ddl_Table::TYPE_TEXT, '64k', array(
         'nullable' => FALSE,
     ), 'PGP Public Key')
+    ->addColumn('updated_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+        'nullable'  => false,
+        ), 'Updated Time')
+    ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_TIMESTAMP, null, array(
+        ), 'Created Time')
     ->addIndex(
         $installer->getIdxName('pgp/pgp_public_keys', array('key_id')),
         array('key_id'), array('type' => 'UNIQUE'))

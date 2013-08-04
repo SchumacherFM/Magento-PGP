@@ -1,7 +1,7 @@
 <?php
 /**
  * @category    SchumacherFM_Pgp
- * @package     Helper
+ * @package     Model
  * @author      Cyrill at Schumacher dot fm / @SchumacherFM
  * @copyright   Copyright (c)
  * @license     http://www.gnu.org/licenses/gpl.html  GPL

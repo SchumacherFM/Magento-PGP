@@ -18,6 +18,7 @@ class SchumacherFM_Pgp_Model_Resource_Pubkeys extends Mage_Core_Model_Resource_D
     protected function _construct()
     {
         $this->_init('pgp/pgp_public_keys', 'key_id');
+
     }
 
     /**

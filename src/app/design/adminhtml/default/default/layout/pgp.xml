@@ -10,4 +10,31 @@
             </action>
         </reference>
     </adminhtml_permissions_user_edit>
+
+    <adminhtml_pgpkey_index>
+        <reference name="content">
+            <block type="pgp/adminhtml_pgpkey" name="pgpkey_list"/>
+        </reference>
+    </adminhtml_pgpkey_index>
+
+    <adminhtml_pgpkey_edit>
+        <!--<update handle="editor"/>-->
+        <reference name="left">
+            <block type="pgp/adminhtml_pgpkey_edit_tabs" name="pgpkey_edit_tabs">
+                <block type="pgp/adminhtml_pgpkey_edit_tab_content" name="pgpkey_edit_tab_content"/>
+                <action method="addTab">
+                    <name>main_section</name>
+                    <block>pgpkey_edit_tab_content</block>
+                </action>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="pgp/adminhtml_pgpkey_edit" name="pgpkey_edit_content"/>
+        </reference>
+    </adminhtml_pgpkey_edit>
+
+    <adminhtml_pgpkey_grid>
+        <remove name="root"/>
+        <block type="pgp/adminhtml_pgpkey_grid" name="pgpkey_grid" output="toHtml"/>
+    </adminhtml_pgpkey_grid>
 </layout>
