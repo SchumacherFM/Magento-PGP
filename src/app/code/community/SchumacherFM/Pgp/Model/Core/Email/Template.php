@@ -18,7 +18,6 @@ class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_T
     {
         if ($this->_encryptor === null) {
             $this->_encryptor = Mage::getModel('pgp/pgp');
-            $this->_encryptor->setEngine(Mage::helper('pgp')->getEngine());
         }
         return $this->_encryptor;
     }

@@ -48,10 +48,10 @@ class SchumacherFM_Pgp_Model_Pgp
         if (!empty($publicKeyAscii)) {
             $this->setPublicKeyAscii($publicKeyAscii);
         }
+
         $engine = isset($args['engine']) ? $args['engine'] : null;
-        if (empty($engine)) {
-            $this->setEngine(Mage::helper('pgp')->getEngine());
-        }
+        $this->setEngine(empty($engine) ? Mage::helper('pgp')->getEngine() : $engine);
+
     }
 
     /**

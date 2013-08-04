@@ -40,7 +40,6 @@ class SchumacherFM_Pgp_Model_Observer_AdminUser
 
         /** @var SchumacherFM_Pgp_Model_Pgp $pgp */
         $pgp = Mage::getModel('pgp/pgp');
-        $pgp->setEngine(Mage::helper('pgp')->getEngine());
         $pgp->setPublicKeyAscii($publicKey);
 
         $keyDetails = $pgp->getPublicKeyDetails();
