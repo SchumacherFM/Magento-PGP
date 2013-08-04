@@ -9,7 +9,7 @@
 class SchumacherFM_Pgp_Adminhtml_PgpkeyController extends Mage_Adminhtml_Controller_Action
 {
     /**
-     * Banners list
+     * key list
      *
      * @return void
      */
@@ -23,7 +23,7 @@ class SchumacherFM_Pgp_Adminhtml_PgpkeyController extends Mage_Adminhtml_Control
     }
 
     /**
-     * Create new banner
+     * Create new pgp key
      */
     public function newAction()
     {
@@ -39,7 +39,7 @@ class SchumacherFM_Pgp_Adminhtml_PgpkeyController extends Mage_Adminhtml_Control
     {
         $id = $this->getRequest()->getParam('id');
         /** @var SchumacherFM_Pgp_Model_Pubkeys $model */
-        $model = $this->_initBanner();
+        $model = $this->_initPubkeys();
         if (!$model->getId() && $id) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('pgp')->__('This pgp key no longer exists.'));
             $this->_redirect('*/*/');
@@ -69,10 +69,10 @@ class SchumacherFM_Pgp_Adminhtml_PgpkeyController extends Mage_Adminhtml_Control
         if ($data = $this->getRequest()->getPost()) {
 
             /** @var SchumacherFM_Pgp_Model_Pubkeys $model */
-            $model = $this->_initBanner();
+            $model = $this->_initPubkeys();
 
             if (!$model->getId()) {
-                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('pgp')->__('This banner no longer exists.'));
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('pgp')->__('This PGP Key no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
             }
@@ -142,18 +142,18 @@ class SchumacherFM_Pgp_Adminhtml_PgpkeyController extends Mage_Adminhtml_Control
     }
 
     /**
-     * Delete specified banners using grid massaction
+     * Delete specified keys using grid massaction
      *
      */
     public function massDeleteAction()
     {
-        $ids = $this->getRequest()->getParam('banner');
+        $ids = $this->getRequest()->getParam('pgpkey');
         if (!is_array($ids)) {
-            $this->_getSession()->addError($this->__('Please select banner(s).'));
+            $this->_getSession()->addError($this->__('Please select PGP Keys(s).'));
         } else {
             try {
                 foreach ($ids as $id) {
-                    $model = Mage::getSingleton('pgp/banner')->load($id);
+                    $model = Mage::getSingleton('pgp/pubkeys')->load($id);
                     $model->delete();
                 }
 
@@ -163,7 +163,7 @@ class SchumacherFM_Pgp_Adminhtml_PgpkeyController extends Mage_Adminhtml_Control
             } catch (Mage_Core_Exception $e) {
                 $this->_getSession()->addError($e->getMessage());
             } catch (Exception $e) {
-                $this->_getSession()->addError(Mage::helper('pgp')->__('An error occurred while mass deleting banners. Please review log and try again.'));
+                $this->_getSession()->addError(Mage::helper('pgp')->__('An error occurred while mass deleting PGP Keys. Please review log and try again.'));
                 Mage::logException($e);
                 return;
             }
@@ -178,7 +178,7 @@ class SchumacherFM_Pgp_Adminhtml_PgpkeyController extends Mage_Adminhtml_Control
      *
      * @return SchumacherFM_Pgp_Model_Pubkeys $model
      */
-    protected function _initBanner($idFieldName = 'id')
+    protected function _initPubkeys($idFieldName = 'id')
     {
         $this->_title($this->__('System'))->_title($this->__('PGP Keys'));
 
@@ -204,7 +204,7 @@ class SchumacherFM_Pgp_Adminhtml_PgpkeyController extends Mage_Adminhtml_Control
     }
 
     /**
-     * Render Banner grid
+     * Render grid
      */
     public function gridAction()
     {
