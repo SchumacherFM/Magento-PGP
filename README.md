@@ -1,10 +1,11 @@
 Magento PGP
 ===========
 
+![image](https://raw.github.com/SchumacherFM/Magento-PGP/master/logo/magento-pgp.png)
+
 Secure emails in Magento via PGP / GPG email encryption.
 
 Customers and shop owners can upload their public key and each email sent to their address will be automatically encrypted.
-
 
 This module uses:
 
@@ -12,6 +13,12 @@ This module uses:
 - CLI based [http://pear.php.net/package/Crypt_GPG] [PEAR SVN](https://svn.php.net/repository/pear/packages/Crypt_GPG) via the native gpg installation
 
 [https://prism-break.org/#email-encryption](https://prism-break.org/#email-encryption)
+
+What is PGP?
+------------
+
+[http://en.wikipedia.org/wiki/Public-key_cryptography](http://en.wikipedia.org/wiki/Public-key_cryptography)
+Public-key cryptography refers to a cryptographic system requiring two separate keys, one of which is secret and one of which is public. Although different, the two parts of the key pair are mathematically linked. One key locks or encrypts the plaintext, and the other unlocks or decrypts the ciphertext. Neither key can perform both functions by itself. The public key may be published without compromising security, while the private key must not be revealed to anyone not authorized to read the messages.
 
 Restrictions
 ------------
