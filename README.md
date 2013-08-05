@@ -41,8 +41,21 @@ Todo
 Printscreens
 ------------
 
+### Frontend customer account section
 
 ![image](https://raw.github.com/SchumacherFM/Magento-PGP/master/doc/fe_customer_key_edit.png)
+
+### Backend System Configuration
+
+![image](https://raw.github.com/SchumacherFM/Magento-PGP/master/doc/be_config.png)
+
+### Backend PGP Key Management (List)
+
+![image](https://raw.github.com/SchumacherFM/Magento-PGP/master/doc/be_key_list.png)
+
+### Backend PGP Key Management (Edit)
+
+![image](https://raw.github.com/SchumacherFM/Magento-PGP/master/doc/be_key_edit.png)
 
 
 
