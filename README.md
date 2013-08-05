@@ -107,6 +107,8 @@ Author
 
 [Cyrill Schumacher](https://github.com/SchumacherFM)
 
+[My pgp public key](http://www.schumacher.fm/cyrill.asc)
+
 Made in Sydney, Australia :-)
 
 License GPL
