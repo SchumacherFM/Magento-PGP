@@ -6,6 +6,8 @@ Magento PGP
 Secure emails in Magento via PGP / GPG email encryption.
 
 Customers and shop owners can upload their public key and each email sent to their address will be automatically encrypted.
+That means if a email will leave the webserver via Magento this module will lookup via email address for a public key in the database
+and encrypts the email before it will be sent out.
 
 This module uses:
 
