@@ -47,6 +47,35 @@ Todo
 - sign
 - sign and encrypt
 
+API
+---
+
+If there is a key in the database:
+
+```php
+
+    /** @var $pgp SchumacherFM_Pgp_Model_Pgp */
+    $pgp = Mage::getModel('pgp/pgp')
+        ->setPlainTextString($text)
+        ->setEmailAddress($emailAddressForEncryption);
+
+    $encrypted = $pgp->encrypt()->getEncrypted();
+
+```
+
+Import a key:
+
+```php
+    /** @var SchumacherFM_Pgp_Model_Pgp $pgp */
+    $pgp = Mage::getModel('pgp/pgp', array(
+        'publicKeyAscii' => $publicKey,
+    ));
+
+    $pgpDetails = $pgp->getPublicKeyDetails();
+```
+
+Both methods can also be combined.
+
 Printscreens
 ------------
 
