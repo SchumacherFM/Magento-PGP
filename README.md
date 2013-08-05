@@ -66,6 +66,11 @@ Printscreens
 
 ![image](https://raw.github.com/SchumacherFM/Magento-PGP/master/doc/be_key_edit.png)
 
+About
+-----
+- version: 1.0.0-dev
+- extension key: SchumacherFM_Pgp
+- [extension on GitHub](https://github.com/SchumacherFM/Magento-PGP)
 
 
 Author
