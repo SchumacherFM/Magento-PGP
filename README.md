@@ -6,8 +6,10 @@ Magento PGP
 Secure emails in Magento via PGP / GPG email encryption.
 
 Customers and shop owners can upload their public key and each email sent to their address will be automatically encrypted.
-That means if a email will leave the webserver via Magento this module will lookup via email address for a public key in the database
+That means if an email will leave the webserver via Magento this module will lookup via email address for a public key in the database
 and encrypts the email before it will be sent out.
+
+If an email has multiple recipients then the email will be encrypted with the key from the first recipient.
 
 This module uses:
 
@@ -46,6 +48,7 @@ Todo
 - translations
 - sign
 - sign and encrypt
+- if an email has multiple recipients sent out for each recipient an encrypted mail.
 
 API
 ---
