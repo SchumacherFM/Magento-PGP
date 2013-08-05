@@ -53,11 +53,14 @@ class SchumacherFM_Pgp_Model_Cli_Factory extends SchumacherFM_Pgp_Model_Abstract
     /**
      * @param string $publicKey
      *
-     * @return array
+     * @return array|bool
      * @throws SchumacherFM_Pgp_Model_Cli_Gpg_Exception
      */
     public function getPublicKeyDetails($publicKey)
     {
+        if (!Mage::helper('pgp')->isPublicKey($publicKey)) {
+            return FALSE;
+        }
 
         $fingerPrint = $this->_importKey($publicKey);
 

@@ -3,5 +3,5 @@ src/app/etc/modules/SchumacherFM_Pgp.xml app/etc/modules/SchumacherFM_Pgp.xml
 src/app/locale/en_US/SchumacherFM_Pgp.csv app/locale/en_US/SchumacherFM_Pgp.csv
 src/app/locale/de_DE/SchumacherFM_Pgp.csv app/locale/de_DE/SchumacherFM_Pgp.csv
 src/app/design/adminhtml/default/default/layout/pgp.xml app/design/adminhtml/default/default/layout/pgp.xml
-src/app/design/frontend/base/default/layout/pgp.xml src/app/design/frontend/base/default/layout/pgp.xml
-src/app/design/frontend/base/default/template/pgp src/app/design/frontend/base/default/template/pgp
+src/app/design/frontend/base/default/layout/pgp.xml app/design/frontend/base/default/layout/pgp.xml
+src/app/design/frontend/base/default/template/pgp app/design/frontend/base/default/template/pgp

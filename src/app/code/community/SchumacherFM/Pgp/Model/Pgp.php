@@ -195,7 +195,7 @@ class SchumacherFM_Pgp_Model_Pgp
     }
 
     /**
-     * @return array
+     * @return array|bool
      */
     public function getPublicKeyDetails()
     {

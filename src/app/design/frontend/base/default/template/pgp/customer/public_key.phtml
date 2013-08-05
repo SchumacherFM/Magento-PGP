@@ -1,0 +1,86 @@
+<?php
+/**
+ * @category    SchumacherFM_Pgp
+ * @author      Cyrill at Schumacher dot fm / @SchumacherFM
+ * @copyright   Copyright (c)
+ * @license     http://www.gnu.org/licenses/gpl.html  GPL
+ */
+/** @var $this SchumacherFM_Pgp_Block_Customer_PublicKey */
+
+$customerPgpKey = $this->getCustomerPgpKey();
+
+?>
+<div class="block block-subscribe">
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Your PGP Public Key') ?></span></strong>
+    </div>
+
+    <form action="<?php echo $this->getAction() ?>" method="post" id="publickey-validate-detail">
+        <?php echo $this->getBlockHtml('formkey') ?>
+        <div class="block-content">
+            <?php if ($customerPgpKey && !empty($customerPgpKey['id'])): ?>
+
+                <div class="box">
+                    <div class="box-title">
+                        <h4><?php echo $this->__('Your saved PGP Public Key:') ?></h4>
+                    </div>
+                    <div class="box-content">
+                        <ul class="form-list">
+                            <li>
+                                <label for="keyid"><?php echo $this->__('Key ID') ?></label>
+
+                                <div class="input-box">
+                                    <input type="text" readonly="readonly"
+                                           name="keyid" id="keyid" value="<?php echo $this->escapeHtml($customerPgpKey['id'])
+                                    ?>" title="<?php echo $this->__('Key ID') ?>" class="input-text"/>
+                                </div>
+                            </li>
+                            <li>
+                                <label for="Fingerprint"><?php echo $this->__('Fingerprint') ?></label>
+
+                                <div class="input-box">
+                                    <input type="text" readonly="readonly"
+                                           name="Fingerprint" id="Fingerprint" value="<?php echo $this->escapeHtml($customerPgpKey['fp'])
+                                    ?>" title="<?php echo $this->__('Fingerprint') ?>" class="input-text"/>
+                                </div>
+                            </li>
+                            <li>
+                                <label for="usr"><?php echo $this->__('Email Address') ?></label>
+
+                                <div class="input-box">
+                                    <input type="text" readonly="readonly"
+                                           name="usr" id="usr" value="<?php echo $this->escapeHtml($customerPgpKey['usr'])
+                                    ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text"/>
+                                </div>
+                            </li>
+                        </ul>
+                        <p>
+                            <?php echo $this->__('To replace your key just upload a new key.') ?>
+                        </p>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <div class="form-subscribe-header">
+                <label for="publicKey"><?php echo $this->__('Please paste here your PGP public key:') ?></label>
+            </div>
+            <div class="input-box">
+                <textarea name="publicKey" id="publicKey" rows="10" cols="80"
+                          title="<?php echo $this->__('Please paste here your PGP public key:') ?>"
+                          class="input-text required-entry"></textarea>
+            </div>
+            <div class="actions">
+                <button type="submit" title="<?php echo $this->__('Save PGP Public Key') ?>"
+                        class="button"><span><span><?php echo $this->__('Save PGP Public Key')
+                            ?></span></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        //<![CDATA[
+        var publickeyFormDetail = new VarienForm('publickey-validate-detail');
+        //]]>
+    </script>
+</div>

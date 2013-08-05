@@ -38,10 +38,14 @@ class SchumacherFM_Pgp_Model_Php_Factory extends SchumacherFM_Pgp_Model_Abstract
     /**
      * @param string $publicKeyAsc
      *
-     * @return array|void
+     * @return array|bool
      */
     public function getPublicKeyDetails($publicKeyAsc)
     {
+        if (!Mage::helper('pgp')->isPublicKey($publicKeyAsc)) {
+            return FALSE;
+        }
+
         /** @var SchumacherFM_Pgp_Model_Php_Gpg_PublicKey $gpgPublicKey */
         $gpgPublicKey = Mage::getModel('pgp/php_gpg_publicKey', $publicKeyAsc);
         return array(
