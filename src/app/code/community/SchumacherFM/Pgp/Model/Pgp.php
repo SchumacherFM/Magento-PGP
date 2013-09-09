@@ -17,7 +17,7 @@ class SchumacherFM_Pgp_Model_Pgp
     /**
      * @var SchumacherFM_Pgp_Model_AbstractFactory
      */
-    private $_encryptor = null;
+    private $_encryptor = NULL;
 
     /**
      * @var string
@@ -42,16 +42,15 @@ class SchumacherFM_Pgp_Model_Pgp
     /**
      * @param array $args can contain publicKeyAscii and engine
      */
-    public function __construct(array $args = null)
+    public function __construct(array $args = NULL)
     {
-        $publicKeyAscii = isset($args['publicKeyAscii']) ? $args['publicKeyAscii'] : null;
+        $publicKeyAscii = isset($args['publicKeyAscii']) ? $args['publicKeyAscii'] : NULL;
         if (!empty($publicKeyAscii)) {
             $this->setPublicKeyAscii($publicKeyAscii);
         }
 
-        $engine = isset($args['engine']) ? $args['engine'] : null;
+        $engine = isset($args['engine']) ? $args['engine'] : NULL;
         $this->setEngine(empty($engine) ? Mage::helper('pgp')->getEngine() : $engine);
-
     }
 
     /**
@@ -177,7 +176,7 @@ class SchumacherFM_Pgp_Model_Pgp
      */
     protected function _getEncryptor()
     {
-        if ($this->_encryptor === null) {
+        if ($this->_encryptor === NULL) {
             $this->_encryptor = Mage::getModel('pgp/' . $this->getEngine() . '_factory');
         }
         return $this->_encryptor;
@@ -202,5 +201,4 @@ class SchumacherFM_Pgp_Model_Pgp
         $return = $this->_getEncryptor()->getPublicKeyDetails($this->getPublicKeyAscii());
         return $return;
     }
-
 }

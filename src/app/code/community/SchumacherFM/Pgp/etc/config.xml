@@ -102,6 +102,15 @@
                     </schumacherfm_pgp_admin_user>
                 </observers>
             </admin_user_save_after>
+
+            <adminhtml_widget_container_html_before>
+                <observers>
+                    <schumacherfm_pgp_system_account>
+                        <class>pgp/observer_systemAccount</class>
+                        <method>injectPgpForm</method>
+                    </schumacherfm_pgp_system_account>
+                </observers>
+            </adminhtml_widget_container_html_before>
         </events>
     </adminhtml>
 

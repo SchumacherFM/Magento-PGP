@@ -11,7 +11,7 @@ abstract class SchumacherFM_Pgp_Model_AbstractFactory
     /**
      * @var object
      */
-    protected $_gpg = null;
+    protected $_gpg = NULL;
 
     /**
      * @return mixed
@@ -32,5 +32,4 @@ abstract class SchumacherFM_Pgp_Model_AbstractFactory
      * @return array
      */
     abstract function getPublicKeyDetails($publicKeyAsc);
-
 }

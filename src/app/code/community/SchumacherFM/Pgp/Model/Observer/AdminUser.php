@@ -67,6 +67,5 @@ class SchumacherFM_Pgp_Model_Observer_AdminUser
         ));
         $userKey->save();
         Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('pgp')->__('The public key has been saved.'));
-
     }
 }

@@ -100,9 +100,16 @@ Printscreens
 
 About
 -----
-- version: 1.0.0-dev
-- extension key: SchumacherFM_Pgp
-- [extension on GitHub](https://github.com/SchumacherFM/Magento-PGP)
+- Version: see History section
+- Extension key: SchumacherFM_Pgp
+- [Download tarball](https://github.com/SchumacherFM/Magento-PGP/tags)
+
+History
+-------
+
+#### 1.0.0-dev
+
+- Initial release
 
 Support / Contribution
 ----------------------
@@ -124,4 +131,5 @@ Made in Sydney, Australia :-)
 
 License GPL
 -----------
+
 [http://www.gnu.org/licenses/gpl.html](http://www.gnu.org/licenses/gpl.html)
