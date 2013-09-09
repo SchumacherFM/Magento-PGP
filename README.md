@@ -104,6 +104,14 @@ About
 - extension key: SchumacherFM_Pgp
 - [extension on GitHub](https://github.com/SchumacherFM/Magento-PGP)
 
+Support / Contribution
+----------------------
+
+Report a bug using the issue tracker or send us a pull request.
+
+Instead of forking I can add you as a Collaborator IF you really intend to develop on this module. Just ask :-)
+
+I am using that model: [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
 
 Author
 ------
