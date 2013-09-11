@@ -11,13 +11,17 @@ class SchumacherFM_Pgp_Model_Observer_SystemAccount
 
     public function injectPgpForm(Varien_Event_Observer $observer)
     {
+        /** @var Mage_Adminhtml_Block_System_Account_Edit $block */
         $block = $observer->getEvent()->getBlock();
 
         if (!$this->_isAllowed($block)) {
             return NULL;
         }
 
-        Zend_Debug::dump(get_class($block));
+        /** @var Varien_Data_Form $form */
+        $form = $block->getForm();
+
+        Mage::getModel('pgp/options_publicKeyForm')->injectFieldSet($form);
     }
 
     /**
@@ -27,6 +31,6 @@ class SchumacherFM_Pgp_Model_Observer_SystemAccount
      */
     protected function _isAllowed(Mage_Adminhtml_Block_Template $block)
     {
-        return $block instanceof Mage_Adminhtml_Block_System_Account_Edit;
+        return $block instanceof Mage_Adminhtml_Block_System_Account_Edit_Form;
     }
 }
