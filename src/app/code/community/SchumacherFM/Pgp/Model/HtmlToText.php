@@ -22,7 +22,7 @@
 
 /**
  * Class SchumacherFM_Pgp_Model_HtmlToText
- * @link https://github.com/mtibben/html2text
+ * @link    https://github.com/mtibben/html2text
  * @comment table output isn't nice :-(
  */
 class SchumacherFM_Pgp_Model_HtmlToText
@@ -496,7 +496,7 @@ class SchumacherFM_Pgp_Model_HtmlToText
      * @access private
      * @return string
      */
-    private function _build_link_list($link, $display, $link_override = null)
+    private function _build_link_list($link, $display, $link_override = NULL)
     {
         $link_method = ($link_override) ? $link_override : $this->_options['do_links'];
         if ($link_method == 'none')
@@ -633,7 +633,7 @@ class SchumacherFM_Pgp_Model_HtmlToText
                 return $this->_toupper("\n\n" . $matches[3] . "\n\n");
             case 'a':
                 // override the link method
-                $link_override = null;
+                $link_override = NULL;
                 if (preg_match("/_html2text_link_(\w+)/", $matches[4], $link_override_match)) {
                     $link_override = $link_override_match[1];
                 }
@@ -666,7 +666,7 @@ class SchumacherFM_Pgp_Model_HtmlToText
     private function _toupper($str)
     {
         // string can containg HTML tags
-        $chunks = preg_split('/(<[^>]*>)/', $str, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $chunks = preg_split('/(<[^>]*>)/', $str, NULL, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
         // convert toupper only the text between HTML tags
         foreach ($chunks as $idx => $chunk) {

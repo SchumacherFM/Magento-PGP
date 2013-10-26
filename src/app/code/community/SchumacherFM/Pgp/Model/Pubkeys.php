@@ -19,5 +19,4 @@ class SchumacherFM_Pgp_Model_Pubkeys extends Mage_Core_Model_Abstract
     {
         $this->_init('pgp/pubkeys');
     }
-
 }
