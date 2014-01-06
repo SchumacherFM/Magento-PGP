@@ -3,6 +3,7 @@
  * @category    SchumacherFM_Pgp
  * @package     Helper
  * @author      Cyrill at Schumacher dot fm / @SchumacherFM
+ * @license     http://opensource.org/licenses/osl-3.0.php
  */
 class SchumacherFM_Pgp_Model_Core_Email_Template extends Mage_Core_Model_Email_Template
 {

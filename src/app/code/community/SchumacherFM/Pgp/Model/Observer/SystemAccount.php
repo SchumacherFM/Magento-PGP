@@ -4,7 +4,7 @@
  * @package     Helper
  * @author      Cyrill at Schumacher dot fm / @SchumacherFM
  * @copyright   Copyright (c)
- * @license     http://www.gnu.org/licenses/gpl.html  GPL
+ * @license     http://opensource.org/licenses/osl-3.0.php
  */
 class SchumacherFM_Pgp_Model_Observer_SystemAccount
 {

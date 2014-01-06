@@ -1,4 +1,13 @@
 <config>
+    <!--
+    /**
+     * @category    SchumacherFM_Pgp
+     * @package     etc
+     * @author      Cyrill at Schumacher dot fm / @SchumacherFM
+     * @copyright   Copyright (c)
+     * @license     http://opensource.org/licenses/osl-3.0.php
+     */
+    -->
     <sections>
         <schumacherfm>
             <label>@SchumacherFM</label>

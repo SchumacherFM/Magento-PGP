@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @category    SchumacherFM_Pgp
+ * @package     etc
+ * @author      Cyrill at Schumacher dot fm / @SchumacherFM
+ * @copyright   Copyright (c)
+ * @license     http://opensource.org/licenses/osl-3.0.php
+ */
+-->
 <config>
     <!-- Add ACL Settings under System > Permissions > Roles -->
     <acl>

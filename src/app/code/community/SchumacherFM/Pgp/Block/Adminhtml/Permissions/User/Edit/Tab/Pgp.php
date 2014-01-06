@@ -4,7 +4,7 @@
  * @package     Helper
  * @author      Cyrill at Schumacher dot fm / @SchumacherFM
  * @copyright   Copyright (c)
- * @license     http://www.gnu.org/licenses/gpl.html  GPL
+ * @license     http://opensource.org/licenses/osl-3.0.php
  */
 class SchumacherFM_Pgp_Block_Adminhtml_Permissions_User_Edit_Tab_Pgp extends Mage_Adminhtml_Block_Widget_Form
     implements Mage_Adminhtml_Block_Widget_Tab_Interface
