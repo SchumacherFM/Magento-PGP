@@ -103,6 +103,7 @@ About
 - Version: see History section
 - Extension key: SchumacherFM_Pgp
 - [Download tarball](https://github.com/SchumacherFM/Magento-PGP/tags)
+- Donation: [http://www.seashepherd.org/](http://www.seashepherd.org/)
 
 History
 -------
@@ -129,7 +130,9 @@ Author
 
 Made in Sydney, Australia :-)
 
-License GPL
+If you consider a donation please contribute to: [http://www.seashepherd.org/](http://www.seashepherd.org/)
+
+License OSL
 -----------
 
-[http://www.gnu.org/licenses/gpl.html](http://www.gnu.org/licenses/gpl.html)
+[OSL - Open Software Licence 3.0](http://opensource.org/licenses/osl-3.0.php)
